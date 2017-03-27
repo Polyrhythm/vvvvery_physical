@@ -9,6 +9,7 @@ float2 intersect(const Primitive hit, const Ray ray, out float t)
 {
 	float2 tIntersect = float2(-1,-1);
 	switch (hit.type) {
+		// sphere
 		case 0:
 			float3 center;
 			center.x = hit.transform[3][0];
@@ -16,6 +17,13 @@ float2 intersect(const Primitive hit, const Ray ray, out float t)
 			center.z = hit.transform[3][2];
 			
 			tIntersect = intersectSphere(center, hit.args[0], ray, t);
+			break;
+		
+		// box
+		case 1:
+			float3 size = hit.args.xyz;
+			
+			tIntersect = intersectBox(ray, size, hit.transform, t);
 			break;
 	}
 	
@@ -52,6 +60,7 @@ Surface trace(const Ray ray)
 		surf.matIdx = hit.materialIdx;
 		surf.pos = ray.origin + ray.dir * tNear;
 		switch(hit.type) {
+			// sphere
 			case 0:
 				float3 center;
 				center.x = hit.transform[3][0];
@@ -59,6 +68,13 @@ Surface trace(const Ray ray)
 				center.z = hit.transform[3][2];
 				
 				getSphereNormal(center, surf.pos, surf.nor, surf.tex);
+				break;
+			
+			// box
+			case 1:
+				float3 size = hit.args.xyz;
+			
+				getBoxNormal(size, transform, surf.pos, surf.nor, surf.tex);
 				break;
 		}
 	}
