@@ -37,7 +37,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="1500" top="1665" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="area">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="point">
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
@@ -136,7 +136,7 @@
    </LINK>
    <LINK srcnodeid="8" srcpinname="Output Node" dstnodeid="7" dstpinname="Transform">
    </LINK>
-   <BOUNDS type="Window" left="7035" top="6795" width="7680" height="4590">
+   <BOUNDS type="Window" left="6825" top="6645" width="7680" height="4590">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
