@@ -1,0 +1,159 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\DistrubutedRT\sphere.v4p" systemname="sphere" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\DistrubutedRT\sphere.v4p" scrollx="960" scrolly="60">
+   <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="0" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="2190" top="3075" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input Count" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Input 1 Bin Size" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Input 2 Bin Size" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 3" visible="1">
+   </PIN>
+   <PIN pinname="Input 3 Bin Size" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Input 4 Bin Size" slicecount="1" values="16">
+   </PIN>
+   <PIN pinname="Input 4" visible="1" slicecount="16" values="1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1">
+   </PIN>
+   </NODE>
+   <NODE systemname="NULL (Enumerations)" nodename="NULL (Enumerations)" componentmode="Hidden" id="1" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="1620" top="2085" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Enum" slicecount="1" values="Primitives">
+   </PIN>
+   <PIN pinname="Receive" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Enum2Ord (Enumerations)" nodename="Enum2Ord (Enumerations)" componentmode="Hidden" id="2" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="1500" top="2520" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Ord Value" visible="1">
+   </PIN>
+   <PIN pinname="Enum" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="3" hiddenwhenlocked="0" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="1500" top="1500" width="1590" height="270">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1500" top="1500" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="sphere">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="4" hiddenwhenlocked="0" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="3210" top="1545" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3210" top="1545" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Material Index|">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="5" hiddenwhenlocked="0" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="4425" top="1530" width="870" height="915">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4425" top="1530" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="4" visible="1" values="0,0,0,0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Args">
+   </PIN>
+   </NODE>
+   <NODE systemname="GetMatrix (Transform)" nodename="GetMatrix (Transform)" componentmode="Hidden" id="6" hiddenwhenlocked="0">
+   <BOUNDS type="Node" left="6780" top="2415" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Matrix Out" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Transform" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="3" srcpinname="Output Enum" dstnodeid="2" dstpinname="Enum">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Output Enum" dstnodeid="1" dstpinname="Receive" linkstyle="VHV">
+   <LINKPOINT x="1560" y="1913">
+   </LINKPOINT>
+   <LINKPOINT x="2055" y="1913">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="2" srcpinname="Ord Value" dstnodeid="0" dstpinname="Input 1" linkstyle="VHV">
+   <LINKPOINT x="1560" y="2918">
+   </LINKPOINT>
+   <LINKPOINT x="2190" y="2918">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="4" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Input 2" linkstyle="VHV">
+   <LINKPOINT x="3210" y="2428">
+   </LINKPOINT>
+   <LINKPOINT x="2565" y="2418">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="5" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Input 3" linkstyle="VHV">
+   <LINKPOINT x="4475" y="2748">
+   </LINKPOINT>
+   <LINKPOINT x="2845" y="2743">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="6" srcpinname="Matrix Out" dstnodeid="0" dstpinname="Input 4" linkstyle="VHV">
+   <LINKPOINT x="6225" y="2818">
+   </LINKPOINT>
+   <LINKPOINT x="3780" y="2913">
+   </LINKPOINT>
+   </LINK>
+   <BOUNDS type="Window" left="6735" top="5475" width="7080" height="4665">
+   </BOUNDS>
+   <PACK Name="VVVV.Packs" Version="0.2.0">
+   </PACK>
+   <PACK Name="addonpack" Version="35.0.0">
+   </PACK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="7" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="6795" top="1530" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6795" top="1530" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Transform">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="7" srcpinname="Output Node" dstnodeid="6" dstpinname="Transform">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="8" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="5385" top="1515" width="900" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5385" top="1515" width="900" height="270">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|&lt;-- radius|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   </PATCH>
