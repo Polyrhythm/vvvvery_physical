@@ -146,7 +146,7 @@ float3 castRay(Ray ray, float4 pos)
 		Light light = fetchLightData(j);
 		float shadowIntensity = shadow(surf.pos, light, lightDir);
 		float diffuse = saturate(dot(lightDir, surf.nor));
-			
+		
 		accumColour += colourMask * diffuse
 			* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity));
 	}

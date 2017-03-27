@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
-   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\DistrubutedRT\area_light.v4p" systemname="area_light" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\DistrubutedRT\area_light.v4p">
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\point_light.v4p" systemname="point_light" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\point_light.v4p" scrollx="480" scrolly="1395">
    <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="3180" top="3000" width="100" height="100">
    </BOUNDS>
@@ -21,6 +21,8 @@
    </PIN>
    <PIN pinname="Input 4" visible="1">
    </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="NULL (Enumerations)" nodename="NULL (Enumerations)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="2670" top="2160" width="100" height="100">
@@ -35,7 +37,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="1500" top="1665" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="area">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="point">
    </PIN>
    <PIN pinname="Output Enum" visible="1">
    </PIN>
@@ -71,7 +73,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4230" top="2355" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -134,10 +136,26 @@
    </LINK>
    <LINK srcnodeid="8" srcpinname="Output Node" dstnodeid="7" dstpinname="Transform">
    </LINK>
-   <BOUNDS type="Window" left="-1" top="-1" width="7690" height="4600">
+   <BOUNDS type="Window" left="6825" top="6645" width="7680" height="4590">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
    <PACK Name="addonpack" Version="35.0.0">
    </PACK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="3180" top="3780" width="1485" height="4425">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3180" top="3780" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="22">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="AreaLight">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="9" dstpinname="Y Input Value">
+   </LINK>
    </PATCH>

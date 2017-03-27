@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
-   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\DistrubutedRT\area_light.v4p" systemname="area_light" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\DistrubutedRT\area_light.v4p" scrollx="345" scrolly="2145">
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\point_light.v4p" systemname="point_light" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\point_light.v4p" scrollx="480" scrolly="1395">
    <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="3180" top="3000" width="100" height="100">
    </BOUNDS>
@@ -136,13 +136,13 @@
    </LINK>
    <LINK srcnodeid="8" srcpinname="Output Node" dstnodeid="7" dstpinname="Transform">
    </LINK>
-   <BOUNDS type="Window" left="10785" top="8475" width="7680" height="4590">
+   <BOUNDS type="Window" left="7035" top="6795" width="7680" height="4590">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
    <PACK Name="addonpack" Version="35.0.0">
    </PACK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9">
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="3180" top="3780" width="1485" height="4425">
    </BOUNDS>
    <BOUNDS type="Node" left="3180" top="3780" width="0" height="0">
