@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
-   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\basic.v4p" systemname="basic" filename="C:\Users\dotprodukt\DistrubutedRT\basic.v4p" scrollx="5265" scrolly="0">
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\basic.v4p" systemname="basic" filename="C:\Users\dotprodukt\DistrubutedRT\basic.v4p" scrollx="2205" scrolly="0">
    <BOUNDS type="Window" left="1575" top="1545" width="12480" height="13455">
    </BOUNDS>
    <PACK Name="addonpack" Version="35.0.0">
@@ -823,11 +823,11 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="92">
-   <BOUNDS type="Box" left="14130" top="12045" width="750" height="240">
+   <BOUNDS type="Box" left="14130" top="12045" width="885" height="240">
    </BOUNDS>
    <BOUNDS type="Node" left="14130" top="12045" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="1" values="area">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="point">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -844,12 +844,12 @@
    </NODE>
    <LINK srcnodeid="92" srcpinname="Output String" dstnodeid="91" dstpinname="Strings">
    </LINK>
-   <NODE systemname="area_light" filename="area_light.v4p" nodename="area_light.v4p" componentmode="Hidden" id="103">
+   <NODE systemname="point_light" filename="point_light.v4p" nodename="point_light.v4p" componentmode="Hidden" id="103">
    <BOUNDS type="Node" left="15318" top="3476" width="0" height="0">
    </BOUNDS>
    <BOUNDS type="Box" left="14790" top="2430" width="7690" height="4600">
    </BOUNDS>
-   <BOUNDS type="Window" left="10785" top="8475" width="7680" height="4590">
+   <BOUNDS type="Window" left="6825" top="6645" width="7680" height="4590">
    </BOUNDS>
    <PIN pinname="Colour" visible="1">
    </PIN>
@@ -892,7 +892,7 @@
    <PIN pinname="Buffer" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="103" srcpinname="AreaLight" dstnodeid="106" dstpinname="Data">
+   <LINK srcnodeid="103" srcpinname="PointLight" dstnodeid="106" dstpinname="Data">
    </LINK>
    <LINK srcnodeid="106" srcpinname="Buffer" dstnodeid="3" dstpinname="lightBuffer" linkstyle="Bezier" hiddenwhenlocked="1">
    <LINKPOINT x="14995" y="4845">
