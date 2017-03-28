@@ -56,4 +56,9 @@ uint jenkins_hash(uint3 k)
 #undef final
 }
 
+float random(float3 scale, float seed, float4 pos)
+{
+	return frac(sin(dot(pos.xyz + seed, scale)) * 43758.5453 + seed);
+}
+
 #endif
