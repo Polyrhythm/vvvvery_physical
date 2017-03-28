@@ -327,7 +327,7 @@ float3 castRay(Ray ray, float4 pos)
 		
 		float t;
 		int hitObjIdx = -1;
-		if (trace(ray, t, hitObjIdx).x == -1) {
+		if (trace(newRay, t, hitObjIdx).x == -1) {
 			//return accumColour;
 			break;
 		}
@@ -374,8 +374,8 @@ float3 castRay(Ray ray, float4 pos)
 		float shadowIntensity = shadow(pHit, light, lightDir);
 		float diffuse = saturate(dot(lightDir, nHit));
 			
-		accumColour += colourMask * (0.5 * diffuse * (1.0 - shadowIntensity))
-					 * light.colour.xyz * light.intensity;
+		accumColour += colourMask * diffuse
+			* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity));
 	}
 	
 	return accumColour;
