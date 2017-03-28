@@ -352,10 +352,15 @@ float3 castRay(Ray ray, float4 pos)
 		Fd = mat.colour.xyz;
 
 		origin = pHit;
-		dir = cosineWeightedDirection(nHit, SampleIndex + i, pos);
-		//dir = uniformlyRandomVector(SampleIndex + i, pos);
+		//dir = cosineWeightedDirection(nHit, SampleIndex + i, pos);
+		dir = uniformlyRandomDirection(SampleIndex + i, pos);
+		float dn = dot(dir,nHit);
+		if( dn < 0 ){
+			dir = -dir;
+			dn = -dn;
+		}
 		
-		colourMask *= Fd;
+		colourMask *= Fd * dn;
 		
 		uint count, stride;
 		lightBuffer.GetDimensions(count, stride);
