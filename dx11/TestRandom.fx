@@ -271,9 +271,11 @@ float shadow(const float3 origin, const Light light, out float3 lightDir)
 	
 	uint count, stride;
 	primitiveBuffer.GetDimensions(count, stride);
+	count /= primitiveBufferStride;
 	
-	for (uint i = 0; i < count; i++) {
+	for (uint i = 0; i < 10; i++) {
 		Primitive hit = fetchPrimitiveData(i);
+		if( i >= count ) break;
 		if (intersect(hit, shadowRay, t).x != -1) {
 			if (t <= length(lightPos - origin)) {
 				return 1.0;
@@ -290,6 +292,7 @@ float2 trace(const Ray ray, out float tNear, out int hitObjIdx)
 	tNear = INFINITY;
 	uint count, stride;
 	primitiveBuffer.GetDimensions(count, stride);
+	count /= primitiveBufferStride;
 	
 	[loop]
 	for (uint i = 0; i < count; i++) {
@@ -315,7 +318,7 @@ float3 castRay(Ray ray, float4 pos)
 	float3 origin = ray.origin;
 	float3 dir = ray.dir;
 	
-	[loop]
+	[fastopt]
 	for (uint i = 0; i < bounces; i++) {
 		Ray newRay;
 		newRay.origin = origin;
@@ -324,6 +327,7 @@ float3 castRay(Ray ray, float4 pos)
 		float t;
 		int hitObjIdx = -1;
 		if (trace(ray, t, hitObjIdx).x == -1) {
+			//return accumColour;
 			break;
 		}
 		
@@ -353,20 +357,19 @@ float3 castRay(Ray ray, float4 pos)
 		
 		colourMask *= Fd;
 		
-		float diffuse;
-		float shadowIntensity;
 		uint count, stride;
 		lightBuffer.GetDimensions(count, stride);
+		count /= lightBufferStride;
 		
-		for (uint i = 0; i < count; i++) {
-			float3 lightDir;
-			Light light = fetchLightData(i);
-			float shadowIntensity = shadow(pHit, light, lightDir);
-			float diffuse = saturate(dot(lightDir, nHit));
+		float r = random(float3(12.9898, 78.233, 151.7182),(SampleIndex + i),pos);
+		int j = floor(r*count);
+		float3 lightDir;
+		Light light = fetchLightData(j);
+		float shadowIntensity = shadow(pHit, light, lightDir);
+		float diffuse = saturate(dot(lightDir, nHit));
 			
-			accumColour += colourMask * (0.5 * diffuse * (1.0 - shadowIntensity))
+		accumColour += colourMask * (0.5 * diffuse * (1.0 - shadowIntensity))
 					 * light.colour.xyz * light.intensity;
-		}
 	}
 	
 	return accumColour;
