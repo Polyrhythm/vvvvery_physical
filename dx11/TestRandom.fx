@@ -3,6 +3,13 @@
 
 float4 TextureSize : TARGETSIZE;
 
+struct Surface {
+	int matIdx;
+	float3 pos;
+	float3 nor;
+	float2 tex;
+};
+
 #define materialBufferStride 7
 StructuredBuffer<float> materialBuffer;
 struct Material
@@ -89,15 +96,17 @@ float2 intersectSphere(const float3 center, const float radius, const Ray ray,
 	float b = 2 * dot(ray.dir, L);
 	float c = dot(L, L) - radius * radius;
 	
+	float2 res = (float2)-1;
+	
 	float discriminant = b * b - 4.0 * a * c;
 	if (discriminant > 0.0) {
 		t = (-b - sqrt(discriminant)) / (2.0 * a);
 		if (t > 0.0) {
-			return t;
+			res = (float2)t;
 		}
 	}
 		
-	return -1;
+	return res;
 }
 
 void getSphereNormal(const float3 center, const float3 pHit, out float3 nHit,
@@ -118,14 +127,15 @@ float2 intersectBox(const Ray ray, float3 bounds[2], out float t)
 	float3 t2 = max(tMin, tMax);
 	float tNear = max(max(t1.x, t1.y), t1.z);
 	float tFar = min(min(t2.x, t2.y), t2.z);
-		
+	
+	float2 res = (float2)-1;
+	
 	if (tNear <= tFar) {
 		t = tNear;
-		
-		return float2(tNear, tFar);
+		res = float2(tNear, tFar);
 	}
 		
-	return -1;
+	return res;
 }
 
 void getBoxNormal(const float3 bounds[2], const float3 pHit, out float3 nHit,
@@ -160,7 +170,7 @@ Material fetchMaterialData(const uint index)
 Primitive fetchPrimitiveData(const uint index)
 {
 	uint b = index * primitiveBufferStride;
-	Primitive p;
+	Primitive p = (Primitive)0;
 	p.type = primitiveBuffer[b];
 	p.materialIdx = primitiveBuffer[b + 1];
 	p.args = float4(primitiveBuffer[b + 2], primitiveBuffer[b + 3],
@@ -241,7 +251,7 @@ float3 uniformlyRandomVector(float seed, float4 pos)
 // *********
 float2 intersect(const Primitive hit, const Ray ray, out float t)
 {
-	float2 tIntersect;
+	float2 tIntersect = float2(-1,-1);
 	switch (hit.type) {
 		case 0:
 			float3 center;
@@ -256,6 +266,49 @@ float2 intersect(const Primitive hit, const Ray ray, out float t)
 	return tIntersect;
 }
 
+Surface trace(const Ray ray)
+{
+	Surface surf = (Surface)0;
+	float2 result = -1;
+	float tNear = INFINITY;
+	uint count, stride;
+	primitiveBuffer.GetDimensions(count, stride);
+	count /= primitiveBufferStride;
+	surf.matIdx = -1;
+	int hitId = -1;
+	Primitive hit;
+
+	[fastopt]
+	for (uint i = 0; i < count; i++) {
+		float t = INFINITY;
+		hit = fetchPrimitiveData(i);
+		float2 tIntersect = intersect(hit, ray, t);
+		
+		if (tIntersect.x != -1 && t < tNear) {			
+			hitId = i;
+			tNear = t;
+		}
+	}
+	
+	if( hitId != -1 )
+	{
+		hit = fetchPrimitiveData(hitId);
+		surf.matIdx = hit.materialIdx;
+		surf.pos = ray.origin + ray.dir * tNear;
+		switch(hit.type) {
+			case 0:
+				float3 center;
+				center.x = hit.transform[3][0];
+				center.y = hit.transform[3][1];
+				center.z = hit.transform[3][2];
+				
+				getSphereNormal(center, surf.pos, surf.nor, surf.tex);
+				break;
+		}
+	}
+	return surf;
+}
+
 float shadow(const float3 origin, const Light light, out float3 lightDir)
 {
 	float3 lightPos;
@@ -267,48 +320,15 @@ float shadow(const float3 origin, const Light light, out float3 lightDir)
 	Ray shadowRay;
 	shadowRay.origin = origin;
 	shadowRay.dir = lightDir;
-	float t;
 	
-	uint count, stride;
-	primitiveBuffer.GetDimensions(count, stride);
-	count /= primitiveBufferStride;
 	float shad = 0.0;
-	for (uint i = 0; i < 10; i++) {
-		Primitive hit = fetchPrimitiveData(i);
-		if( i >= count ) break;
-		if (intersect(hit, shadowRay, t).x != -1) {
-			if (t <= length(lightPos - origin)) {
-				shad = 1.0;
-				break;
-			}
-		}
+	
+	Surface surf = trace(shadowRay);
+	if (surf.matIdx != -1) {
+		shad = 1.0;
 	}
 	
 	return shad;
-}
-
-float2 trace(const Ray ray, out float tNear, out int hitObjIdx)
-{
-	float2 result = -1;
-	tNear = INFINITY;
-	uint count, stride;
-	primitiveBuffer.GetDimensions(count, stride);
-	count /= primitiveBufferStride;
-	
-	[loop]
-	for (uint i = 0; i < count; i++) {
-		float t = INFINITY;
-		Primitive hit = fetchPrimitiveData(i);
-		float2 tIntersect = intersect(hit, ray, t);
-		
-		if (tIntersect.x != -1 && t < tNear) {			
-			result = tIntersect;
-			hitObjIdx = i;
-			tNear = t;
-		}
-	}
-	
-	return result;
 }
 
 float3 castRay(Ray ray, float4 pos)
@@ -319,43 +339,27 @@ float3 castRay(Ray ray, float4 pos)
 	float3 origin = ray.origin;
 	float3 dir = ray.dir;
 	
-	[fastopt]
-	for (uint i = 0; i < bounces; i++) {
+	int hitObjIdx;
+	
+	[fastopt] for (uint i = 0; i < bounces; i++) {
 		Ray newRay;
 		newRay.origin = origin;
 		newRay.dir = dir;
 		
 		float t;
-		int hitObjIdx = -1;
-		if (trace(newRay, t, hitObjIdx).x == -1) {
-			//return accumColour;
+		//hitObjIdx = -1;
+		Surface surf = trace(newRay);
+		if (surf.matIdx == -1) {
 			break;
 		}
-		
-		float3 pHit = origin + dir * t;
-		float3 nHit;
-		float2 tex;
-		float3 Fd;
-		
-		Primitive hit = fetchPrimitiveData(hitObjIdx);
-		switch(hit.type) {
-			case 0:
-				float3 center;
-				center.x = hit.transform[3][0];
-				center.y = hit.transform[3][1];
-				center.z = hit.transform[3][2];
-				
-				getSphereNormal(center, pHit, nHit, tex);
-				break;
-		}
-		
-		Material mat = fetchMaterialData(hit.materialIdx);
-		Fd = mat.colour.xyz;
 
-		origin = pHit;
+		Material mat = fetchMaterialData(surf.matIdx);
+		float3 Fd = mat.colour.xyz;
+
+		origin = surf.pos;
 		//dir = cosineWeightedDirection(nHit, SampleIndex + i, pos);
 		dir = uniformlyRandomDirection(SampleIndex + i, pos);
-		float dn = dot(dir,nHit);
+		float dn = dot(dir,surf.nor);
 		if( dn < 0 ){
 			dir = -dir;
 			dn = -dn;
@@ -371,8 +375,8 @@ float3 castRay(Ray ray, float4 pos)
 		int j = floor(r*count);
 		float3 lightDir;
 		Light light = fetchLightData(j);
-		float shadowIntensity = shadow(pHit, light, lightDir);
-		float diffuse = saturate(dot(lightDir, nHit));
+		float shadowIntensity = shadow(surf.pos, light, lightDir);
+		float diffuse = saturate(dot(lightDir, surf.nor));
 			
 		accumColour += colourMask * diffuse
 			* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity));
