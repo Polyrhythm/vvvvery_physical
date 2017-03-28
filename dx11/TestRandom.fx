@@ -272,18 +272,19 @@ float shadow(const float3 origin, const Light light, out float3 lightDir)
 	uint count, stride;
 	primitiveBuffer.GetDimensions(count, stride);
 	count /= primitiveBufferStride;
-	
+	float shad = 0.0;
 	for (uint i = 0; i < 10; i++) {
 		Primitive hit = fetchPrimitiveData(i);
 		if( i >= count ) break;
 		if (intersect(hit, shadowRay, t).x != -1) {
 			if (t <= length(lightPos - origin)) {
-				return 1.0;
+				shad = 1.0;
+				break;
 			}
 		}
 	}
 	
-	return 0.0;
+	return shad;
 }
 
 float2 trace(const Ray ray, out float tNear, out int hitObjIdx)
