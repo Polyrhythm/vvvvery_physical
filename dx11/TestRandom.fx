@@ -245,9 +245,9 @@ float2 intersect(const Primitive hit, const Ray ray, out float t)
 	switch (hit.type) {
 		case 0:
 			float3 center;
-			center.x = hit.transform[0][3];
-			center.y = hit.transform[1][3];
-			center.z = hit.transform[2][3];
+			center.x = hit.transform[3][0];
+			center.y = hit.transform[3][1];
+			center.z = hit.transform[3][2];
 			
 			tIntersect = intersectSphere(center, hit.args[0], ray, t);
 			break;
@@ -259,9 +259,9 @@ float2 intersect(const Primitive hit, const Ray ray, out float t)
 float shadow(const float3 origin, const Light light, out float3 lightDir)
 {
 	float3 lightPos;
-	lightPos.x = light.transform[0][3];
-	lightPos.y = light.transform[1][3];
-	lightPos.z = light.transform[2][3];
+	lightPos.x = light.transform[3][0];
+	lightPos.y = light.transform[3][1];
+	lightPos.z = light.transform[3][2];
 	lightDir = normalize(lightPos - origin);
 	
 	Ray shadowRay;
@@ -340,9 +340,9 @@ float3 castRay(Ray ray, float4 pos)
 		switch(hit.type) {
 			case 0:
 				float3 center;
-				center.x = hit.transform[0][3];
-				center.y = hit.transform[1][3];
-				center.z = hit.transform[2][3];
+				center.x = hit.transform[3][0];
+				center.y = hit.transform[3][1];
+				center.z = hit.transform[3][2];
 				
 				getSphereNormal(center, pHit, nHit, tex);
 				break;
