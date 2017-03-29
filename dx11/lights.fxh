@@ -13,7 +13,9 @@ struct Light
 
 float getAttenuation(const float3 pos, const float3 lightPos)
 {
-	return 1 / sqrt(length(pos - lightPos));
+	float3 diff = pos - lightPos;
+	float d2 = dot(diff, diff);
+	return 1.0 / d2;
 }
 
 float getLambertianDiffuse(const float3 lightDir, const float3 n)
