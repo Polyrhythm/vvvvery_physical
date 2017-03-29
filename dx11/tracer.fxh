@@ -129,8 +129,15 @@ float3 castRay(Ray ray, float4 pos)
 			break;
 		}
 
+		float3 Fd = 1;
 		Material mat = fetchMaterialData(surf.matIdx);
-		float3 Fd = mat.colour.xyz;
+		if( mat.type == DIFFUSE ){
+			Fd = mat.colour.xyz;
+		}
+		else if( mat.type == EMISSIVE ){
+			accumColour += colourMask * mat.colour.xyz;
+			break;
+		}
 
 		// step back slightly to avoid self intersection.
 		surf.pos -= dir * 0.0001;
@@ -144,23 +151,25 @@ float3 castRay(Ray ray, float4 pos)
 		lightBuffer.GetDimensions(count, stride);
 		count /= lightBufferStride;
 		
-		float r = rng.GetFloat();
-		int j = floor(r*count);
-		float3 lightDir, lightPos;
-		Light light = fetchLightData(j);
-		light.intensity *= count;
-		float shadowIntensity = shadow(surf.pos, light, lightDir, lightPos);
-		float diffuse = getLambertianDiffuse(lightDir, surf.nor);
-		float attenuation = 1.0;
-		
-		if (light.type == 0) // point light
-		{
-			attenuation = getAttenuation(surf.pos, lightPos);
+		if( count > 0 ){
+			float r = rng.GetFloat();
+			int j = floor(r*count);
+			float3 lightDir, lightPos;
+			Light light = fetchLightData(j);
+			light.intensity *= count;
+			float shadowIntensity = shadow(surf.pos, light, lightDir, lightPos);
+			float diffuse = getLambertianDiffuse(lightDir, surf.nor);
+			float attenuation = 1.0;
+			
+			if (light.type == 0) // point light
+			{
+				attenuation = getAttenuation(surf.pos, lightPos);
+			}
+			
+			accumColour += colourMask * diffuse
+				* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity)
+			                        * attenuation);
 		}
-		
-		accumColour += colourMask * diffuse
-			* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity)
-		                        * attenuation);
 	}
 	
 	return accumColour;
