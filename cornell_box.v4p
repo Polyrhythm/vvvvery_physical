@@ -329,7 +329,7 @@
    </BOUNDS>
    <PIN pinname="Transform" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Size Y" slicecount="1" values="0.01">
+   <PIN pinname="Size Y" slicecount="1" values="0.005">
    </PIN>
    <PIN pinname="Size Z" slicecount="1" values="0.1">
    </PIN>
@@ -385,7 +385,7 @@
    </BOUNDS>
    <PIN pinname="Transform Out" visible="1">
    </PIN>
-   <PIN pinname="Y" slicecount="1" values="0.19">
+   <PIN pinname="Y" slicecount="1" values="0.185">
    </PIN>
    </NODE>
    <LINK srcnodeid="200" srcpinname="Transform Out" dstnodeid="191" dstpinname="Transform" linkstyle="VHV">
@@ -671,7 +671,7 @@
    </BOUNDS>
    <PIN pinname="Transform Out" visible="1">
    </PIN>
-   <PIN pinname="Y" slicecount="1" values="-0.14">
+   <PIN pinname="Y" slicecount="1" values="-0.135">
    </PIN>
    <PIN pinname="X" slicecount="1" values="-0.08">
    </PIN>
@@ -699,7 +699,7 @@
    </BOUNDS>
    <PIN pinname="Transform Out" visible="1">
    </PIN>
-   <PIN pinname="Y" slicecount="1" values="-0.14">
+   <PIN pinname="Y" slicecount="1" values="-0.135">
    </PIN>
    <PIN pinname="X" slicecount="1" values="0.05">
    </PIN>
