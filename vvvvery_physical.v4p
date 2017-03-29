@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
-   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\vvvvery_physical.v4p" systemname="vvvvery_physical" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\vvvvery_physical.v4p" scrollx="1020" scrolly="2745">
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\vvvvery_physical.v4p" systemname="vvvvery_physical" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\vvvvery_physical.v4p" scrollx="2160" scrolly="2850">
    <BOUNDS type="Window" left="1320" top="1245" width="12480" height="13455">
    </BOUNDS>
    <PACK Name="addonpack" Version="35.0.0">
@@ -83,9 +83,9 @@
    <LINK srcnodeid="34" srcpinname="Y Output Value" dstnodeid="29" dstpinname="Reset">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="46" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="4155" top="10230" width="795" height="240">
+   <BOUNDS type="Box" left="2895" top="10140" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="4155" top="10230" width="0" height="0">
+   <BOUNDS type="Node" left="2895" top="10140" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="16">
    </PIN>
@@ -718,7 +718,11 @@
    </LINK>
    <LINK srcnodeid="159" srcpinname="Layer Out" dstnodeid="23" dstpinname="Layers">
    </LINK>
-   <LINK srcnodeid="46" srcpinname="Y Output Value" dstnodeid="159" dstpinname="bounces">
+   <LINK srcnodeid="46" srcpinname="Y Output Value" dstnodeid="159" dstpinname="bounces" linkstyle="Bezier">
+   <LINKPOINT x="2955" y="10695">
+   </LINKPOINT>
+   <LINKPOINT x="4185" y="10695">
+   </LINKPOINT>
    </LINK>
    <LINK srcnodeid="80" srcpinname="Buffer" dstnodeid="159" dstpinname="primitiveBuffer" linkstyle="Bezier">
    <LINKPOINT x="4605" y="9908">

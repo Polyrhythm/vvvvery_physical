@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
-   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\vvvvery_physical.v4p" systemname="vvvvery_physical" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\vvvvery_physical.v4p" scrollx="1245" scrolly="2490">
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\vvvvery_physical.v4p" systemname="vvvvery_physical" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\vvvvery_physical.v4p" scrollx="1020" scrolly="2745">
    <BOUNDS type="Window" left="1320" top="1245" width="12480" height="13455">
    </BOUNDS>
    <PACK Name="addonpack" Version="35.0.0">
@@ -23,7 +23,7 @@
    </PIN>
    </NODE>
    <NODE systemname="Camera (Transform Orbit)" filename="%VVVV%\lib\packs\VL.EditingFramework.0.47.149-g29575610a3\vvvv\nodes\modules\Camera (Transform Orbit).v4p" nodename="Camera (Transform Orbit)" componentmode="Hidden" id="29">
-   <BOUNDS type="Node" left="5760" top="9780" width="100" height="100">
+   <BOUNDS type="Node" left="10200" top="8685" width="100" height="100">
    </BOUNDS>
    <PIN pinname="View" visible="1">
    </PIN>
@@ -39,7 +39,7 @@
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
    <NODE systemname="GetMatrix (Transform)" nodename="GetMatrix (Transform)" componentmode="Hidden" id="31">
-   <BOUNDS type="Node" left="6300" top="10215" width="100" height="100">
+   <BOUNDS type="Node" left="10740" top="9120" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Transform" visible="1">
    </PIN>
@@ -49,11 +49,11 @@
    <LINK srcnodeid="29" srcpinname="View Projection" dstnodeid="31" dstpinname="Transform" linkstyle="PolyLine" hiddenwhenlocked="0">
    </LINK>
    <NODE systemname="Change (Animation Spectral)" filename="%VVVV%\lib\nodes\modules\Animation\Change (Animation Spectral).v4p" nodename="Change (Animation Spectral)" componentmode="Hidden" id="32">
-   <BOUNDS type="Node" left="6300" top="10680" width="100" height="100">
+   <BOUNDS type="Node" left="10740" top="9585" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
-   <BOUNDS type="Box" left="6300" top="10680">
+   <BOUNDS type="Box" left="10740" top="9585">
    </BOUNDS>
    <PIN pinname="OnChange" visible="1">
    </PIN>
@@ -61,9 +61,9 @@
    <LINK srcnodeid="31" srcpinname="Matrix Out" dstnodeid="32" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="34" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="7185" top="8790" width="480" height="480">
+   <BOUNDS type="Box" left="11625" top="7695" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="7185" top="8790" width="0" height="0">
+   <BOUNDS type="Node" left="11625" top="7695" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -82,20 +82,6 @@
    </NODE>
    <LINK srcnodeid="34" srcpinname="Y Output Value" dstnodeid="29" dstpinname="Reset">
    </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="42" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="12090" top="8955" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="12090" top="8955" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="3.13">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Y Output Value" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="46" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="4155" top="10230" width="795" height="240">
    </BOUNDS>
@@ -682,12 +668,12 @@
    <LINKPOINT x="5625" y="7028">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="PointLight (Light)" filename="modules\Lights\PointLight (Light).v4p" nodename="modules\Lights\PointLight (Light).v4p" componentmode="InAWindow" id="103">
+   <NODE systemname="PointLight (Light)" filename="modules\Lights\PointLight (Light).v4p" nodename="modules\Lights\PointLight (Light).v4p" componentmode="Hidden" id="103">
    <BOUNDS type="Node" left="8913" top="7466" width="0" height="0">
    </BOUNDS>
    <BOUNDS type="Box" left="8385" top="6420" width="7690" height="4600">
    </BOUNDS>
-   <BOUNDS type="Window" left="6825" top="6645" width="7680" height="4590">
+   <BOUNDS type="Window" left="4170" top="9480" width="7680" height="4590">
    </BOUNDS>
    <PIN pinname="Colour" visible="1">
    </PIN>
@@ -709,35 +695,61 @@
    </BOUNDS>
    <BOUNDS type="Box" left="0" top="5585" width="11965" height="10900">
    </BOUNDS>
-   <BOUNDS type="Window" left="7755" top="2250" width="11955" height="10890">
+   <BOUNDS type="Window" left="5925" top="2295" width="11955" height="10890">
    </BOUNDS>
    <PIN pinname="Texture SizeXY" visible="1" slicecount="2" values="887,713">
    </PIN>
    <PIN pinname="Reset" slicecount="1" values="0">
    </PIN>
+   <PIN pinname="Reset Render" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="29" srcpinname="View" dstnodeid="159" dstpinname="View">
+   <LINK srcnodeid="29" srcpinname="View" dstnodeid="159" dstpinname="View" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="9760" y="9903">
+   </LINKPOINT>
+   <LINKPOINT x="6140" y="10063">
+   </LINKPOINT>
    </LINK>
-   <LINK srcnodeid="29" srcpinname="Projection" dstnodeid="159" dstpinname="Projection">
+   <LINK srcnodeid="29" srcpinname="Projection" dstnodeid="159" dstpinname="Projection" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="9940" y="9903">
+   </LINKPOINT>
+   <LINKPOINT x="6305" y="10063">
+   </LINKPOINT>
    </LINK>
    <LINK srcnodeid="159" srcpinname="Layer Out" dstnodeid="23" dstpinname="Layers">
    </LINK>
    <LINK srcnodeid="46" srcpinname="Y Output Value" dstnodeid="159" dstpinname="bounces">
    </LINK>
-   <LINK srcnodeid="80" srcpinname="Buffer" dstnodeid="159" dstpinname="primitiveBuffer">
+   <LINK srcnodeid="80" srcpinname="Buffer" dstnodeid="159" dstpinname="primitiveBuffer" linkstyle="Bezier">
+   <LINKPOINT x="4605" y="9908">
+   </LINKPOINT>
+   <LINKPOINT x="4380" y="9908">
+   </LINKPOINT>
    </LINK>
-   <LINK srcnodeid="65" srcpinname="Buffer" dstnodeid="159" dstpinname="materialBuffer">
+   <LINK srcnodeid="65" srcpinname="Buffer" dstnodeid="159" dstpinname="materialBuffer" linkstyle="Bezier">
+   <LINKPOINT x="3165" y="9675">
+   </LINKPOINT>
+   <LINKPOINT x="4515" y="9675">
+   </LINKPOINT>
    </LINK>
-   <LINK srcnodeid="106" srcpinname="Buffer" dstnodeid="159" dstpinname="lightBuffer">
+   <LINK srcnodeid="106" srcpinname="Buffer" dstnodeid="159" dstpinname="lightBuffer" linkstyle="Bezier">
+   <LINKPOINT x="8895" y="9600">
+   </LINKPOINT>
+   <LINKPOINT x="5040" y="9600">
+   </LINKPOINT>
    </LINK>
    <LINK srcnodeid="32" srcpinname="OnChange" dstnodeid="159" dstpinname="Input 2">
-   </LINK>
-   <LINK srcnodeid="42" srcpinname="Y Output Value" dstnodeid="159" dstpinname="ScaleY - ScaleX">
    </LINK>
    <LINK srcnodeid="28" srcpinname="Y Output Value" dstnodeid="159" dstpinname="Texture SizeXY" linkstyle="Bezier">
    <LINKPOINT x="2505" y="11775">
    </LINKPOINT>
    <LINKPOINT x="2385" y="9975">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="32" srcpinname="OnChange" dstnodeid="159" dstpinname="Reset Render" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="10120" y="10353">
+   </LINKPOINT>
+   <LINKPOINT x="5990" y="10513">
    </LINKPOINT>
    </LINK>
    </PATCH>
