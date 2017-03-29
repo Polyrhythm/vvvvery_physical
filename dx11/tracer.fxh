@@ -148,6 +148,7 @@ float3 castRay(Ray ray, float4 pos)
 		int j = floor(r*count);
 		float3 lightDir, lightPos;
 		Light light = fetchLightData(j);
+		light.intensity *= count;
 		float shadowIntensity = shadow(surf.pos, light, lightDir, lightPos);
 		float diffuse = getLambertianDiffuse(lightDir, surf.nor);
 		float attenuation = 1.0;
