@@ -146,7 +146,12 @@ float3 castRay(Ray ray, float4 pos)
 		Light light = fetchLightData(j);
 		float shadowIntensity = shadow(surf.pos, light, lightDir, lightPos);
 		float diffuse = getLambertianDiffuse(lightDir, surf.nor);
-		float attenuation = getAttenuation(surf.pos, lightPos); 
+		float attenuation = 1.0;
+		
+		if (light.type == 0) // point light
+		{
+			attenuation = getAttenuation(surf.pos, lightPos);
+		}
 		
 		accumColour += colourMask * diffuse
 			* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity)
