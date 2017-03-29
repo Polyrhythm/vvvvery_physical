@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.2.dtd" >
-   <PATCH nodename="C:\Users\dotprodukt\Documents\GitHub\vvvvery_physical\sphere.v4p" systemname="sphere" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\DistrubutedRT\sphere.v4p" scrollx="0" scrolly="0">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Primitives\Sphere (Primitive).v4p" systemname="Sphere (Primitive)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Primitives\Sphere (Primitive).v4p" scrollx="0" scrolly="0">
    <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="0" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="2190" top="3075" width="100" height="100">
    </BOUNDS>
@@ -120,7 +120,7 @@
    </NODE>
    <LINK srcnodeid="7" srcpinname="Output Node" dstnodeid="6" dstpinname="Transform">
    </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9">
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="2175" top="3525" width="1305" height="4545">
    </BOUNDS>
    <BOUNDS type="Node" left="2175" top="3525" width="0" height="0">

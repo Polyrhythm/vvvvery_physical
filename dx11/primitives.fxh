@@ -48,21 +48,21 @@ void getSphereNormal(const float3 center, const float3 pHit, out float3 nHit,
 }
 
 void getBoxBounds(const float3 size, const float4x4 transform,
-	out float2 bounds[2])
+	out float3 bounds[2])
 {
 	float3 pos = float3(transform[3].x,
 						transform[3].y,
 						transform[3].z);
 	
-	bounds[0] = float2(pos - size / 2);
-	bounds[1] = float2(pos + size / 2);
+	bounds[0] = float3(pos - size / 2);
+	bounds[1] = float3(pos + size / 2);
 }
 
 float2 intersectBox(const Ray ray, const float3 size, const float4x4 transform,
 	out float t)
 {	
-	float2 bounds[2];
-	getBoxBounds(size, transform);
+	float3 bounds[2];
+	getBoxBounds(size, transform, bounds);
 	
 	float3 tMin = (bounds[0] - ray.origin) / ray.dir;
 	float3 tMax = (bounds[1] - ray.origin) / ray.dir;
@@ -84,8 +84,8 @@ float2 intersectBox(const Ray ray, const float3 size, const float4x4 transform,
 void getBoxNormal(const float3 size, const float4x4 transform,
 	const float3 pHit, out float3 nHit, out float2 tex)
 {
-	float2 bounds[2];
-	getBoxBounds(size, transform);
+	float3 bounds[2];
+	getBoxBounds(size, transform, bounds);
 	
 	static const float epsilon = 0.0001;
 	if (pHit.x < bounds[0].x + epsilon) nHit = float3(-1, 0, 0);

@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
-   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\point_light.v4p" systemname="point_light" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\point_light.v4p" scrollx="0" scrolly="4125">
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Lights\PointLight (Light).v4p" systemname="PointLight (Light)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Lights\PointLight (Light).v4p" scrollx="0" scrolly="4125">
    <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="3180" top="3000" width="100" height="100">
    </BOUNDS>

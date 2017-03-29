@@ -74,16 +74,16 @@ Surface trace(const Ray ray)
 			case 1:
 				float3 size = hit.args.xyz;
 			
-				getBoxNormal(size, transform, surf.pos, surf.nor, surf.tex);
+				getBoxNormal(size, hit.transform, surf.pos, surf.nor, surf.tex);
 				break;
 		}
 	}
 	return surf;
 }
 
-float shadow(const float3 origin, const Light light, out float3 lightDir)
+float shadow(const float3 origin, const Light light, out float3 lightDir,
+	out float3 lightPos)
 {
-	float3 lightPos;
 	lightPos.x = light.transform[3][0];
 	lightPos.y = light.transform[3][1];
 	lightPos.z = light.transform[3][2];
@@ -142,13 +142,15 @@ float3 castRay(Ray ray, float4 pos)
 		
 		float r = rng.GetFloat();
 		int j = floor(r*count);
-		float3 lightDir;
+		float3 lightDir, lightPos;
 		Light light = fetchLightData(j);
-		float shadowIntensity = shadow(surf.pos, light, lightDir);
-		float diffuse = saturate(dot(lightDir, surf.nor));
+		float shadowIntensity = shadow(surf.pos, light, lightDir, lightPos);
+		float diffuse = getLambertianDiffuse(lightDir, surf.nor);
+		float attenuation = getAttenuation(surf.pos, lightPos); 
 		
 		accumColour += colourMask * diffuse
-			* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity));
+			* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity)
+		                        * lightAttenuation);
 	}
 	
 	return accumColour;

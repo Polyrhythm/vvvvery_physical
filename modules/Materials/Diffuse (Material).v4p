@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
-   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\DistrubutedRT\diffuse.v4p" systemname="diffuse" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\DistrubutedRT\diffuse.v4p" scrollx="1455" scrolly="1125">
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Materials\Diffuse (Material).v4p" systemname="Diffuse (Material)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Materials\Diffuse (Material).v4p" scrollx="1455" scrolly="1125">
    <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="2880" top="3270" width="100" height="100">
    </BOUNDS>
@@ -156,7 +156,7 @@
    </PACK>
    <PACK Name="addonpack" Version="35.0.0">
    </PACK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9">
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="2895" top="3930" width="915" height="1710">
    </BOUNDS>
    <BOUNDS type="Node" left="2895" top="3930" width="0" height="0">
