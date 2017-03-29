@@ -132,6 +132,9 @@ float3 castRay(Ray ray, float4 pos)
 		Material mat = fetchMaterialData(surf.matIdx);
 		float3 Fd = mat.colour.xyz;
 
+		// step back slightly to avoid self intersection.
+		surf.pos -= dir * 0.0001;
+
 		origin = surf.pos;
 		dir = cosineWeightedDirection(surf.nor, rng.GetFloat2());
 		
