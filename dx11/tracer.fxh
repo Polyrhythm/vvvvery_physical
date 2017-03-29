@@ -89,6 +89,9 @@ float shadow(const float3 origin, const Light light, out float3 lightDir)
 
 float3 castRay(Ray ray, float4 pos)
 {
+	uint seed = jenkins_hash(uint3(pos.xy,SampleIndex));
+	LCG rng = LCG::New(seed);
+
 	float3 accumColour = 0.0;
 	float3 colourMask = 1.0;
 	
@@ -113,21 +116,15 @@ float3 castRay(Ray ray, float4 pos)
 		float3 Fd = mat.colour.xyz;
 
 		origin = surf.pos;
-		//dir = cosineWeightedDirection(nHit, SampleIndex + i, pos);
-		dir = uniformlyRandomDirection(SampleIndex + i, pos);
-		float dn = dot(dir,surf.nor);
-		if( dn < 0 ){
-			dir = -dir;
-			dn = -dn;
-		}
+		dir = cosineWeightedDirection(surf.nor, rng.GetFloat2());
 		
-		colourMask *= Fd * dn;
+		colourMask *= Fd;
 		
 		uint count, stride;
 		lightBuffer.GetDimensions(count, stride);
 		count /= lightBufferStride;
 		
-		float r = random(float3(12.9898, 78.233, 151.7182),(SampleIndex + i),pos);
+		float r = rng.GetFloat();
 		int j = floor(r*count);
 		float3 lightDir;
 		Light light = fetchLightData(j);
