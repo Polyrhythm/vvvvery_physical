@@ -4,6 +4,7 @@
 #include "common.fxh"
 #include "shaderinput.fxh"
 #include "sampling.fxh"
+#include "lights.fxh"
 
 float2 intersect(const Primitive hit, const Ray ray, out float t)
 {
@@ -155,7 +156,7 @@ float3 castRay(Ray ray, float4 pos)
 		
 		accumColour += colourMask * diffuse
 			* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity)
-		                        * lightAttenuation);
+		                        * attenuation);
 	}
 	
 	return accumColour;
