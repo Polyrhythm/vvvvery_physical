@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
-   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\cornell_box.v4p" systemname="cornell_box" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\cornell_box.v4p" scrollx="0" scrolly="3750">
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\cornell_box.v4p" systemname="cornell_box" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\cornell_box.v4p" scrollx="0" scrolly="3225">
    <BOUNDS type="Window" left="285" top="1380" width="12480" height="13455">
    </BOUNDS>
    <PACK Name="addonpack" Version="35.0.0">
@@ -111,7 +111,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="4215" top="11685" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="13905" top="2895" width="13545" height="11280">
+   <BOUNDS type="Window" left="16740" top="2115" width="13545" height="11280">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -347,6 +347,10 @@
    </BOUNDS>
    <PIN pinname="Material" visible="1">
    </PIN>
+   <PIN pinname="Colour" visible="1">
+   </PIN>
+   <PIN pinname="Intensity" slicecount="1" values="8.5">
+   </PIN>
    </NODE>
    <NODE systemname="DynamicBuffer (DX11.Buffer Value)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer Value)" componentmode="Hidden" id="196">
    <BOUNDS type="Node" left="9975" top="7245" width="100" height="100">
@@ -381,7 +385,7 @@
    </BOUNDS>
    <PIN pinname="Transform Out" visible="1">
    </PIN>
-   <PIN pinname="Y" slicecount="1" values="0.18">
+   <PIN pinname="Y" slicecount="1" values="0.19">
    </PIN>
    </NODE>
    <LINK srcnodeid="200" srcpinname="Transform Out" dstnodeid="191" dstpinname="Transform" linkstyle="VHV">
@@ -741,5 +745,25 @@
    </LINKPOINT>
    <LINKPOINT x="2745" y="7883">
    </LINKPOINT>
+   </LINK>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="231">
+   <BOUNDS type="Node" left="8865" top="4710" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8865" top="4710" width="720" height="375">
+   </BOUNDS>
+   <PIN pinname="Color Output" visible="1">
+   </PIN>
+   <PIN pinname="Color Input" slicecount="1" values="|0.97964,0.96595,0.79895,1.00000|">
+   </PIN>
+   </NODE>
+   <NODE systemname="SRGBToLinear (Color)" filename="modules\Color\SRGBToLinear (Color).v4p" nodename="SRGBToLinear (Color)" componentmode="Hidden" id="232">
+   <BOUNDS type="Node" left="8865" top="5235" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Color" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="231" srcpinname="Color Output" dstnodeid="232" dstpinname="Color">
+   </LINK>
+   <LINK srcnodeid="232" srcpinname="Color" dstnodeid="195" dstpinname="Colour">
    </LINK>
    </PATCH>
