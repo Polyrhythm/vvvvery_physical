@@ -73,7 +73,7 @@ float2 intersectBox(const Ray ray, const float3 size, const float4x4 transform,
 	
 	float2 res = (float2)-1;
 	
-	if (tNear <= tFar) {
+	if (max(tNear,0) <= tFar) {
 		t = tNear;
 		res = float2(tNear, tFar);
 	}
