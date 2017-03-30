@@ -657,7 +657,7 @@
    </PIN>
    <PIN pinname="Size Z" slicecount="1" values="0.1">
    </PIN>
-   <PIN pinname="Transform" visible="1">
+   <PIN pinname="Transform" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <LINK srcnodeid="225" srcpinname="Box" dstnodeid="205" dstpinname="Input 5" linkstyle="Bezier">
@@ -665,18 +665,6 @@
    </LINKPOINT>
    <LINKPOINT x="2365" y="7983">
    </LINKPOINT>
-   </LINK>
-   <NODE systemname="Translate (Transform)" nodename="Translate (Transform)" componentmode="Hidden" id="226">
-   <BOUNDS type="Node" left="5685" top="6615" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Transform Out" visible="1">
-   </PIN>
-   <PIN pinname="Y" slicecount="1" values="-0.135">
-   </PIN>
-   <PIN pinname="X" slicecount="1" values="-0.08">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="226" srcpinname="Transform Out" dstnodeid="225" dstpinname="Transform">
    </LINK>
    <NODE systemname="Box (Primitive)" filename="modules\Primitive\Box (Primitive).v4p" nodename="Box (Primitive)" componentmode="Hidden" id="228">
    <BOUNDS type="Node" left="6570" top="7140" width="100" height="100">
@@ -691,23 +679,9 @@
    </PIN>
    <PIN pinname="Size Z" slicecount="1" values="0.1">
    </PIN>
-   <PIN pinname="Transform" visible="1">
+   <PIN pinname="Transform" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <NODE systemname="Translate (Transform)" nodename="Translate (Transform)" componentmode="Hidden" id="227">
-   <BOUNDS type="Node" left="6585" top="6585" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Transform Out" visible="1">
-   </PIN>
-   <PIN pinname="Y" slicecount="1" values="-0.135">
-   </PIN>
-   <PIN pinname="X" slicecount="1" values="0.05">
-   </PIN>
-   <PIN pinname="Z" slicecount="1" values="0.08">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="227" srcpinname="Transform Out" dstnodeid="228" dstpinname="Transform">
-   </LINK>
    <LINK srcnodeid="228" srcpinname="Box" dstnodeid="205" dstpinname="Input 6" linkstyle="Bezier">
    <LINKPOINT x="6570" y="7875">
    </LINKPOINT>
@@ -765,5 +739,37 @@
    <LINK srcnodeid="231" srcpinname="Color Output" dstnodeid="232" dstpinname="Color">
    </LINK>
    <LINK srcnodeid="232" srcpinname="Color" dstnodeid="195" dstpinname="Colour">
+   </LINK>
+   <NODE systemname="Transform (Transform 3d)" nodename="Transform (Transform 3d)" componentmode="Hidden" id="233">
+   <BOUNDS type="Node" left="6765" top="6405" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="TranslateY" slicecount="1" values="-0.07">
+   </PIN>
+   <PIN pinname="TranslateX" slicecount="1" values="0.07">
+   </PIN>
+   <PIN pinname="TranslateZ" slicecount="1" values="0.06">
+   </PIN>
+   <PIN pinname="Yaw" slicecount="1" values="0.1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="233" srcpinname="Transform Out" dstnodeid="228" dstpinname="Transform">
+   </LINK>
+   <NODE systemname="Transform (Transform 3d)" nodename="Transform (Transform 3d)" componentmode="Hidden" id="234">
+   <BOUNDS type="Node" left="5160" top="6015" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="TranslateY" slicecount="1" values="-0.135">
+   </PIN>
+   <PIN pinname="TranslateX" slicecount="1" values="-0.14">
+   </PIN>
+   <PIN pinname="Pitch" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Yaw" slicecount="1" values="-0.08">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="234" srcpinname="Transform Out" dstnodeid="225" dstpinname="Transform">
    </LINK>
    </PATCH>
