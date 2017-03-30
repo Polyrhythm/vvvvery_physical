@@ -9,7 +9,7 @@ struct Primitive
 	uint type;
 	uint materialIdx;
 	float4 args;
-	float4x4 transform;
+	float4x4 inverseTransform;
 };
 
 #define primitiveBufferStride 22

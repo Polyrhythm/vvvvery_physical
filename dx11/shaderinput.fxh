@@ -31,7 +31,7 @@ Primitive fetchPrimitiveData(const uint index)
 	p.materialIdx = primitiveBuffer[b + 1];
 	p.args = float4(primitiveBuffer[b + 2], primitiveBuffer[b + 3],
 		primitiveBuffer[b + 4], primitiveBuffer[b + 5]);
-	p.transform = float4x4(
+	p.inverseTransform = float4x4(
 		primitiveBuffer[b + 6], primitiveBuffer[b + 7], primitiveBuffer[b + 8], primitiveBuffer[b + 9],
 		primitiveBuffer[b + 10], primitiveBuffer[b + 11], primitiveBuffer[b + 12], primitiveBuffer[b + 13],
 	    primitiveBuffer[b + 14], primitiveBuffer[b + 15], primitiveBuffer[b + 16], primitiveBuffer[b + 17],
