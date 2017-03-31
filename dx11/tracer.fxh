@@ -131,7 +131,7 @@ float3 castRay(Ray ray, float4 pos)
 		float3 Fd = 1;
 		float3 Fs = 0;
 		Material mat = fetchMaterialData(surf.matIdx);
-		if( mat.type == DIFFUSE ){
+		if( mat.type == DIFFUSE || mat.type == SPECULAR ){
 			Fd = mat.colour.xyz;
 		}
 		else if( mat.type == EMISSIVE ){

@@ -111,7 +111,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="4215" top="11685" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="12870" top="13920" width="12525" height="11280">
+   <BOUNDS type="Window" left="12405" top="3195" width="12525" height="11280">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -687,7 +687,7 @@
    </PIN>
    <PIN pinname="Radius" slicecount="1" values="0.05">
    </PIN>
-   <PIN pinname="Material Index" slicecount="1" values="3">
+   <PIN pinname="Material Index" slicecount="1" values="4">
    </PIN>
    </NODE>
    <NODE systemname="Translate (Transform)" nodename="Translate (Transform)" componentmode="Hidden" id="230">
@@ -788,7 +788,7 @@
    <LINKPOINT x="5835" y="10268">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="Diffuse (Material)" filename="modules\Material\Diffuse (Material).v4p" nodename="Diffuse (Material)" componentmode="InAWindow" id="241">
+   <NODE systemname="Diffuse (Material)" filename="modules\Material\Diffuse (Material).v4p" nodename="Diffuse (Material)" componentmode="Hidden" id="241">
    <BOUNDS type="Node" left="10170" top="5835" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Colour" visible="1" slicecount="3" values="|0.03938,1.00000,0.03938,1.00000|,|1.00000,0.12979,0.05638,1.00000|,|0.92028,0.81966,0.61995,1.00000|">
