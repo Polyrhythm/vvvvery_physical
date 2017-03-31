@@ -1,6 +1,8 @@
 #ifndef __LIGHTS_FXH__
 #define __LIGHTS_FXH__
 
+#include "common.fxh"
+
 struct Light
 {
 	uint type;
@@ -23,55 +25,53 @@ float getLambertianDiffuse(const float3 lightDir, const float3 n)
 	return saturate(dot(lightDir, n));
 }
 
-float3 refract (const float3 i, const float3 n, const float ior)
+// schlick
+float3 getFresnel(const float LoH, const float3 f0)
 {
-	float cosi = clamp(dot(i, n), -1.0, 1.0);
-	float3 nref = n;
-	float NoI = dot(nref, i);
-	float etai = 1, etat = ior;
-	
-	// check if hit is outside the surface
-	if (NoI < 0) {
-		NoI = -NoI;
-	}
-	else {
-		nref = -n;
-		float tmp = etai;
-		etai = etat;
-		etat = tmp;
-	}
-	
-	float eta = etai / etat; // get ratio of indices of refraction
-	
-	float k = 1 - eta * eta * (1 - cosi * cosi);
-	
-	return k < 0 ? 0 : eta * i + (eta * cosi - sqrt(k)) * n;
+	return f0 + (1.0 - f0) * pow(1.0 - LoH, 5.0);
 }
 
-float fresnel(const float3 i, const float3 n, const float ior)
+// GGX (Trowbridge-Reitz
+float getNDF(const float NoH, const float a2)
 {
-	float cosi = clamp(dot(i, n), -1.0, 1.0);
-	float etai = 1, etat = ior;
-	if (cosi > 0) {
-		float tmp = etai;
-		etai = etat;
-		etat = tmp;
-	}
+	float denom = PI * NoH * NoH * (a2 - 1) + 1;
 	
-	// snell's law
-	float sint = etai / etat * sqrt(max(0.0, 1.0 - cosi * cosi));
+	return a2 / (denom * denom);
+}
+
+// GGX as seen in http://graphicrants.blogspot.com/2013/08/specular-brdf-reference.html
+float getGDF(const float NoV, const float a2)
+{
+	float denom = NoV + sqrt(a2 + (1.0 - a2) * NoV * NoV);
 	
-	if (sint >= 1) {
-		return 1;
-	}
-	else {
-		float cost = sqrt(max(0.0, 1.0 - sint * sint));
-		cosi = abs(cosi);
-		float Rs = ((etat * cosi) - (etai * cost)) / ((etat * cosi) + (etai * cost));
-		float Rp = ((etai * cosi) - (etat * cost)) / ((etai * cosi) + (etat * cost));
-		
-		return (Rs * Rs + Rp * Rp) / 2.0;
-	}
+	return (2 * NoV) / denom;
+}
+
+float3 getSpecular(const float3 v, const float3 l, const float3 n,
+	const float ior, const float roughness)
+{
+	// find the specular color
+	// https://seblagarde.wordpress.com/2011/08/17/feeding-a-physical-based-lighting-mode/
+	// @FIXME this probably breaks for metals which actually have an f0
+	// which includes their base colour
+	float iorM = ior - 1.0;
+	float iorP = ior + 1.0;
+	float3 f0 = (iorM * iorM) / (iorP * iorP);
+	
+	float3 h = l + v;
+	
+	float LoH = saturate(dot(l, h));
+	float NoH = saturate(dot(n, h));
+	float NoV = saturate(dot(n, v));
+	float NoL = saturate(dot(n, l));
+	
+	float a2 = roughness * roughness;
+	
+	float3 F = getFresnel(LoH, f0);
+	float D = getNDF(NoH, a2);
+	float G = getGDF(NoV, a2);
+	
+	return (D * F * G) / (4 * NoL * NoV);
 }
 
 #endif

@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
-   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\cornell_box.v4p" systemname="cornell_box" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\cornell_box.v4p" scrollx="0" scrolly="3225">
-   <BOUNDS type="Window" left="285" top="1380" width="12480" height="13455">
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\cornell_box.v4p" systemname="cornell_box" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\cornell_box.v4p" scrollx="4065" scrolly="2070">
+   <BOUNDS type="Window" left="180" top="660" width="11835" height="13455">
    </BOUNDS>
    <PACK Name="addonpack" Version="35.0.0">
    </PACK>
@@ -111,7 +111,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="4215" top="11685" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="16740" top="2115" width="13545" height="11280">
+   <BOUNDS type="Window" left="12870" top="13920" width="12525" height="11280">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -275,7 +275,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="0" top="5585" width="11965" height="10900">
    </BOUNDS>
-   <BOUNDS type="Window" left="5925" top="2295" width="11955" height="10890">
+   <BOUNDS type="Window" left="6945" top="2430" width="11955" height="10890">
    </BOUNDS>
    <PIN pinname="Texture SizeXY" visible="1" slicecount="2" values="887,713">
    </PIN>
@@ -288,6 +288,8 @@
    <PIN pinname="materialBuffer" visible="1">
    </PIN>
    <PIN pinname="primitiveBuffer" visible="1">
+   </PIN>
+   <PIN pinname="Enable sample debug" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="29" srcpinname="View" dstnodeid="159" dstpinname="View" linkstyle="Bezier" hiddenwhenlocked="1">
@@ -401,7 +403,11 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Input 2" visible="1">
+   <PIN pinname="Input 2" visible="1" slicecount="21" values="1,1.3294,0.77,0.0393786706257188,1,0.0393786706257188,1,1,1.3294,0.77,1,0.129789330309673,0.0563794899976322,1,1,1.3294,0.77,0.920276432717388,0.819656760554702,0.619953594268417,1">
+   </PIN>
+   <PIN pinname="Input Count" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Input 3" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="195" srcpinname="Material" dstnodeid="204" dstpinname="Input 1" linkstyle="Bezier">
@@ -442,20 +448,6 @@
    </LINK>
    <LINK srcnodeid="205" srcpinname="Output" dstnodeid="198" dstpinname="Data">
    </LINK>
-   <NODE systemname="Diffuse (Material)" filename="modules\Material\Diffuse (Material).v4p" nodename="Diffuse (Material)" componentmode="Hidden" id="206">
-   <BOUNDS type="Node" left="10035" top="5700" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Material" visible="1">
-   </PIN>
-   <PIN pinname="Colour" visible="1" slicecount="1" values="|1.00000,1.00000,1.00000,1.00000|">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="206" srcpinname="Material" dstnodeid="204" dstpinname="Input 2" linkstyle="Bezier">
-   <LINKPOINT x="10080" y="6353">
-   </LINKPOINT>
-   <LINKPOINT x="10425" y="6353">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="209">
    <BOUNDS type="Node" left="10770" top="4410" width="100" height="100">
    </BOUNDS>
@@ -481,8 +473,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="209" srcpinname="Color Output" dstnodeid="210" dstpinname="Color">
-   </LINK>
-   <LINK srcnodeid="210" srcpinname="Color" dstnodeid="206" dstpinname="Colour">
    </LINK>
    <NODE systemname="Box (Primitive)" filename="modules\Primitive\Box (Primitive).v4p" nodename="Box (Primitive)" componentmode="Hidden" id="211">
    <BOUNDS type="Node" left="2055" top="7110" width="100" height="100">
@@ -771,5 +761,79 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="234" srcpinname="Transform Out" dstnodeid="225" dstpinname="Transform">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="237">
+   <BOUNDS type="Box" left="8130" top="9045" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8130" top="9045" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Enable sample debug|">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="237" srcpinname="Y Output Value" dstnodeid="159" dstpinname="Enable sample debug" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="8130" y="10268">
+   </LINKPOINT>
+   <LINKPOINT x="5835" y="10268">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Diffuse (Material)" filename="modules\Material\Diffuse (Material).v4p" nodename="Diffuse (Material)" componentmode="InAWindow" id="241">
+   <BOUNDS type="Node" left="10170" top="5835" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Colour" visible="1" slicecount="3" values="|0.03938,1.00000,0.03938,1.00000|,|1.00000,0.12979,0.05638,1.00000|,|0.92028,0.81966,0.61995,1.00000|">
+   </PIN>
+   <PIN pinname="Material" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="241" srcpinname="Material" dstnodeid="204" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="210" srcpinname="Color" dstnodeid="241" dstpinname="Colour">
+   </LINK>
+   <NODE systemname="Specular (Material)" filename="modules\Material\Specular (Material).v4p" nodename="Specular (Material)" componentmode="Hidden" id="242">
+   <BOUNDS type="Node" left="12465" top="5850" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Material" visible="1">
+   </PIN>
+   <PIN pinname="roughness" slicecount="1" values="0.2">
+   </PIN>
+   <PIN pinname="Colour" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="242" srcpinname="Material" dstnodeid="204" dstpinname="Input 3" linkstyle="Bezier">
+   <LINKPOINT x="12090" y="6388">
+   </LINKPOINT>
+   <LINKPOINT x="10845" y="6438">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="243">
+   <BOUNDS type="Node" left="13290" top="4710" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="13290" top="4710" width="1035" height="495">
+   </BOUNDS>
+   <PIN pinname="Color Input" slicecount="1" values="|0.00000,0.91291,0.82213,1.00000|">
+   </PIN>
+   <PIN pinname="Color Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="SRGBToLinear (Color)" filename="modules\Color\SRGBToLinear (Color).v4p" nodename="SRGBToLinear (Color)" componentmode="Hidden" id="244">
+   <BOUNDS type="Node" left="13275" top="5340" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Color" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="243" srcpinname="Color Output" dstnodeid="244" dstpinname="Color">
+   </LINK>
+   <LINK srcnodeid="244" srcpinname="Color" dstnodeid="242" dstpinname="Colour">
    </LINK>
    </PATCH>

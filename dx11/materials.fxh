@@ -2,6 +2,7 @@
 #define __MATERIALS_FXH__
 
 static const uint DIFFUSE = 0;
+static const uint SPECULAR = 1;
 static const uint EMISSIVE = 2;
 
 struct Material

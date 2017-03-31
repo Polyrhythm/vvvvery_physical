@@ -129,6 +129,7 @@ float3 castRay(Ray ray, float4 pos)
 		}
 
 		float3 Fd = 1;
+		float3 Fs = 0;
 		Material mat = fetchMaterialData(surf.matIdx);
 		if( mat.type == DIFFUSE ){
 			Fd = mat.colour.xyz;
@@ -138,12 +139,6 @@ float3 castRay(Ray ray, float4 pos)
 			break;
 		}
 
-		// step back slightly to avoid self intersection.
-		surf.pos -= dir * 0.0001;
-
-		origin = surf.pos;
-		dir = cosineWeightedDirection(surf.nor, rng.GetFloat2());
-		
 		colourMask *= Fd;
 		
 		uint count, stride;
@@ -160,15 +155,25 @@ float3 castRay(Ray ray, float4 pos)
 			float diffuse = getLambertianDiffuse(lightDir, surf.nor);
 			float attenuation = 1.0;
 			
+			if (mat.type == SPECULAR) {
+				Fs = getSpecular(-dir, lightDir, surf.nor, mat.ior, mat.roughness);
+			}
+			
 			if (light.type == 0) // point light
 			{
 				attenuation = getAttenuation(surf.pos, lightPos);
 			}
 			
-			accumColour += colourMask * diffuse
+			accumColour += colourMask * diffuse + Fs
 				* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity)
 			                        * attenuation);
 		}
+		
+		// step back slightly to avoid self intersection.
+		surf.pos -= dir * 0.0001;
+
+		origin = surf.pos;
+		dir = cosineWeightedDirection(surf.nor, rng.GetFloat2());
 	}
 	
 	return accumColour;
