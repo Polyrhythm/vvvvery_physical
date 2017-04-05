@@ -131,8 +131,16 @@ float3 castRay(Ray ray, float4 pos)
 		float3 Fd = 1;
 		float3 Fs = 0;
 		Material mat = fetchMaterialData(surf.matIdx);
-		if( mat.type == DIFFUSE || mat.type == SPECULAR ){
+		if( mat.type == DIFFUSE){
 			Fd = mat.colour.xyz;
+		}
+		else if (mat.type == SPECULAR) {
+			float3 v = -surf.pos;
+			float3 l = -dir;
+			float3 n = surf.nor;
+			float ior = mat.ior;
+			float roughness = mat.roughness;
+			Fd = getSpecular(v, l, n, ior, roughness) + mat.colour.xyz;
 		}
 		else if( mat.type == EMISSIVE ){
 			accumColour += colourMask * mat.colour.xyz;
@@ -155,16 +163,12 @@ float3 castRay(Ray ray, float4 pos)
 			float diffuse = getLambertianDiffuse(lightDir, surf.nor);
 			float attenuation = 1.0;
 			
-			if (mat.type == SPECULAR) {
-				Fs = getSpecular(-dir, lightDir, surf.nor, mat.ior, mat.roughness);
-			}
-			
 			if (light.type == 0) // point light
 			{
 				attenuation = getAttenuation(surf.pos, lightPos);
 			}
 			
-			accumColour += colourMask * diffuse + Fs
+			accumColour += colourMask * diffuse
 				* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity)
 			                        * attenuation);
 		}

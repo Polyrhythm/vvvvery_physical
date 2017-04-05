@@ -71,7 +71,7 @@ float3 getSpecular(const float3 v, const float3 l, const float3 n,
 	float D = getNDF(NoH, a2);
 	float G = getGDF(NoV, a2);
 	
-	return (D * F * G) / (4 * NoL * NoV);
+	return (D * F * G) / (4.0f * NoL * NoV);
 }
 
 #endif
