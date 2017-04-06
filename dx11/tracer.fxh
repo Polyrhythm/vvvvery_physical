@@ -130,13 +130,16 @@ float3 castRay(Ray ray, float4 pos)
 
 		float3 Fd = 1;
 		float3 Fs = 0;
+		float3 nDir = (float3)0;
 		Material mat = fetchMaterialData(surf.matIdx);
 		if( mat.type == DIFFUSE){
+			nDir = cosineWeightedDirection(surf.nor, rng.GetFloat2());
 			Fd = mat.colour.xyz;
 		}
 		else if (mat.type == SPECULAR) {
-			float3 v = -surf.pos;
-			float3 l = -dir;
+			nDir = uniformHemisphereDirection(surf.nor, rng.GetFloat2());
+			float3 v = -dir;
+			float3 l = nDir;
 			float3 n = surf.nor;
 			float ior = mat.ior;
 			float roughness = mat.roughness;
@@ -177,7 +180,7 @@ float3 castRay(Ray ray, float4 pos)
 		surf.pos -= dir * 0.0001;
 
 		origin = surf.pos;
-		dir = cosineWeightedDirection(surf.nor, rng.GetFloat2());
+		dir = nDir;
 	}
 	
 	return accumColour;

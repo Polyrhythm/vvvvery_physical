@@ -34,7 +34,7 @@ float3 getSpecular(const float3 v, const float3 l, const float3 n,
 	float iorP = ior + 1.0;
 	float3 f0 = (iorM * iorM) / (iorP * iorP);
 	
-	float3 h = l + v;
+	float3 h = normalize(l + v);
 	
 	float LoH = saturate(dot(l, h));
 	float NoH = saturate(dot(n, h));

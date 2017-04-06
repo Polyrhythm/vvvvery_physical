@@ -29,21 +29,20 @@ float3 cosineWeightedDirection( float3 normal, float2 rand )
 	return (r * cos(angle) * sdir) + (r * sin(angle) * tdir) + (sqrt(max(0,1.0 - u)) * normal);
 }
 
-float3 uniformlyRandomDirection(float seed, float4 pos)
+float3 uniformRandomDirection( float2 rand )
 {
-	float u = random(float3(12.9898, 78.233, 151.7182), seed, pos);
-	float v = random(float3(63.7264, 10.873, 623.6736), seed, pos);
+	float u = rand.x;
+	float v = rand.y;
 	float z = 1.0 - 2.0 * u;
 	float r = sqrt(1.0 - z * z);
-	float angle = 6.283185307179586 * v;
+	float angle = PI2 * v;
 	
 	return float3(r * cos(angle), r* sin(angle), z);
 }
 
-float3 uniformlyRandomVector(float seed, float4 pos)
-{
-	return uniformlyRandomDirection(seed, pos) * sqrt(random(
-		float3(36.7539, 50.3658, 306.2759), seed, pos));
+float3 uniformHemisphereDirection( float3 normal, float2 rand ){
+	float3 dir = uniformRandomDirection( rand );
+	return dot(dir,normal) < 0 ? -dir : dir;
 }
 
 #endif
