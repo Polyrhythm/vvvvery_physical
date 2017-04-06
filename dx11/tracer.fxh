@@ -137,13 +137,15 @@ float3 castRay(Ray ray, float4 pos)
 			Fd = mat.colour.xyz;
 		}
 		else if (mat.type == SPECULAR) {
-			nDir = uniformHemisphereDirection(surf.nor, rng.GetFloat2());
+			nDir = cosineWeightedDirection(surf.nor, rng.GetFloat2());
 			float3 v = -dir;
 			float3 l = nDir;
 			float3 n = surf.nor;
 			float ior = mat.ior;
 			float roughness = mat.roughness;
-			Fd = getSpecular(v, l, n, ior, roughness) + mat.colour.xyz;
+			float3 F = (float3)0;
+			float3 spec = getSpecular(v, l, n, ior, roughness, F);
+			Fd = lerp(mat.colour.xyz,spec,F);
 		}
 		else if( mat.type == EMISSIVE ){
 			accumColour += colourMask * mat.colour.xyz;

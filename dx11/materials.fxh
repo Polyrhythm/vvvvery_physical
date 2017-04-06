@@ -24,7 +24,7 @@ float getLambertianDiffuse(const float3 lightDir, const float3 n)
 }
 
 float3 getSpecular(const float3 v, const float3 l, const float3 n,
-	const float ior, const float roughness)
+	const float ior, const float roughness, out float3 F )
 {
 	// find the specular color
 	// https://seblagarde.wordpress.com/2011/08/17/feeding-a-physical-based-lighting-mode/
@@ -37,16 +37,16 @@ float3 getSpecular(const float3 v, const float3 l, const float3 n,
 	float3 h = normalize(l + v);
 	
 	float LoH = saturate(dot(l, h));
+	float VoH = saturate(dot(v, h));
 	float NoH = saturate(dot(n, h));
 	float NoV = saturate(dot(n, v));
 	float NoL = saturate(dot(n, l));
-	
+
 	float a2 = roughness * roughness;
 	
-	float3 F = getFresnel(LoH, f0);
+	F = getFresnel(LoH, f0);
 	float D = getNDF(NoH, a2);
-	float G = getGDF(NoV, a2);
-	
+	float G = getGDF(VoH, a2) * getGDF(LoH, a2);
 	return (D * F * G) / (4.0f * NoL * NoV);
 }
 
