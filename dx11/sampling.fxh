@@ -2,31 +2,25 @@
 #define __SAMPLING_FXH__
 
 #include "math.fxh"
-#include "random.fxh"
 
 // http://www.rorydriscoll.com/2009/01/07/better-sampling/
 // https://pathtracing.wordpress.com/2011/03/03/cosine-weighted-hemisphere/
-float3 cosineWeightedDirection( float3 normal, float2 rand )
-{
+float3 sampleCosineWeightedHemisphere( float3 N, float2 rand, out float pdf ){
 	float u = rand.x;
 	float v = rand.y;
 
-	float r = sqrt(u);
-	float angle = PI2 * v;
+	float cosTheta = sqrt(1.0-u);
+	float sinTheta = sqrt(u);
+	float phi = PI2 * v;
 
-	float3 h = normal;
-	if( abs(h.x) <= abs(h.y) && abs(h.x) <= abs(h.z) ){
-		h.x = 1.0;
-	} else if( abs(h.y) <= abs(h.x) && abs(h.y) <= abs(h.z) ){
-		h.y = 1.0;
-	} else {
-		h.z = 1.0;
-	}
+	pdf = cosTheta * INV_PI;
 
-	float3 sdir = normalize(cross(h,normal));
-	float3 tdir = normalize(cross(sdir,normal));
+	float3 T, B;
+	makeOrthonormalBasis( N, T, B );
 
-	return (r * cos(angle) * sdir) + (r * sin(angle) * tdir) + (sqrt(max(0,1.0 - u)) * normal);
+	return (sinTheta * cos(phi) * T)
+	     + (sinTheta * sin(phi) * B)
+	     + (cosTheta * N);
 }
 
 float3 uniformRandomDirection( float2 rand )
