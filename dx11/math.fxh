@@ -22,8 +22,8 @@ void makeOrthonormalBasis( float3 N, out float3 T, out float3 B ){
 		h.z = 1.0;
 	}
 
-	T = normalize(cross(h,normal));
-	B = normalize(cross(sdir,normal));
+	T = normalize(cross(h,N));
+	B = normalize(cross(T,N));
 }
 
 #endif

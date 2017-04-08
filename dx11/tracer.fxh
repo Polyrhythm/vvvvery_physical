@@ -3,6 +3,7 @@
 
 #include "common.fxh"
 #include "shaderinput.fxh"
+#include "random.fxh"
 #include "sampling.fxh"
 #include "lights.fxh"
 
@@ -128,31 +129,29 @@ float3 castRay(Ray ray, float4 pos)
 			break;
 		}
 
-		float3 Fd = 1;
+		float3 Fd = 0;
 		float3 Fs = 0;
 		float3 nDir = (float3)0;
+		float pdf = 0;
+		float3 blend = 0;
 		Material mat = fetchMaterialData(surf.matIdx);
 		if( mat.type == DIFFUSE){
-			nDir = cosineWeightedDirection(surf.nor, rng.GetFloat2());
-			Fd = mat.colour.xyz;
+			LambertianBRDF brdf = LambertianBRDF::New( mat.colour.rgb );
+			Fd = brdf.SampleIndirect( surf.nor, -dir, rng.GetFloat2(), nDir, pdf );
+			Fd /= pdf;
 		}
 		else if (mat.type == SPECULAR) {
-			nDir = cosineWeightedDirection(surf.nor, rng.GetFloat2());
-			float3 v = -dir;
-			float3 l = nDir;
-			float3 n = surf.nor;
-			float ior = mat.ior;
-			float roughness = mat.roughness;
-			float3 F = (float3)0;
-			float3 spec = getSpecular(v, l, n, ior, roughness, F);
-			Fd = lerp(mat.colour.xyz,spec,F);
+			GGXSpecularBRDF bSpec = GGXSpecularBRDF::New( mat.roughness, mat.ior );
+			Fs = bSpec.SampleIndirect( surf.nor, -dir, rng.GetFloat2(), nDir, pdf );
+			Fs /= pdf;
+			blend = bSpec.Fresnel( normalize(-dir+nDir) ,nDir );
 		}
 		else if( mat.type == EMISSIVE ){
 			accumColour += colourMask * mat.colour.xyz;
 			break;
 		}
 
-		colourMask *= Fd;
+		colourMask *= Fs*blend + Fd*(1.0-blend);
 		
 		uint count, stride;
 		lightBuffer.GetDimensions(count, stride);
