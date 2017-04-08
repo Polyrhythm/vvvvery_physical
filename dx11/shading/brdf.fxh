@@ -98,6 +98,9 @@ class AbstractMicrofacetBRDF : IMicrofacetBRDF, AbstractBRDF {
 	}
 
 	float3 SampleIndirect( float3 N, float3 Wr, float2 rand, out float3 Wi, out float pdf ){
+		pdf = 0;
+		Wi = N;
+		float3 f = (float3)0;
 		float a2 = pow(roughness,2);
 
 		// eq. 35,36 - sample random microfacet normal
@@ -112,25 +115,30 @@ class AbstractMicrofacetBRDF : IMicrofacetBRDF, AbstractBRDF {
 		         + (sin(theta) * sin(phi) * B)
 		         + (cos(theta) * N);
 
-		// eq. 39 - get incident ray for m
-		Wi = 2.0 * dot(m,Wr) * m - Wr;
+		// is microfacet visible?
+		if( dot( m, Wr ) > 0 ){
+			// eq. 39 - get incident ray for m
+			Wi = 2.0 * dot(m,Wr) * m - Wr;
 
-		float3 f = (float3)0;
-		if( roughness <= 1e-4 ){
-			pdf = 1e6;
-			f = (float3)1e6;
-		}
-		else
-		{
-			float pm;
-			float D = NDF( N, m, pm );
-			float G = GS( m, Wr, Wi );
+			// is reflected direction within hemisphere?
+			if( dot( N, Wi ) > 0 ){
+				if( roughness <= 1e-4 ){
+					pdf = 1e6;
+					f = (float3)1e6;
+				}
+				else
+				{
+					float pm;
+					float D = NDF( N, m, pm );
+					float G = GS( m, Wr, Wi );
 
-			// eq. 38 - but see also:
-			// eq. 17 in http://www.graphics.cornell.edu/~bjw/wardnotes.pdf
-			pdf = pm * 0.25 / max(0,dot( m, Wr ));
-			// Exclude fresnel term here, gets factored in later.
-			f = (D * G * 0.25) / (max(0,dot( N, Wi ))*max(0,dot( N, Wr )));
+					// eq. 38 - but see also:
+					// eq. 17 in http://www.graphics.cornell.edu/~bjw/wardnotes.pdf
+					pdf = pm * 0.25 / max(0,dot( m, Wr ));
+					// Exclude fresnel term here, gets factored in later.
+					f = (D * G * 0.25) / (max(0,dot( N, Wi ))*max(0,dot( N, Wr )));
+				}
+			}
 		}
 
 		return f;
