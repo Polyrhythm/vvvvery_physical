@@ -22,7 +22,7 @@ float getGDF(const float NoV, const float a2)
 }
 
 class GGXSpecularBRDF : AbstractMicrofacetBRDF {
-	static GGXSpecularBRDF New( float roughness, float ior ){
+	static GGXSpecularBRDF New( float roughness, float3 ior ){
 		GGXSpecularBRDF brdf;
 		brdf.Init( roughness, ior );
 		return brdf;

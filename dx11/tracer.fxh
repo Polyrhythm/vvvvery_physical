@@ -138,12 +138,12 @@ float3 castRay(Ray ray, float4 pos)
 		if( mat.type == DIFFUSE){
 			LambertianBRDF brdf = LambertianBRDF::New( mat.colour.rgb );
 			Fd = brdf.SampleIndirect( surf.nor, -dir, rng.GetFloat2(), nDir, pdf );
-			Fd /= pdf;
 		}
 		else if (mat.type == SPECULAR) {
-			GGXSpecularBRDF bSpec = GGXSpecularBRDF::New( mat.roughness, mat.ior );
+			float3 c = sqrt(min(mat.colour.rgb,0.999));
+			float3 ior = (1.0+c)/(1.0-c);
+			GGXSpecularBRDF bSpec = GGXSpecularBRDF::New( mat.roughness, ior );
 			Fs = bSpec.SampleIndirect( surf.nor, -dir, rng.GetFloat2(), nDir, pdf );
-			Fs /= pdf;
 			blend = bSpec.Fresnel( normalize(-dir+nDir) ,nDir );
 		}
 		else if( mat.type == EMISSIVE ){
@@ -151,7 +151,8 @@ float3 castRay(Ray ray, float4 pos)
 			break;
 		}
 
-		colourMask *= Fs*blend + Fd*(1.0-blend);
+
+		colourMask *= clamp(Fs*blend + Fd*(1.0-blend)/pdf,0,20);
 		
 		uint count, stride;
 		lightBuffer.GetDimensions(count, stride);
