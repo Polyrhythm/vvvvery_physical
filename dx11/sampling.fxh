@@ -2,6 +2,49 @@
 #define __SAMPLING_FXH__
 
 #include "math.fxh"
+#include "random.fxh"
+
+interface ISampler {
+	uint   SampleInt( uint p );
+	float  SampleFloat();
+	float2 SampleFloat2();
+};
+
+static class NullSamplerClass : ISampler {
+	uint SampleInt( uint p ){
+		return 0;
+	}
+	float SampleFloat(){
+		return 0;
+	}
+	float2 SampleFloat2(){
+		return 0;
+	}
+} NullSampler;
+
+class RandomSampler : ISampler{
+	LCG lcg;
+
+	void Init( uint seed ){
+		lcg.seed = seed;
+	}
+
+	static RandomSampler New( uint seed ){
+		RandomSampler self;
+		self.Init( seed );
+		return self;
+	}
+
+	uint SampleInt( uint p ){
+		return lcg.GetUInt() % p;
+	}
+	float SampleFloat(){
+		return lcg.GetFloat();
+	}
+	float2 SampleFloat2(){
+		return lcg.GetFloat2();
+	}
+};
 
 // http://www.rorydriscoll.com/2009/01/07/better-sampling/
 // https://pathtracing.wordpress.com/2011/03/03/cosine-weighted-hemisphere/
