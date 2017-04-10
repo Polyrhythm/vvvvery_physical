@@ -21,9 +21,15 @@ float3 render(const float2 uv, const Options options, float4 pos)
 {
 	float scale = tan(radians(options.fov * 0.5));
 	float imageAspectRatio = TextureSize.x / TextureSize.y;
+	
+	uint seed = jenkins_hash(uint3(pos.yx,SampleIndex));
+	RandomSampler randSampler = RandomSampler::New( seed );
+	float2 st = randSampler.SampleFloat2()-0.5;
+	pos.xy += st;
+	
 	Ray ray;
 	ray.origin = tVI[3].xyz;
-	ray.dir = UVtoEYE(uv.xy);
+	ray.dir = UVtoEYE(uv.xy + st/TextureSize.xy);
 	
 	return castRay(ray, pos);
 }
