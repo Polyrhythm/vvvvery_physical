@@ -4,42 +4,59 @@
 #include "math.fxh"
 #include "sampling.fxh"
 
-interface IBRDF {
+// BSDF types
+static const int DEBUG_BSDF_TYPE = -1;
+static const int  NULL_BSDF_TYPE =  0;
+static const int  BRDF_TYPE = 1;
+static const int  BTDF_TYPE = 2;
+static const int  EMIT_TYPE = 3;
+static const int  MULTI_TYPE = 4;
+
+struct BSDFSample {
+	float3 value;
+	float pdf;
+	int type;
+};
+
+/*interface IBSDF {
+	BSDFSample Evaluate( Surface surface, float3 Wr, float3 Wi );
+	BSDFSample Sample( Surface surface, float3 Wr, out float3 Wi );
+};*/
+
+interface IBSDF {
 	// =========================================================================
-	// SampleDirect( N, Wr, Wi, out pdf )
+	// Evaluate( surface, Wr, Wi )
 	// =========================================================================
 	// Computes the value for this BRDF and corresponding probability density
 	// for the given surface normal and incident and reflected directions.
-	float3 SampleDirect( // return : Sampled BRDF value
-		float3 N,      // Macro-Surface normal
+	BSDFSample Evaluate( // return : Sampled BRDF value
+		Surface surf,      // Macro-Surface normal
 		float3 Wr,     // Reflected ray direction
-		float3 Wi,     // Incident ray direction
-		out float pdf  // Sampled probability density
+		float3 Wi     // Incident ray direction
 	);
 
 	// =========================================================================
-	// SampleIndirect( N, Wr, rand, out Wi, out pdf )
+	// Sample( surface, Wr, rand, out Wi )
 	// =========================================================================
 	// Similar to the `SampleDirect` function except that instead of the
 	// incident ray direction being given as an argument, an appropriate
 	// direction will be selected from some distribution. It then proceeds to
 	// computes the value for this BRDF and corresponding probability density
 	// for the given surface normal and incident and reflected directions.
-	float3 SampleIndirect( // return : Sampled BRDF value
-		float3 N,    // Macro-Surface normal
+	BSDFSample Sample( // return : Sampled BRDF value
+		Surface surf,    // Macro-Surface normal
+		ISampler samp,
 		float3 Wr,   // Reflected ray direction
-		float2 rand, // Pair of uniformly sampled values over the interval [0,1]
-		out float3 Wi, // Sampled incident ray direction
-		out float pdf  // Sampled probability density
+		out float3 Wi // Sampled incident ray direction
 	);
 };
 
-class AbstractBRDF : IBRDF {
-	float3 SampleDirect( float3 N, float3 Wr, float3 Wi, out float pdf );
-	float3 SampleIndirect( float3 N, float3 Wr, float2 rand, out float3 Wi, out float pdf );
+class AbstractBSDF : IBSDF {
+	BSDFSample Evaluate( Surface surf, float3 Wr, float3 Wi );
+	BSDFSample   Sample( Surface surf, ISampler samp, float3 Wr, out float3 Wi );
 };
 
-class LambertianBRDF : AbstractBRDF {
+class LambertianBRDF : AbstractBSDF {
 	float3 albedo;
 
 	void Init( float3 albedo ){
@@ -52,25 +69,32 @@ class LambertianBRDF : AbstractBRDF {
 		return brdf;
 	}
 
-	float3 SampleDirect( float3 N, float3 Wr, float3 Wi, out float pdf ){
-		float NWi_PI = max( 0, dot( N, Wi )) * INV_PI;
-		pdf = NWi_PI;
-		return this.albedo * NWi_PI;
+	BSDFSample Evaluate( Surface surf, float3 Wr, float3 Wi ){
+		BSDFSample res;
+
+		float NWi_PI = max( 0, dot( surf.nor, Wi )) * INV_PI;
+		res.value = this.albedo * NWi_PI;
+		res.pdf = NWi_PI;
+		res.type = BRDF_TYPE;
+		//if( dot( surf.nor, Wi ) < 0 ) res.type = NULL_BSDF_TYPE;
+
+		return res;
 	}
-	float3 SampleIndirect( float3 N, float3 Wr, float2 rand, out float3 Wi, out float pdf ){
-		Wi = sampleCosineWeightedHemisphere( N, rand, pdf );
-		return this.albedo * pdf;
+	BSDFSample Sample( Surface surf, ISampler samp, float3 Wr, out float3 Wi ){
+		float unused;
+		Wi = sampleCosineWeightedHemisphere( surf.nor, samp.SampleFloat2(), unused );
+		return Evaluate( surf, Wr, Wi );
 	}
 };
 
-interface IMicrofacetBRDF {
+interface IMicrofacetBSDF {
 	float3 Fresnel( float3 H, float3 W );
 	float GS( float3 H, float3 Wr, float3 Wi );
 	float NDF( float3 N, float3 H, out float pm );
 };
 
 // http://www.cs.cornell.edu/~srm/publications/EGSR07-btdf.pdf
-class AbstractMicrofacetBRDF : IMicrofacetBRDF, AbstractBRDF {
+class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 	float  roughness;
 	float3 ior;
 
@@ -83,37 +107,53 @@ class AbstractMicrofacetBRDF : IMicrofacetBRDF, AbstractBRDF {
 	float GS( float3 H, float3 Wr, float3 Wi );
 	float NDF( float3 N, float3 H, out float pm );
 
-	float3 SampleDirect( float3 N, float3 Wr, float3 Wi, out float pdf ){
+	BSDFSample Evaluate( Surface surf, float3 Wr, float3 Wi ){
+		BSDFSample res;
+		res.type = BRDF_TYPE;
+
+		if( roughness <= 1e-4 ){
+			res.value = (float3)0;
+			res.pdf = 0;
+			return res;
+		}
+
 		float pm;
 		float3 H = normalize( Wi + Wr );
-		float D = NDF( N, H, pm );
-		float G = GS( H, Wr, Wi );
+		float D = NDF( surf.nor, H, pm );
+		float G = GS( surf.nor, Wr, Wi );
+
+		// Exclude fresnel term here, gets factored in later.
+		res.value = (D * G * 0.25) / (max(0,dot( surf.nor, Wi ))*max(0,dot( surf.nor, Wr )));
 
 		// eq. 38 - but see also:
 		// eq. 17 in http://www.graphics.cornell.edu/~bjw/wardnotes.pdf
-		pdf = pm * 0.25 / max(0,dot( H, Wr ));
-
-		// Exclude fresnel term here, gets factored in later.
-		return (D * G * 0.25) / (max(0,dot( N, Wi ))*max(0,dot( N, Wr )));
+		res.pdf = (pm * 0.25) / (max(0,dot( H, Wi ))*max(0,dot( H, Wr )));
+		
+		return res;
 	}
 
-	float3 SampleIndirect( float3 N, float3 Wr, float2 rand, out float3 Wi, out float pdf ){
-		pdf = 0;
-		Wi = N;
-		float3 f = (float3)0;
+	BSDFSample Sample( Surface surf, ISampler samp, float3 Wr, out float3 Wi ){
+		float2 rand = samp.SampleFloat2();
+
+		BSDFSample res;
+		res.value = (float3)0;
+		res.pdf = 0;
+		res.type = NULL_BSDF_TYPE;
+		Wi = surf.nor;
+
 		float a2 = pow(roughness,2);
 
 		// eq. 35,36 - sample random microfacet normal
-		float theta = atan(a2 * sqrt(rand.x) * (1.0 - rand.x * rand.x));
+		float theta = atan((a2 * sqrt(rand.x)) / sqrt(1.0 - rand.x));
 		float phi = PI2 * rand.y;
 
 		float3 T, B;
-		makeOrthonormalBasis( N, T, B );
+		makeOrthonormalBasis( surf.nor, T, B );
 
 		// microfacet normal
 		float3 m = (sin(theta) * cos(phi) * T)
 		         + (sin(theta) * sin(phi) * B)
-		         + (cos(theta) * N);
+		         + (cos(theta) * surf.nor);
 
 		// is microfacet visible?
 		if( dot( m, Wr ) > 0 ){
@@ -121,27 +161,29 @@ class AbstractMicrofacetBRDF : IMicrofacetBRDF, AbstractBRDF {
 			Wi = 2.0 * dot(m,Wr) * m - Wr;
 
 			// is reflected direction within hemisphere?
-			if( dot( N, Wi ) > 0 ){
+			if( dot( surf.nor, Wi ) > 0 ){
 				if( roughness <= 1e-4 ){
-					pdf = 1e6;
-					f = (float3)1e6;
+					res.value = (float3)1e6;
+					res.pdf = 1e6;
 				}
 				else
 				{
 					float pm;
-					float D = NDF( N, m, pm );
-					float G = GS( m, Wr, Wi );
+					float D = NDF( surf.nor, m, pm );
+					float G = GS( surf.nor, Wr, Wi );
+
+					// Exclude fresnel term here, gets factored in later.
+					res.value = (D * G * 0.25) / (max(0,dot( surf.nor, Wi ))*max(0,dot( surf.nor, Wr )));
 
 					// eq. 38 - but see also:
 					// eq. 17 in http://www.graphics.cornell.edu/~bjw/wardnotes.pdf
-					pdf = pm * 0.25 / max(0,dot( m, Wr ));
-					// Exclude fresnel term here, gets factored in later.
-					f = (D * G * 0.25) / (max(0,dot( N, Wi ))*max(0,dot( N, Wr )));
+					res.pdf = (pm * 0.25) / (max(0,dot( m, Wi ))*max(0,dot( m, Wr )));
 				}
+				res.type = BRDF_TYPE;
 			}
 		}
 
-		return f;
+		return res;
 	}
 };
 

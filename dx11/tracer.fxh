@@ -6,6 +6,7 @@
 #include "random.fxh"
 #include "sampling.fxh"
 #include "lights.fxh"
+#include "materials.fxh"
 
 Surface intersect(const Primitive hit, const Ray ray, out float t)
 {
@@ -108,7 +109,7 @@ float shadow(const float3 origin, const Light light, out float3 lightDir,
 float3 castRay(Ray ray, float4 pos)
 {
 	uint seed = jenkins_hash(uint3(pos.xy,SampleIndex));
-	LCG rng = LCG::New(seed);
+	RandomSampler randSampler = RandomSampler::New( seed );
 
 	float3 accumColour = 0.0;
 	float3 colourMask = 1.0;
@@ -117,8 +118,9 @@ float3 castRay(Ray ray, float4 pos)
 	float3 dir = ray.dir;
 	
 	int hitObjIdx;
-	
-	float pdf = 0.0;
+
+	float pdf = 0;
+	PrimitiveMaterialModel matModel;
 
 	[fastopt] for (uint i = 0; i < bounces; i++) {
 		Ray newRay;
@@ -132,36 +134,25 @@ float3 castRay(Ray ray, float4 pos)
 			break;
 		}
 
-		float3 Fd = 0;
-		float3 Fs = 0;
 		float3 nDir = (float3)0;
-		float npdf = 0;
-		float3 blend = 0;
 		Material mat = fetchMaterialData(surf.matIdx);
-		if( mat.type == DIFFUSE){
-			LambertianBRDF brdf = LambertianBRDF::New( mat.colour.rgb );
-			Fd = brdf.SampleIndirect( surf.nor, -dir, rng.GetFloat2(), nDir, npdf );
-		}
-		else if (mat.type == SPECULAR) {
-			float3 c = sqrt(min(mat.colour.rgb,0.999));
-			float3 ior = (1.0+c)/(1.0-c);
-			GGXSpecularBRDF bSpec = GGXSpecularBRDF::New( mat.roughness, ior );
-			Fs = bSpec.SampleIndirect( surf.nor, -dir, rng.GetFloat2(), nDir, npdf );
-			blend = saturate(bSpec.Fresnel( normalize(-dir+nDir) ,nDir ));
-		}
-		else if( mat.type == EMISSIVE ){
+		
+		if( mat.type == EMISSIVE ){
 			accumColour += colourMask * mat.colour.xyz;
 			break;
 		}
+
+		BSDFSample bsamp = matModel.Sample( mat, surf, randSampler, -dir, nDir );
+		if( bsamp.type == NULL_BSDF_TYPE ) break;\
 		
-		float3 F = Fd + Fs;
-		if( npdf >= 0.0 && (F.x + F.y + F.z) > 0.0 ){
-			colourMask *= (Fs*blend + Fd*(1.0-blend))/npdf;
+		float3 F = bsamp.value;
+		if( bsamp.pdf > 0.0 && (F.x + F.y + F.z) > 0.0 ){
+			colourMask *= F / bsamp.pdf;
 		} else {
 			break;
 		}
 		
-		uint count, stride;
+		/*uint count, stride;
 		lightBuffer.GetDimensions(count, stride);
 		count /= lightBufferStride;
 		
@@ -183,7 +174,7 @@ float3 castRay(Ray ray, float4 pos)
 			accumColour += colourMask * diffuse
 				* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity)
 			                        * attenuation);
-		}
+		}*/
 		
 		// step back slightly to avoid self intersection.
 		surf.pos -= dir * 0.0001;
