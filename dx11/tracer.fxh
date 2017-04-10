@@ -147,7 +147,7 @@ float3 castRay(Ray ray, float4 pos)
 		
 		float3 F = bsamp.value;
 		if( bsamp.pdf > 0.0 && (F.x + F.y + F.z) > 0.0 ){
-			colourMask *= F / bsamp.pdf;
+			colourMask *= clamp(F / bsamp.pdf,0,1);
 		} else {
 			break;
 		}
