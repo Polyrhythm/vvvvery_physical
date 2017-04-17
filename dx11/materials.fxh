@@ -35,16 +35,20 @@ class DiffuseDielectricMaterial : AbstractBSDF {
 
 	BSDFSample Evaluate( Surface surf, float3 Wr, float3 Wi ){
 		BSDFSample res = (BSDFSample)0;
-		res.type = MULTI_TYPE;
-		float3 H = normalize( Wr + Wi );
-		float f = Fs.Fresnel( H, Wi ).x;
 
-		BSDFSample d = Fd.Evaluate( surf, Wr, Wi );
-		BSDFSample s = Fs.Evaluate( surf, Wr, Wi );
+		if( dot(surf.nor, Wi) > 0 ){
+			res.type = MULTI_TYPE;
+
+			float3 H = normalize( Wr + Wi );
+			float f = Fs.Fresnel( H, Wi ).x;
+
+			BSDFSample d = Fd.Evaluate( surf, Wr, Wi );
+			BSDFSample s = Fs.Evaluate( surf, Wr, Wi );
 
 
-		res.value = d.value * (1.0-f) + s.value * f;
-		res.pdf   = d.pdf * (1.0-f) + s.pdf * f;
+			res.value = d.value * (1.0-f) + s.value * f;
+			res.pdf   = d.pdf * (1.0-f) + s.pdf * f;
+		}
 
 		return res;
 	}
@@ -117,7 +121,7 @@ interface IMaterialModel {
 
 class PrimitiveMaterialModel : IMaterialModel {
 	BSDFSample Evaluate( Material mat, Surface surf, float3 Wr, float3 Wi ){
-		return Eval( mat, surf, NullSampler, Wi, Wi, true );
+		return Eval( mat, surf, NullSampler, Wr, Wi, true );
 	}
 	BSDFSample Sample( Material mat, Surface surf, ISampler samp, float3 Wr, out float3 Wi ){
 		return Eval( mat, surf, samp, Wr, Wi, false );
@@ -131,6 +135,7 @@ class PrimitiveMaterialModel : IMaterialModel {
 		switch( mat.type ){
 			case DIFFUSE:{
 				DiffuseDielectricMaterial brdf = DiffuseDielectricMaterial::New( mat.colour.rgb, mat.roughness );
+				//LambertianBRDF brdf = LambertianBRDF::New( mat.colour.rgb );
 				if( brdfOnly ){
 					bsamp = brdf.Evaluate( surf, Wr, Wi );
 				} else {

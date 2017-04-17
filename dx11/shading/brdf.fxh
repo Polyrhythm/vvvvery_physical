@@ -18,11 +18,6 @@ struct BSDFSample {
 	int type;
 };
 
-/*interface IBSDF {
-	BSDFSample Evaluate( Surface surface, float3 Wr, float3 Wi );
-	BSDFSample Sample( Surface surface, float3 Wr, out float3 Wi );
-};*/
-
 interface IBSDF {
 	// =========================================================================
 	// Evaluate( surface, Wr, Wi )
@@ -76,7 +71,7 @@ class LambertianBRDF : AbstractBSDF {
 		res.value = this.albedo * NWi_PI;
 		res.pdf = NWi_PI;
 		res.type = BRDF_TYPE;
-		//if( dot( surf.nor, Wi ) < 0 ) res.type = NULL_BSDF_TYPE;
+		if( dot( surf.nor, Wi ) < 0 ) res.type = NULL_BSDF_TYPE;
 
 		return res;
 	}
@@ -108,27 +103,30 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 	float NDF( float3 N, float3 H, out float pm );
 
 	BSDFSample Evaluate( Surface surf, float3 Wr, float3 Wi ){
-		BSDFSample res;
-		res.type = BRDF_TYPE;
+		BSDFSample res = (BSDFSample)0;
+		float NWi = max(0,dot( surf.nor, Wi ));
+		if( NWi > 0.0 ){
+			res.type = BRDF_TYPE;
 
-		if( roughness <= 1e-4 ){
-			res.value = (float3)0;
-			res.pdf = 0;
-			return res;
+			if( roughness <= 1e-4 ){
+				res.value = (float3)0;
+				res.pdf = 0;
+			} else {
+				float pm;
+				float3 H = normalize( Wi + Wr );
+				float D = NDF( surf.nor, H, pm );
+				float G = GS( surf.nor, Wr, Wi );
+
+				// Exclude fresnel term here, gets factored in later.
+				res.value = (D * G * 0.25) / (max(0,dot( surf.nor, Wi ))*max(0,dot( surf.nor, Wr )));
+				res.value *= NWi;
+				// eq. 38 - but see also:
+				// eq. 17 in http://www.graphics.cornell.edu/~bjw/wardnotes.pdf
+				res.pdf = (pm * 0.25) / (max(0,dot( H, Wi ))*max(0,dot( H, Wr )));
+				res.pdf *= NWi;
+			}
 		}
 
-		float pm;
-		float3 H = normalize( Wi + Wr );
-		float D = NDF( surf.nor, H, pm );
-		float G = GS( surf.nor, Wr, Wi );
-
-		// Exclude fresnel term here, gets factored in later.
-		res.value = (D * G * 0.25) / (max(0,dot( surf.nor, Wi ))*max(0,dot( surf.nor, Wr )));
-
-		// eq. 38 - but see also:
-		// eq. 17 in http://www.graphics.cornell.edu/~bjw/wardnotes.pdf
-		res.pdf = (pm * 0.25) / (max(0,dot( H, Wi ))*max(0,dot( H, Wr )));
-		
 		return res;
 	}
 
@@ -160,8 +158,10 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 			// eq. 39 - get incident ray for m
 			Wi = 2.0 * dot(m,Wr) * m - Wr;
 
+
+			float NWi = max(0,dot( surf.nor, Wi ));
 			// is reflected direction within hemisphere?
-			if( dot( surf.nor, Wi ) > 0 ){
+			if( NWi > 0 ){
 				if( roughness <= 1e-4 ){
 					res.value = (float3)1e6;
 					res.pdf = 1e6;
@@ -174,10 +174,12 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 
 					// Exclude fresnel term here, gets factored in later.
 					res.value = (D * G * 0.25) / (max(0,dot( surf.nor, Wi ))*max(0,dot( surf.nor, Wr )));
+					res.value *= NWi;
 
 					// eq. 38 - but see also:
 					// eq. 17 in http://www.graphics.cornell.edu/~bjw/wardnotes.pdf
 					res.pdf = (pm * 0.25) / (max(0,dot( m, Wi ))*max(0,dot( m, Wr )));
+					res.pdf *= NWi;
 				}
 				res.type = BRDF_TYPE;
 			}

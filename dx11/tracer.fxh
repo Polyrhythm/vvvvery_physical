@@ -82,25 +82,27 @@ Surface trace(const Ray ray, float tMin, float tMax )
 	return surf;
 }
 
-float shadow(const float3 origin, const Light light, out float3 lightDir,
+float shadow(const Surface surf, const Light light, out float3 lightDir,
 	out float3 lightPos)
 {
 	lightPos.x = light.transform[3][0];
 	lightPos.y = light.transform[3][1];
 	lightPos.z = light.transform[3][2];
-	lightDir = lightPos - origin;
+	lightDir = lightPos - surf.pos;
 	float ldist = length(lightDir);
 	lightDir /= ldist;
 	
 	Ray shadowRay;
-	shadowRay.origin = origin;
+	shadowRay.origin = surf.pos;
 	shadowRay.dir = lightDir;
 	
 	float shad = 0.0;
-	float t = INFINITY;
-	Surface surf = trace(shadowRay,0,ldist);
-	if (surf.matIdx != -1) {
-		shad = 1.0;
+	if( dot(surf.nor,lightDir) > 0 ){
+		float t = INFINITY;
+		Surface surf = trace(shadowRay,0,ldist);
+		if (surf.matIdx != -1) {
+			shad = 1.0;
+		}
 	}
 	
 	return shad;
@@ -130,7 +132,7 @@ float3 castRay(Ray ray, float4 pos)
 		float t;
 		Surface surf = trace(newRay,0,INFINITY);
 		if (surf.matIdx == -1) {
-			//accumColour += colourMask;
+			//accumColour += colourMask * (abs(dir.y)*0.5+0.5)*0.5;
 			break;
 		}
 
@@ -142,47 +144,51 @@ float3 castRay(Ray ray, float4 pos)
 			break;
 		}
 
-		BSDFSample bsamp = matModel.Sample( mat, surf, randSampler, -dir, nDir );
-		if( bsamp.type == NULL_BSDF_TYPE ) break;\
-		
-		float3 F = bsamp.value;
-		if( bsamp.pdf > 0.0 && (F.x + F.y + F.z) > 0.0 ){
-			colourMask *= clamp(F / bsamp.pdf,0,1);
-		} else {
-			break;
-		}
-		
-		/*uint count, stride;
+		// step back slightly to avoid self intersection.
+		surf.pos -= dir * 0.0001;
+
+		uint count, stride;
 		lightBuffer.GetDimensions(count, stride);
 		count /= lightBufferStride;
-		
+
 		if( count > 0 ){
-			float r = rng.GetFloat();
+			float r = randSampler.SampleFloat();
 			int j = floor(r*count);
 			float3 lightDir, lightPos;
 			Light light = fetchLightData(j);
 			light.intensity *= count;
-			float shadowIntensity = shadow(surf.pos, light, lightDir, lightPos);
-			float diffuse = getLambertianDiffuse(lightDir, surf.nor);
+			float shadowIntensity = shadow(surf, light, lightDir, lightPos);
+			lightDir = normalize(lightPos-surf.pos);
+			float diffuse = max(0,dot(lightDir,surf.nor));
 			float attenuation = 1.0;
 			
 			if (light.type == 0) // point light
 			{
 				attenuation = getAttenuation(surf.pos, lightPos);
 			}
-			
-			accumColour += colourMask * diffuse
-				* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity)
+
+			BSDFSample lsamp = matModel.Evaluate( mat, surf, -dir, lightDir );
+			if( lsamp.type != NULL_BSDF_TYPE ){
+				accumColour += colourMask * clamp(lsamp.value,0,4)
+							* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity)
 			                        * attenuation);
-		}*/
+			}
+		}
+
+		BSDFSample bsamp = matModel.Sample( mat, surf, randSampler, -dir, nDir );
+		if( bsamp.type == NULL_BSDF_TYPE ) break;
 		
-		// step back slightly to avoid self intersection.
-		surf.pos -= dir * 0.0001;
+		float3 F = bsamp.value;
+		if( bsamp.pdf > 0.0 && (F.x + F.y + F.z) > 0.0 ){
+			colourMask *= clamp(F / bsamp.pdf,0,4);
+		} else {
+			break;
+		}
 
 		origin = surf.pos;
 		dir = nDir;
 	}
-	
+
 	return accumColour;
 }
 
