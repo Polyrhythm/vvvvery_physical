@@ -1,0 +1,161 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.2.dtd" >
+   <PATCH nodename="C:\Users\dotprodukt\Documents\GitHub\vvvvery_physical\modules\Material\Specular (Material).v4p" systemname="Specular (Material)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Material\Specular (Material).v4p" scrollx="600" scrolly="1200">
+   <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="0">
+   <BOUNDS type="Node" left="2880" top="3270" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input Count" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Input 1" visible="1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 3" visible="1">
+   </PIN>
+   <PIN pinname="Input 4" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Input 1 Bin Size" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 2 Bin Size" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 3 Bin Size" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 4 Bin Size" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="1" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="3195" top="2415" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3195" top="2415" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1.3294">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="IOR">
+   </PIN>
+   </NODE>
+   <NODE systemname="NULL (Enumerations)" nodename="NULL (Enumerations)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="2565" top="2415" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Enum" slicecount="1" values="Materials">
+   </PIN>
+   <PIN pinname="Receive" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="4" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="1500" top="1935" width="1590" height="270">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1500" top="1935" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="specular">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Enum2Ord (Enumerations)" nodename="Enum2Ord (Enumerations)" componentmode="Hidden" id="5">
+   <BOUNDS type="Node" left="2280" top="2805" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Enum" visible="1">
+   </PIN>
+   <PIN pinname="Ord Value" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="6" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="4650" top="2445" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4650" top="2445" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0.01">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="roughness">
+   </PIN>
+   </NODE>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="7">
+   <BOUNDS type="Node" left="6465" top="1785" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6465" top="1785" width="2250" height="480">
+   </BOUNDS>
+   <PIN pinname="Color Output" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Colour">
+   </PIN>
+   <PIN pinname="Color Input" slicecount="1" values="|0.97410,0.03631,0.00000,1.00000|">
+   </PIN>
+   </NODE>
+   <NODE systemname="RGB (Color Split Vector)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.RGBVector.dll" nodename="RGB (Color Split Vector)" componentmode="Hidden" id="8">
+   <BOUNDS type="Node" left="5535" top="2790" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname=" RGBA" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="4" srcpinname="Output Enum" dstnodeid="5" dstpinname="Enum" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="1560" y="2490">
+   </LINKPOINT>
+   <LINKPOINT x="2265" y="2490">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="4" srcpinname="Output Enum" dstnodeid="3" dstpinname="Receive" linkstyle="VHV">
+   <LINKPOINT x="1870" y="2305">
+   </LINKPOINT>
+   <LINKPOINT x="2690" y="2285">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="5" srcpinname="Ord Value" dstnodeid="0" dstpinname="Input 1" linkstyle="VHV">
+   <LINKPOINT x="2340" y="3158">
+   </LINKPOINT>
+   <LINKPOINT x="2880" y="3158">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="6" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Input 3" linkstyle="VHV">
+   <LINKPOINT x="4650" y="2965">
+   </LINKPOINT>
+   <LINKPOINT x="3585" y="2960">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="8" srcpinname=" RGBA" dstnodeid="0" dstpinname="Input 4" linkstyle="VHV">
+   <LINKPOINT x="5615" y="3163">
+   </LINKPOINT>
+   <LINKPOINT x="3835" y="3138">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="7" srcpinname="Color Output" dstnodeid="8" dstpinname="Input" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="6570" y="2643">
+   </LINKPOINT>
+   <LINKPOINT x="5475" y="2398">
+   </LINKPOINT>
+   </LINK>
+   <BOUNDS type="Window" left="5595" top="7065" width="8085" height="4860">
+   </BOUNDS>
+   <PACK Name="VVVV.Packs" Version="0.2.0">
+   </PACK>
+   <PACK Name="addonpack" Version="35.0.0">
+   </PACK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="2895" top="3930" width="915" height="1710">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2895" top="3930" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="7">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Material">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="9" dstpinname="Y Input Value">
+   </LINK>
+   </PATCH>

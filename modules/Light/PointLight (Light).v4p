@@ -1,0 +1,183 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Light\PointLight (Light).v4p" systemname="PointLight (Light)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Lights\PointLight (Light).v4p" scrollx="1455" scrolly="825">
+   <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="0">
+   <BOUNDS type="Node" left="3180" top="3000" width="2160" height="270">
+   </BOUNDS>
+   <PIN pinname="Input Count" slicecount="1" values="5">
+   </PIN>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Input 1 Bin Size" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Input 2 Bin Size" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Input 3" visible="1">
+   </PIN>
+   <PIN pinname="Input 3 Bin Size" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 4 Bin Size" slicecount="1" values="16">
+   </PIN>
+   <PIN pinname="Input 4" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Input 5" slicecount="1" values="0" visible="1">
+   </PIN>
+   <PIN pinname="Input 5 Bin Size" slicecount="1" values="4">
+   </PIN>
+   </NODE>
+   <NODE systemname="NULL (Enumerations)" nodename="NULL (Enumerations)" componentmode="Hidden" id="1">
+   <BOUNDS type="Node" left="2670" top="2160" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Enum" slicecount="1" values="Lights">
+   </PIN>
+   <PIN pinname="Receive" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="2" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="1500" top="1665" width="1590" height="270">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1500" top="1665" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="point">
+   </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Enum2Ord (Enumerations)" nodename="Enum2Ord (Enumerations)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="2385" top="2505" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Enum" visible="1">
+   </PIN>
+   <PIN pinname="Ord Value" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="4">
+   <BOUNDS type="Node" left="3480" top="1500" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3480" top="1500" width="2250" height="480">
+   </BOUNDS>
+   <PIN pinname="Color Output" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Colour">
+   </PIN>
+   </NODE>
+   <NODE systemname="RGB (Color Split Vector)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.RGBVector.dll" nodename="RGB (Color Split Vector)" componentmode="Hidden" id="5">
+   <BOUNDS type="Node" left="3495" top="2250" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname=" RGBA" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="6" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="4230" top="2355" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4230" top="2355" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="5" visible="1" values="1,3,2,4,2">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Intensity">
+   </PIN>
+   </NODE>
+   <NODE systemname="GetMatrix (Transform)" nodename="GetMatrix (Transform)" componentmode="Hidden" id="7">
+   <BOUNDS type="Node" left="6090" top="2145" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Matrix Out" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="8" systemname="IOBox (Node)">
+   <BOUNDS type="Box" left="6075" top="1665" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6075" top="1665" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Transform">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="2" srcpinname="Output Enum" dstnodeid="3" dstpinname="Enum" linkstyle="VHV">
+   <LINKPOINT x="1385" y="2205">
+   </LINKPOINT>
+   <LINKPOINT x="2560" y="2205">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="2" srcpinname="Output Enum" dstnodeid="1" dstpinname="Receive" linkstyle="Bezier">
+   <LINKPOINT x="1560" y="2033">
+   </LINKPOINT>
+   <LINKPOINT x="3105" y="2033">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Ord Value" dstnodeid="0" dstpinname="Input 1" linkstyle="VHV">
+   <LINKPOINT x="2620" y="2880">
+   </LINKPOINT>
+   <LINKPOINT x="3005" y="2880">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="5" srcpinname=" RGBA" dstnodeid="0" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="6" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Input 3" linkstyle="VHV">
+   <LINKPOINT x="4215" y="2790">
+   </LINKPOINT>
+   <LINKPOINT x="3885" y="2790">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="7" srcpinname="Matrix Out" dstnodeid="0" dstpinname="Input 4" linkstyle="VHV">
+   <LINKPOINT x="6090" y="2620">
+   </LINKPOINT>
+   <LINKPOINT x="4215" y="2765">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="4" srcpinname="Color Output" dstnodeid="5" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="8" srcpinname="Output Node" dstnodeid="7" dstpinname="Transform">
+   </LINK>
+   <BOUNDS type="Window" left="3300" top="7545" width="7680" height="4590">
+   </BOUNDS>
+   <PACK Name="VVVV.Packs" Version="0.2.0">
+   </PACK>
+   <PACK Name="addonpack" Version="35.0.0">
+   </PACK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="3180" top="3780" width="1485" height="4425">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3180" top="3780" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="22">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="PointLight">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="9" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="10">
+   <BOUNDS type="Node" left="7245" top="1680" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="7245" top="1680" width="840" height="945">
+   </BOUNDS>
+   <PIN pinname="Rows" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="10" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Input 5" linkstyle="VHV">
+   <LINKPOINT x="7245" y="2798">
+   </LINKPOINT>
+   <LINKPOINT x="5100" y="2798">
+   </LINKPOINT>
+   </LINK>
+   </PATCH>
