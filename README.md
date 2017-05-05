@@ -12,3 +12,4 @@
 * Static renders or non-realtime animations
 * Preview scenes at interactive framerates
 * High-fidelity path-traced renders of SDFs stored in volume textures
+* Realtime preview engine for live updates
