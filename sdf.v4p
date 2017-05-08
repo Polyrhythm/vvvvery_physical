@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
-   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\sdf.v4p" systemname="sdf" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\sdf.v4p" scrollx="0" scrolly="4545">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.5.dtd" >
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\sdf.v4p" systemname="sdf" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\sdf.v4p" scrollx="0" scrolly="4920">
    <BOUNDS type="Window" left="1605" top="1005" width="12480" height="13455">
    </BOUNDS>
    <PACK Name="addonpack" Version="35.0.0">
@@ -651,7 +651,7 @@
    <LINK srcnodeid="202" srcpinname="Color" dstnodeid="205" dstpinname="Colour">
    </LINK>
    <NODE systemname="Emissive (Material)" filename="modules\Material\Emissive (Material).v4p" nodename="Emissive (Material)" componentmode="Hidden" id="187">
-   <BOUNDS type="Node" left="4890" top="10515" width="100" height="100">
+   <BOUNDS type="Node" left="4620" top="10590" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Material" visible="1">
    </PIN>
@@ -667,9 +667,9 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Input Count" slicecount="1" values="2">
+   <PIN pinname="Input Count" slicecount="1" values="3">
    </PIN>
-   <PIN pinname="Input 3" visible="1" slicecount="7" values="1,1.34,0.23,0.0964269607134487,0.382368369125371,0.332870287171066,1">
+   <PIN pinname="Input 3" visible="1" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="188" srcpinname="Output" dstnodeid="202" dstpinname="Color">
@@ -687,7 +687,7 @@
    </PIN>
    <PIN pinname="Transform" visible="1">
    </PIN>
-   <PIN pinname="Material Index" slicecount="1" values="3">
+   <PIN pinname="Material Index" slicecount="1" values="13">
    </PIN>
    </NODE>
    <LINK srcnodeid="210" srcpinname="Sphere" dstnodeid="206" dstpinname="Input 3">
@@ -845,7 +845,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="9900" top="17355" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="13980" top="9570" width="6240" height="5085">
+   <BOUNDS type="Window" left="13920" top="9675" width="6240" height="5085">
    </BOUNDS>
    <PIN pinname="Texture In" visible="1">
    </PIN>
@@ -1065,5 +1065,29 @@
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="251" srcpinname="Transform Out" dstnodeid="238" dstpinname="SDF Transform">
+   </LINK>
+   <NODE systemname="Specular (Material)" filename="modules\Material\Specular (Material).v4p" nodename="Specular (Material)" componentmode="Hidden" id="252">
+   <BOUNDS type="Node" left="5730" top="10575" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Material" visible="1">
+   </PIN>
+   <PIN pinname="Colour" visible="1">
+   </PIN>
+   <PIN pinname="roughness" slicecount="1" values="0.35">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="252" srcpinname="Material" dstnodeid="186" dstpinname="Input 3">
+   </LINK>
+   <NODE systemname="HSV (Color Join)" nodename="HSV (Color Join)" componentmode="Hidden" id="253">
+   <BOUNDS type="Node" left="6015" top="10095" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Value" slicecount="1" values="0.76">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Saturation" slicecount="1" values="0.55">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="253" srcpinname="Output" dstnodeid="252" dstpinname="Colour">
    </LINK>
    </PATCH>

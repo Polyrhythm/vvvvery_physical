@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.dtd" >
-   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\vvvvery_physical.v4p" systemname="vvvvery_physical" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\vvvvery_physical.v4p" scrollx="1605" scrolly="2115">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.5.dtd" >
+   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\vvvvery_physical.v4p" systemname="vvvvery_physical" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\vvvvery_physical.v4p" scrollx="4320" scrolly="3090">
    <BOUNDS type="Window" left="540" top="1230" width="12480" height="13455">
    </BOUNDS>
    <PACK Name="addonpack" Version="35.0.0">
@@ -111,7 +111,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="4215" top="11685" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="14640" top="2520" width="11565" height="11280">
+   <BOUNDS type="Window" left="13005" top="2385" width="15795" height="10650">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -159,11 +159,11 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="55" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="14130" top="8790" width="1185" height="450">
+   <BOUNDS type="Box" left="14130" top="8790" width="1230" height="600">
    </BOUNDS>
    <BOUNDS type="Node" left="14130" top="8790" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="2" visible="1" values="diffuse,specular">
+   <PIN pinname="Input String" slicecount="3" visible="1" values="diffuse,specular,emissive">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -173,7 +173,7 @@
    </PIN>
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
-   <PIN pinname="Rows" slicecount="1" values="2">
+   <PIN pinname="Rows" slicecount="1" values="3">
    </PIN>
    <PIN pinname="Show SliceIndex" slicecount="1" values="1">
    </PIN>
@@ -470,6 +470,8 @@
    <PIN pinname="Reset Render" visible="1">
    </PIN>
    <PIN pinname="Enable sample debug" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Aspect Ratio" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="29" srcpinname="View" dstnodeid="159" dstpinname="View" linkstyle="Bezier" hiddenwhenlocked="1">
@@ -875,5 +877,37 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="193" srcpinname="Transform Out" dstnodeid="189" dstpinname="Transform">
+   </LINK>
+   <NODE systemname="AspectRatio (Transform)" nodename="AspectRatio (Transform)" componentmode="Hidden" id="194">
+   <BOUNDS type="Node" left="6075" top="10560" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Aspect Width" visible="1">
+   </PIN>
+   <PIN pinname="Aspect Height" visible="1">
+   </PIN>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Vector (2d Split)" nodename="Vector (2d Split)" componentmode="Hidden" id="195">
+   <BOUNDS type="Node" left="6255" top="10140" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="XY" visible="1">
+   </PIN>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="28" srcpinname="Y Output Value" dstnodeid="195" dstpinname="XY" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="3040" y="13425">
+   </LINKPOINT>
+   <LINKPOINT x="2240" y="8985">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="195" srcpinname="X" dstnodeid="194" dstpinname="Aspect Width">
+   </LINK>
+   <LINK srcnodeid="195" srcpinname="Y" dstnodeid="194" dstpinname="Aspect Height">
+   </LINK>
+   <LINK srcnodeid="194" srcpinname="Transform Out" dstnodeid="159" dstpinname="Aspect Ratio">
    </LINK>
    </PATCH>
