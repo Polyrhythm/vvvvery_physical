@@ -7,7 +7,6 @@
 #include "sampling.fxh"
 #include "lights.fxh"
 #include "materials.fxh"
-#include "acceleration_structures.fxh"
 
 Surface intersect(const Primitive hit, const Ray ray, out float t)
 {

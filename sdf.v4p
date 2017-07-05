@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.5.dtd" >
-   <PATCH nodename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\sdf.v4p" systemname="sdf" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\sdf.v4p" scrollx="0" scrolly="4920">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.8.dtd" >
+   <PATCH nodename="C:\Users\polyr\Development\creative\vvvvery_physical\sdf.v4p" systemname="sdf" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\sdf.v4p" scrollx="0" scrolly="4920">
    <BOUNDS type="Window" left="1605" top="1005" width="12480" height="13455">
    </BOUNDS>
    <PACK Name="addonpack" Version="35.0.0">
@@ -712,86 +712,6 @@
    <LINKPOINT x="5670" y="7395">
    </LINKPOINT>
    <LINKPOINT x="5880" y="7395">
-   </LINKPOINT>
-   </LINK>
-   <NODE systemname="Filters_DepthSmoothAdvanced (DX11.TextureFX)" filename="%VVVV%\packs\dx11-pointcloud\nodes\texture11\Filters_DepthSmoothAdvanced.tfx" nodename="Filters_DepthSmoothAdvanced (DX11.TextureFX)" componentmode="Hidden" id="217">
-   <BOUNDS type="Node" left="8235" top="11655" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Texture3d In" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Texture Out" visible="1">
-   </PIN>
-   <PIN pinname="distanceThreshold" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="slice Index" slicecount="1" visible="1" values="12.06">
-   </PIN>
-   <PIN pinname="slice Count" slicecount="1" visible="1" values="1">
-   </PIN>
-   </NODE>
-   <NODE systemname="Preview (DX11.Texture)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Preview (DX11.Texture)" componentmode="InAWindow" id="216">
-   <BOUNDS type="Node" left="8235" top="12120" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="8235" top="12120" width="6000" height="4500">
-   </BOUNDS>
-   <BOUNDS type="Window" left="20055" top="9600" width="5970" height="4725">
-   </BOUNDS>
-   <PIN pinname="Texture In" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="217" srcpinname="Texture Out" dstnodeid="216" dstpinname="Texture In">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="215">
-   <BOUNDS type="Box" left="7560" top="10965" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="7560" top="10965" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|slice Count|">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="215" srcpinname="Y Output Value" dstnodeid="217" dstpinname="slice Count" linkstyle="VHV">
-   <LINKPOINT x="7620" y="11415">
-   </LINKPOINT>
-   <LINKPOINT x="8610" y="11415">
-   </LINKPOINT>
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="214">
-   <BOUNDS type="Box" left="8730" top="10965" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="8730" top="10965" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|slice Index|">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Real">
-   </PIN>
-   <PIN pinname="Minimum" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Maximum" slicecount="1" values="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="214" srcpinname="Y Output Value" dstnodeid="217" dstpinname="slice Index" linkstyle="VHV">
-   <LINKPOINT x="8720" y="11423">
-   </LINKPOINT>
-   <LINKPOINT x="9055" y="11423">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="168" srcpinname="Buffers" dstnodeid="217" dstpinname="Texture3d In" linkstyle="Bezier">
-   <LINKPOINT x="5595" y="10373">
-   </LINKPOINT>
-   <LINKPOINT x="9750" y="10373">
    </LINKPOINT>
    </LINK>
    <NODE systemname="RealtimeSDF (DX11.Effect)" filename="dx11\RealtimeSDF.fx" nodename="RealtimeSDF (DX11.Effect)" componentmode="Hidden" id="238">
