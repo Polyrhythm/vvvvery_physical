@@ -28,7 +28,10 @@ Surface intersect(const Primitive hit, const Ray ray, out float t)
 			float3 size = hit.args.xyz;
 			tIntersect = intersectBox(ray, size, 0, t);
 			surf.pos = ray.origin + ray.dir * t;
-			if( tIntersect.x != -1 ) getBoxNormal( size, 0, surf.pos, surf.nor);
+			if( tIntersect.x != -1 ) {
+				getBoxNormal( size, 0, surf.pos, surf.nor);
+				getBoxUV(size, 0, surf.nor, surf.pos, surf.uv); 
+			}
 			break;
 
 		case SDF:

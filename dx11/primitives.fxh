@@ -153,10 +153,43 @@ void getBoxNormal(const float3 size, const float4x4 transform,
 	else nHit = float3(0, 0, 1);
 }
 
-void getBoxUV(const float3 size, const float4x4 transform,
+void getBoxUV(const float3 size, const float4x4 transform, const float3 nor,
 	const float3 pHit, out float2 uvHit)
 {
+	float3 bounds[2];
+	getBoxBounds(size, transform, bounds);
 	
+	uvHit = float2(0, 0);
+	
+	if (nor.y == 1) {
+		uvHit.x = -pHit.x / bounds[0].x * 0.5 + 0.5;
+		uvHit.y = pHit.z / bounds[0].z * 0.5 + 0.5;
+	}
+	
+	else if (nor.y == -1) {
+		uvHit.x = -pHit.x / bounds[0].x * 0.5 + 0.5;
+		uvHit.y = -pHit.z / bounds[0].z * 0.5 + 0.5;
+	}
+	
+	else if (nor.x == 1) {
+		uvHit.x = -pHit.z / bounds[0].z * 0.5 + 0.5;
+		uvHit.y = pHit.y / bounds[0].y * 0.5 + 0.5;
+	}
+	
+	else if (nor.x == -1) {
+		uvHit.x = pHit.z / bounds[0].z * 0.5 + 0.5;
+		uvHit.y = pHit.y / bounds[0].y * 0.5 + 0.5;
+	}
+	
+	else if (nor.z == 1) {
+		uvHit.x = pHit.x / bounds[0].x * 0.5 + 0.5;
+		uvHit.y = pHit.y / bounds[0].y * 0.5 + 0.5;
+	}
+	
+	else if (nor.z == -1) {
+		uvHit.x = -pHit.x / bounds[0].x * 0.5 + 0.5;
+		uvHit.y = pHit.y / bounds[0].y * 0.5 + 0.5;
+	}
 }
 
 #endif
