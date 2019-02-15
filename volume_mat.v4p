@@ -1,0 +1,77 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
+   <PATCH nodename="D:\dev\vvvvery_physical\volume_mat.v4p" systemname="volume_mat" filename="D:\dev\vvvvery_physical\volume_mat.v4p">
+   <NODE systemname="DynamicBuffer (DX11.Buffer Value)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer Value)" componentmode="Hidden" id="0">
+   <BOUNDS type="Node" left="1515" top="3930" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1515" top="3930" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Buffer" visible="1">
+   </PIN>
+   <PIN pinname="Data" visible="1" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE systemname="Diffuse (Material)" filename="modules\Material\Diffuse (Material).v4p" nodename="Diffuse (Material)" componentmode="Hidden" id="1">
+   <BOUNDS type="Node" left="1500" top="2220" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Material" visible="1">
+   </PIN>
+   <PIN pinname="Colour" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Cons (Spreads)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Cons (Spreads)" componentmode="Hidden" id="2">
+   <BOUNDS type="Node" left="1605" top="3000" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1605" top="3000" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Emissive (Material)" filename="modules\Material\Emissive (Material).v4p" nodename="Emissive (Material)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="2595" top="2235" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Material" visible="1">
+   </PIN>
+   <PIN pinname="Intensity" slicecount="1" values="25">
+   </PIN>
+   </NODE>
+   <NODE systemname="RGB (Color Join)" nodename="RGB (Color Join)" componentmode="Hidden" id="4">
+   <BOUNDS type="Node" left="2340" top="1500" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Red" slicecount="1" values="0.8">
+   </PIN>
+   <PIN pinname="Green" slicecount="1" values="0.8">
+   </PIN>
+   <PIN pinname="Blue" slicecount="1" values="0.8">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="4" srcpinname="Output" dstnodeid="1" dstpinname="Colour">
+   </LINK>
+   <LINK srcnodeid="2" srcpinname="Output" dstnodeid="0" dstpinname="Data">
+   </LINK>
+   <NODE id="5" systemname="IOBox (Node)" componentmode="InABox" nodename="IOBox (Node)">
+   <PIN pinname="Descriptive Name" slicecount="1" values="Buffer">
+   </PIN>
+   <BOUNDS type="Box" left="1515" top="4530" width="750" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1515" top="4530" width="750" height="240">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Buffer" dstnodeid="5" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Material" dstnodeid="2" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Material" dstnodeid="2" dstpinname="Input 2">
+   </LINK>
+   <BOUNDS type="Window" left="-1" top="-1" width="4195" height="5530">
+   </BOUNDS>
+   <PACK Name="dx11" Version="1.3.1.1">
+   </PACK>
+   <PACK Name="addonpack" Version="38.1.0">
+   </PACK>
+   </PATCH>

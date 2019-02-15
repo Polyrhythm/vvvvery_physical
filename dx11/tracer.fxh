@@ -12,19 +12,23 @@ Surface intersect(const Primitive hit, const Ray ray, out float t)
 {
 	Surface surf = (Surface)0;
 	surf.matIdx = -1;
+	surf.texIdx = -1;
 	float2 tIntersect = float2(-1,-1);
 	switch (hit.type) {
 		case SPHERE:
 			tIntersect = intersectSphere(0, hit.args[0], ray, t);
 			surf.pos = ray.origin + ray.dir * t;
-			if( tIntersect.x != -1 ) getSphereNormal(0,surf.pos,surf.nor,surf.tex);
+			if( tIntersect.x != -1 ) {
+				getSphereNormal(0, surf.pos, surf.nor);
+				getSphereUV(surf.nor, surf.uv);
+			}
 			break;
 		
 		case BOX:
 			float3 size = hit.args.xyz;
 			tIntersect = intersectBox(ray, size, 0, t);
 			surf.pos = ray.origin + ray.dir * t;
-			if( tIntersect.x != -1 ) getBoxNormal( size, 0, surf.pos, surf.nor, surf.tex);
+			if( tIntersect.x != -1 ) getBoxNormal( size, 0, surf.pos, surf.nor);
 			break;
 
 		case SDF:
@@ -32,12 +36,13 @@ Surface intersect(const Primitive hit, const Ray ray, out float t)
 			float3 pos;
 			tIntersect = intersectSDF(ray, sdfVolume, t, pos);
 			surf.pos = pos;
-			if (tIntersect.x != -1) getSDFNormal(sdfVolume, surf.pos, surf.nor, surf.tex);
+			if (tIntersect.x != -1) getSDFNormal(sdfVolume, surf.pos, surf.nor);
 			break;
 	}
 	
 	if( tIntersect.x != -1 ){
 		surf.matIdx = hit.materialIdx;
+		surf.texIdx = hit.texIdx;
 	}
 
 	return surf;
@@ -52,6 +57,7 @@ Surface trace(const Ray ray, float tMin, float tMax )
 	primitiveBuffer.GetDimensions(count, stride);
 	count /= primitiveBufferStride;
 	surf.matIdx = -1;
+	surf.texIdx = -1;
 	int hitId = -1;
 	Primitive hit;
 
@@ -139,6 +145,12 @@ float3 castRay(Ray ray, float4 pos)
 
 		float3 nDir = (float3)0;
 		Material mat = fetchMaterialData(surf.matIdx);
+		
+		// Check to see if we should use a texture for albedo
+		if (surf.matIdx != -1) {
+			mat.colour = textures.SampleLevel(linearSampler,
+				float3(surf.uv, surf.texIdx), 0);
+		}
 		
 		if( mat.type == EMISSIVE ){
 			accumColour += colourMask * mat.colour.xyz;

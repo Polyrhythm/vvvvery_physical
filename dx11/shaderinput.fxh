@@ -23,6 +23,7 @@ StructuredBuffer<float> primitiveBuffer;
 StructuredBuffer<float> materialBuffer;
 StructuredBuffer<float> lightBuffer;
 Texture3D sdfTexture;
+Texture2DArray textures;
 
 Primitive fetchPrimitiveData(const uint index)
 {
@@ -37,6 +38,8 @@ Primitive fetchPrimitiveData(const uint index)
 		primitiveBuffer[b + 10], primitiveBuffer[b + 11], primitiveBuffer[b + 12], primitiveBuffer[b + 13],
 	    primitiveBuffer[b + 14], primitiveBuffer[b + 15], primitiveBuffer[b + 16], primitiveBuffer[b + 17],
 		primitiveBuffer[b + 18], primitiveBuffer[b + 19], primitiveBuffer[b + 20], primitiveBuffer[b + 21]);
+	
+	p.texIdx = primitiveBuffer[b + 22];
 	
 	return p;
 }

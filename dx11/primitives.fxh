@@ -10,7 +10,7 @@ static const uint SPHERE = 0;
 static const uint BOX = 1;
 static const uint SDF = 2;
 
-SamplerState sdfSampler : IMMUTABLE
+SamplerState linearSampler : IMMUTABLE
 {
     Filter = MIN_MAG_MIP_LINEAR;
     AddressU = Clamp;
@@ -24,9 +24,10 @@ struct Primitive
 	uint materialIdx;
 	float4 args;
 	float4x4 inverseTransform;
+	uint texIdx;
 };
 
-#define primitiveBufferStride 22
+#define primitiveBufferStride 23
 
 float2 intersectSDF(const Ray ray, Texture3D sdfVolume, out float t,
 	out float3 pos)
@@ -43,7 +44,7 @@ float2 intersectSDF(const Ray ray, Texture3D sdfVolume, out float t,
 		}
 		
 		pos = ray.origin + ray.dir * t;
-		float h = sdfVolume.SampleLevel(sdfSampler, pos, 0).r;
+		float h = sdfVolume.SampleLevel(linearSampler, pos, 0).r;
 		
 		if (h < EPSILON)
 		{
@@ -56,19 +57,17 @@ float2 intersectSDF(const Ray ray, Texture3D sdfVolume, out float t,
 	return -1.0;
 }
 
-void getSDFNormal(Texture3D sdfVolume, const float3 pos, out float3 n,
-	out float2 tex)
+void getSDFNormal(Texture3D sdfVolume, const float3 pos, out float3 n)
 {
 	float2 eps = float2(0.0, 0.002);
-	n.x = sdfVolume.SampleLevel(sdfSampler, pos + eps.yxx, 0).r
-		- sdfVolume.SampleLevel(sdfSampler, pos - eps.yxx, 0).r;
-	n.y = sdfVolume.SampleLevel(sdfSampler, pos + eps.xyx, 0).r
-		- sdfVolume.SampleLevel(sdfSampler, pos - eps.xyx, 0).r;
-	n.z = sdfVolume.SampleLevel(sdfSampler, pos + eps.xxy, 0).r
-		- sdfVolume.SampleLevel(sdfSampler, pos - eps.xxy, 0).r;
+	n.x = sdfVolume.SampleLevel(linearSampler, pos + eps.yxx, 0).r
+		- sdfVolume.SampleLevel(linearSampler, pos - eps.yxx, 0).r;
+	n.y = sdfVolume.SampleLevel(linearSampler, pos + eps.xyx, 0).r
+		- sdfVolume.SampleLevel(linearSampler, pos - eps.xyx, 0).r;
+	n.z = sdfVolume.SampleLevel(linearSampler, pos + eps.xxy, 0).r
+		- sdfVolume.SampleLevel(linearSampler, pos - eps.xxy, 0).r;
 	
 	n = normalize(n);
-	tex = 0.0;
 }
 
 float2 intersectSphere(const float3 center, const float radius, const Ray ray,
@@ -93,14 +92,16 @@ float2 intersectSphere(const float3 center, const float radius, const Ray ray,
 	return res;
 }
 
-void getSphereNormal(const float3 center, const float3 pHit, out float3 nHit,
-	out float2 tex)
+void getSphereNormal(const float3 center, const float3 pHit, out float3 nHit)
 {
 	nHit = pHit - center;
 	nHit = normalize(nHit);
-		
-	tex.x = (1 + atan2(nHit.x, nHit.z) / PI) * 0.5;
-	tex.y = acos(nHit.y) / PI;
+}
+
+void getSphereUV(const float3 nHit, out float2 uv)
+{
+	uv.x = (1 + atan2(nHit.x, nHit.z) / PI) * 0.5;
+	uv.y = acos(nHit.y) / PI;
 }
 
 void getBoxBounds(const float3 size, const float4x4 transform,
@@ -138,7 +139,7 @@ float2 intersectBox(const Ray ray, const float3 size, const float4x4 transform,
 }
 
 void getBoxNormal(const float3 size, const float4x4 transform,
-	const float3 pHit, out float3 nHit, out float2 tex)
+	const float3 pHit, out float3 nHit)
 {
 	float3 bounds[2];
 	getBoxBounds(size, transform, bounds);
@@ -150,8 +151,12 @@ void getBoxNormal(const float3 size, const float4x4 transform,
 	else if (pHit.y > bounds[1].y - epsilon) nHit = float3(0, 1, 0);
 	else if (pHit.z < bounds[0].z + epsilon) nHit = float3(0, 0, -1);
 	else nHit = float3(0, 0, 1);
+}
 
-	tex = 0.0;
+void getBoxUV(const float3 size, const float4x4 transform,
+	const float3 pHit, out float2 uvHit)
+{
+	
 }
 
 #endif

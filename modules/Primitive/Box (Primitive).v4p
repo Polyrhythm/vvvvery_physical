@@ -1,9 +1,9 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.2.dtd" >
-   <PATCH nodename="C:\Users\dotprodukt\Documents\GitHub\vvvvery_physical\modules\Primitive\Box (Primitive).v4p" systemname="Box (Primitive)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Primitives\Box (Primitive).v4p" scrollx="0" scrolly="0">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
+   <PATCH nodename="D:\dev\vvvvery_physical\modules\Primitive\Box (Primitive).v4p" systemname="Box (Primitive)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Primitives\Box (Primitive).v4p" scrollx="465" scrolly="0">
    <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="0" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="2190" top="3075" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input Count" slicecount="1" values="4">
+   <PIN pinname="Input Count" slicecount="1" values="5">
    </PIN>
    <PIN pinname="Input 1" visible="1">
    </PIN>
@@ -23,8 +23,12 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
+   <PIN pinname="Input 5 Bin Size" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 5" slicecount="1" visible="1" values="-1">
+   </PIN>
    </NODE>
-   <NODE systemname="NULL (Enumerations)" nodename="NULL (Enumerations)" componentmode="Hidden" id="1" hiddenwhenlocked="0">
+   <NODE systemname="NULL (Enumerations Legacy)" nodename="NULL (Enumerations)" componentmode="Hidden" id="1" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="1620" top="2085" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Enum" slicecount="1" values="Primitives">
@@ -102,11 +106,11 @@
    <LINKPOINT x="3975" y="2913">
    </LINKPOINT>
    </LINK>
-   <BOUNDS type="Window" left="14850" top="1875" width="10320" height="9525">
+   <BOUNDS type="Window" left="8460" top="4005" width="12180" height="10260">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
-   <PACK Name="addonpack" Version="35.0.0">
+   <PACK Name="addonpack" Version="38.1.0">
    </PACK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="7" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="7905" top="1500" width="795" height="240">
@@ -228,4 +232,26 @@
    </LINK>
    <LINK srcnodeid="7" srcpinname="Output Node" dstnodeid="30" dstpinname="Source">
    </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="31">
+   <BOUNDS type="Box" left="9270" top="1290" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="9270" top="1290" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Texture Index|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="31" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Input 5" linkstyle="VHV">
+   <LINKPOINT x="9270" y="2288">
+   </LINKPOINT>
+   <LINKPOINT x="3525" y="2288">
+   </LINKPOINT>
+   </LINK>
+   <PACK Name="dx11" Version="1.3.1.1">
+   </PACK>
    </PATCH>

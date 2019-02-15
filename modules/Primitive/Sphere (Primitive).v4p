@@ -1,9 +1,9 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.2.dtd" >
-   <PATCH nodename="C:\Users\dotprodukt\Documents\GitHub\vvvvery_physical\modules\Primitive\Sphere (Primitive).v4p" systemname="Sphere (Primitive)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Primitives\Sphere (Primitive).v4p" scrollx="0" scrolly="0">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
+   <PATCH nodename="D:\dev\vvvvery_physical\modules\Primitive\Sphere (Primitive).v4p" systemname="Sphere (Primitive)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Primitives\Sphere (Primitive).v4p" scrollx="0" scrolly="0">
    <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="0" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="2190" top="3075" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input Count" slicecount="1" values="4">
+   <PIN pinname="Input Count" slicecount="1" values="5">
    </PIN>
    <PIN pinname="Input 1" visible="1">
    </PIN>
@@ -23,8 +23,12 @@
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
+   <PIN pinname="Input 5 Bin Size" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 5" slicecount="1" visible="1" values="-1">
+   </PIN>
    </NODE>
-   <NODE systemname="NULL (Enumerations)" nodename="NULL (Enumerations)" componentmode="Hidden" id="1" hiddenwhenlocked="0">
+   <NODE systemname="NULL (Enumerations Legacy)" nodename="NULL (Enumerations)" componentmode="Hidden" id="1" hiddenwhenlocked="0">
    <BOUNDS type="Node" left="1620" top="2085" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Enum" slicecount="1" values="Primitives">
@@ -102,11 +106,11 @@
    <LINKPOINT x="3605" y="2913">
    </LINKPOINT>
    </LINK>
-   <BOUNDS type="Window" left="6765" top="7440" width="10320" height="9525">
+   <BOUNDS type="Window" left="9645" top="7500" width="10320" height="9525">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
-   <PACK Name="addonpack" Version="35.0.0">
+   <PACK Name="addonpack" Version="38.1.0">
    </PACK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="7" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="6795" top="1500" width="795" height="240">
@@ -121,7 +125,7 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="2175" top="3525" width="1305" height="4545">
+   <BOUNDS type="Box" left="2175" top="3525" width="1455" height="4935">
    </BOUNDS>
    <BOUNDS type="Node" left="2175" top="3525" width="0" height="0">
    </BOUNDS>
@@ -149,7 +153,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="4680" top="1500" width="795" height="240">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="0.5">
+   <PIN pinname="Y Input Value" slicecount="1" values="0.3">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Radius">
    </PIN>
@@ -176,4 +180,26 @@
    </LINK>
    <LINK srcnodeid="12" srcpinname="Transform Out" dstnodeid="6" dstpinname="Transform">
    </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="13">
+   <BOUNDS type="Box" left="8010" top="1365" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8010" top="1365" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Texture Index|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="13" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Input 5" linkstyle="VHV">
+   <LINKPOINT x="8010" y="2325">
+   </LINKPOINT>
+   <LINKPOINT x="3525" y="2325">
+   </LINKPOINT>
+   </LINK>
+   <PACK Name="dx11" Version="1.3.1.1">
+   </PACK>
    </PATCH>
