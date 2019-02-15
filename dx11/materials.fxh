@@ -13,10 +13,11 @@ struct Material
 	uint type;
 	float ior;
 	float roughness;
+	float intensity;
 	float4 colour;
 };
 
-#define materialBufferStride 7
+#define materialBufferStride 8
 
 class DiffuseDielectricMaterial : AbstractBSDF {
 	LambertianBRDF  Fd;

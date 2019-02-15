@@ -19,6 +19,8 @@
    </PIN>
    <PIN pinname="Colour" visible="1">
    </PIN>
+   <PIN pinname="Intensity" slicecount="1" values="0">
+   </PIN>
    </NODE>
    <NODE systemname="Transform (Transform 3d)" nodename="Transform (Transform 3d)" componentmode="Hidden" id="2">
    <BOUNDS type="Node" left="1815" top="1500" width="100" height="100">

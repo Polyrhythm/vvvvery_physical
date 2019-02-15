@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="0" scrolly="4905">
-   <BOUNDS type="Window" left="3150" top="4470" width="13005" height="9285">
+   <PATCH nodename="D:\dev\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="0" scrolly="4035">
+   <BOUNDS type="Window" left="2730" top="4335" width="13005" height="9285">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
@@ -163,7 +163,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="3645" top="11595" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="18375" top="3885" width="9420" height="7875">
+   <BOUNDS type="Window" left="10500" top="2640" width="14565" height="11610">
    </BOUNDS>
    <PIN pinname="Layers" visible="1">
    </PIN>
@@ -281,7 +281,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="60" top="3163" width="6615" height="5625">
    </BOUNDS>
-   <BOUNDS type="Window" left="6630" top="8775" width="6615" height="5625">
+   <BOUNDS type="Window" left="5610" top="3945" width="10650" height="6735">
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="55" srcpinname="Buffer" dstnodeid="0" dstpinname="primitiveBuffer" linkstyle="Bezier">
@@ -361,17 +361,43 @@
    </PIN>
    </NODE>
    <NODE systemname="FileTexture (DX11 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="FileTexture (DX11 2d)" componentmode="Hidden" id="66">
-   <BOUNDS type="Node" left="8625" top="8835" width="100" height="100">
+   <BOUNDS type="Node" left="8580" top="8505" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="8625" top="8835" width="3000" height="3000">
+   <BOUNDS type="Box" left="8580" top="8505" width="3000" height="3000">
    </BOUNDS>
    <PIN pinname="Filename" slicecount="1" values="..\..\assets\tex\uv.png">
    </PIN>
    <PIN pinname="Texture Out" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="66" srcpinname="Texture Out" dstnodeid="65" dstpinname="Texture">
-   </LINK>
    <LINK srcnodeid="65" srcpinname="Texture Array Out" dstnodeid="0" dstpinname="textures">
+   </LINK>
+   <NODE systemname="Cons (DX11.Texture 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Cons (DX11.Texture 2d)" componentmode="Hidden" id="67">
+   <BOUNDS type="Node" left="8595" top="9135" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8595" top="9135" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="66" srcpinname="Texture Out" dstnodeid="67" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="67" srcpinname="Output" dstnodeid="65" dstpinname="Texture">
+   </LINK>
+   <NODE systemname="FileTexture (DX11 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="FileTexture (DX11 2d)" componentmode="Hidden" id="68">
+   <BOUNDS type="Node" left="9510" top="8520" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="9510" top="8520" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Filename" slicecount="1" values="C:\Users\ryan.jones\Desktop\spaced-out.jpg">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="68" srcpinname="Texture Out" dstnodeid="67" dstpinname="Input 2">
    </LINK>
    </PATCH>

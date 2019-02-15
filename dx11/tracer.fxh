@@ -156,7 +156,8 @@ float3 castRay(Ray ray, float4 pos)
 		}
 		
 		if( mat.type == EMISSIVE ){
-			accumColour += colourMask * mat.colour.xyz;
+			// only use mat.intensity for emissives
+			accumColour += colourMask * mat.colour.xyz * mat.intensity;
 			break;
 		}
 

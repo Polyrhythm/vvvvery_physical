@@ -51,8 +51,9 @@ Material fetchMaterialData(const uint index)
 	mat.type = materialBuffer[b];
 	mat.ior = materialBuffer[b + 1];
 	mat.roughness = materialBuffer[b + 2];
-	mat.colour = float4(materialBuffer[b + 3], materialBuffer[b + 4],
-		materialBuffer[b + 5], materialBuffer[b + 6]);
+	mat.intensity = materialBuffer[b + 3];
+	mat.colour = float4(materialBuffer[b + 4], materialBuffer[b + 5],
+		materialBuffer[b + 6], materialBuffer[b + 7]);
 	
 	return mat;
 }
