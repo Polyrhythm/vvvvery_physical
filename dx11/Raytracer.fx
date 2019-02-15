@@ -8,7 +8,6 @@ struct VS_IN
 {
 	float4 PosO : POSITION;
 	float4 TexCd : TEXCOORD0;
-
 };
 
 struct vs2ps

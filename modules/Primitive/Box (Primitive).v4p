@@ -133,7 +133,7 @@
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
-   <PIN pinname="Rows" slicecount="1" values="22">
+   <PIN pinname="Rows" slicecount="1" values="23">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Box">
    </PIN>

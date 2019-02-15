@@ -150,7 +150,7 @@ float3 castRay(Ray ray, float4 pos)
 		Material mat = fetchMaterialData(surf.matIdx);
 		
 		// Check to see if we should use a texture for albedo
-		if (surf.matIdx != -1) {
+		if (surf.texIdx != -1) {
 			mat.colour = textures.SampleLevel(linearSampler,
 				float3(surf.uv, surf.texIdx), 0);
 		}
