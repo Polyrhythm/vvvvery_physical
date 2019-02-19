@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\modules\Renderer\Raytracer (Renderer).v4p" scrollx="1725" scrolly="0" systemname="Raytracer (Renderer)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Renderers\Raytracer (Renderer).v4p">
+   <PATCH nodename="D:\dev\vvvvery_physical\modules\Renderer\Raytracer (Renderer).v4p" scrollx="0" scrolly="0" systemname="Raytracer (Renderer)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Renderers\Raytracer (Renderer).v4p">
    <NODE systemname="Quad (DX11.Geometry)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Geometry)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="2745" top="3135" width="100" height="100">
    </BOUNDS>
@@ -651,6 +651,8 @@
    </PIN>
    <PIN pinname="textures" visible="1" slicecount="1" values="||">
    </PIN>
+   <PIN pinname="renderSky" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="24" srcpinname="Layer" dstnodeid="4" dstpinname="Layer In">
    </LINK>
@@ -716,4 +718,26 @@
    </LINK>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="45">
+   <BOUNDS type="Box" left="915" top="435" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="915" top="435" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="renderSky">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="45" srcpinname="Y Output Value" dstnodeid="24" dstpinname="renderSky" linkstyle="Bezier">
+   <LINKPOINT x="975" y="2123">
+   </LINKPOINT>
+   <LINKPOINT x="3525" y="2123">
+   </LINKPOINT>
+   </LINK>
    </PATCH>

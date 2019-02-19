@@ -16,9 +16,10 @@ struct Material
 	float intensity;
 	float4 colour;
 	int texIdx;
+	float2 uvScale;
 };
 
-#define materialBufferStride 9
+#define materialBufferStride 11
 
 class DiffuseDielectricMaterial : AbstractBSDF {
 	LambertianBRDF  Fd;

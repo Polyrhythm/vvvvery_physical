@@ -7,6 +7,7 @@
 #include "sampling.fxh"
 #include "lights.fxh"
 #include "materials.fxh"
+#include "sky.fxh"
 
 Surface intersect(const Primitive hit, const Ray ray, out float t)
 {
@@ -115,6 +116,22 @@ float shadow(const Surface surf, float3 lightDir)
 	return shad;
 }
 
+float3 getSkyColour(Ray ray) {
+	float3 outColour = 0.0;
+	
+	switch (renderSky) {
+		case 1:
+			SimpleSky simpleSky = SimpleSky::New();
+			outColour = simpleSky.render(ray);
+			break;
+		
+		default:
+			break;
+	}
+	
+	return outColour;
+}
+
 float3 castRay(Ray ray, float4 pos)
 {
 	uint seed = jenkins_hash(uint3(pos.xy,SampleIndex));
@@ -139,7 +156,9 @@ float3 castRay(Ray ray, float4 pos)
 		float t;
 		Surface surf = trace(newRay,0,INFINITY);
 		if (surf.matIdx == -1) {
-			//accumColour += colourMask * (abs(dir.y)*0.5+0.5)*0.5;
+			if (renderSky != 0) {
+				accumColour += colourMask * getSkyColour(newRay);
+			}
 			break;
 		}
 
@@ -149,7 +168,7 @@ float3 castRay(Ray ray, float4 pos)
 		// Check to see if we should use a texture for albedo
 		if (mat.texIdx != -1) {
 			mat.colour = textures.SampleLevel(linearSampler,
-				float3(surf.uv, mat.texIdx), 0);
+				float3(surf.uv * mat.uvScale, mat.texIdx), 0);
 		}
 		
 		if( mat.type == EMISSIVE ){

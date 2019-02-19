@@ -3,7 +3,7 @@
    <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="2880" top="3270" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input Count" slicecount="1" values="6">
+   <PIN pinname="Input Count" slicecount="1" values="7">
    </PIN>
    <PIN pinname="Input 2" visible="1">
    </PIN>
@@ -30,6 +30,10 @@
    <PIN pinname="Input 6 Bin Size" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Input 6" visible="1">
+   </PIN>
+   <PIN pinname="Input 7 Bin Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Input 7" visible="1" slicecount="2" values="1,1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="1" systemname="IOBox (Value Advanced)">
@@ -221,5 +225,51 @@
    </LINKPOINT>
    <LINKPOINT x="4515" y="2558">
    </LINKPOINT>
+   </LINK>
+   <NODE systemname="Vector (2d Split)" nodename="Vector (2d Split)" componentmode="Hidden" id="17">
+   <BOUNDS type="Node" left="11070" top="2415" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   <PIN pinname="XY" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Vector (2d Join)" nodename="Vector (2d Join)" componentmode="Hidden" id="18">
+   <BOUNDS type="Node" left="10905" top="2895" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   <PIN pinname="XY" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="17" srcpinname="X" dstnodeid="18" dstpinname="X">
+   </LINK>
+   <LINK srcnodeid="17" srcpinname="Y" dstnodeid="18" dstpinname="Y">
+   </LINK>
+   <LINK srcnodeid="18" srcpinname="XY" dstnodeid="0" dstpinname="Input 7">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="19">
+   <BOUNDS type="Box" left="11790" top="1665" width="795" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="11790" top="1665" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="1,1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|UV Scale|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="19" srcpinname="Y Output Value" dstnodeid="17" dstpinname="XY">
    </LINK>
    </PATCH>

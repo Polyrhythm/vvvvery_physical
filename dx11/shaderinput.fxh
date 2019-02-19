@@ -12,6 +12,7 @@ cbuffer cbPerDraw : register( b0 )
 	float4x4 tPI : PROJECTIONINVERSE;
 	uint bounces = 1;
 	uint SampleIndex = 0;
+	uint renderSky = 0;
 };
 
 cbuffer cbPerObj : register( b1 )
@@ -54,6 +55,7 @@ Material fetchMaterialData(const uint index)
 	mat.colour = float4(materialBuffer[b + 4], materialBuffer[b + 5],
 		materialBuffer[b + 6], materialBuffer[b + 7]);
 	mat.texIdx = materialBuffer[b + 8];
+	mat.uvScale = float2(materialBuffer[b + 9], materialBuffer[b + 10]);
 	
 	return mat;
 }
