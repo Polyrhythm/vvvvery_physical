@@ -12,7 +12,6 @@ Surface intersect(const Primitive hit, const Ray ray, out float t)
 {
 	Surface surf = (Surface)0;
 	surf.matIdx = -1;
-	surf.texIdx = -1;
 	float2 tIntersect = float2(-1,-1);
 	switch (hit.type) {
 		case SPHERE:
@@ -45,7 +44,6 @@ Surface intersect(const Primitive hit, const Ray ray, out float t)
 	
 	if( tIntersect.x != -1 ){
 		surf.matIdx = hit.materialIdx;
-		surf.texIdx = hit.texIdx;
 	}
 
 	return surf;
@@ -60,7 +58,6 @@ Surface trace(const Ray ray, float tMin, float tMax )
 	primitiveBuffer.GetDimensions(count, stride);
 	count /= primitiveBufferStride;
 	surf.matIdx = -1;
-	surf.texIdx = -1;
 	int hitId = -1;
 	Primitive hit;
 
@@ -150,9 +147,9 @@ float3 castRay(Ray ray, float4 pos)
 		Material mat = fetchMaterialData(surf.matIdx);
 		
 		// Check to see if we should use a texture for albedo
-		if (surf.texIdx != -1) {
+		if (mat.texIdx != -1) {
 			mat.colour = textures.SampleLevel(linearSampler,
-				float3(surf.uv, surf.texIdx), 0);
+				float3(surf.uv, mat.texIdx), 0);
 		}
 		
 		if( mat.type == EMISSIVE ){

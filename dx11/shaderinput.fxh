@@ -39,8 +39,6 @@ Primitive fetchPrimitiveData(const uint index)
 	    primitiveBuffer[b + 14], primitiveBuffer[b + 15], primitiveBuffer[b + 16], primitiveBuffer[b + 17],
 		primitiveBuffer[b + 18], primitiveBuffer[b + 19], primitiveBuffer[b + 20], primitiveBuffer[b + 21]);
 	
-	p.texIdx = primitiveBuffer[b + 22];
-	
 	return p;
 }
 
@@ -49,11 +47,13 @@ Material fetchMaterialData(const uint index)
 	uint b = index * materialBufferStride;
 	Material mat;
 	mat.type = materialBuffer[b];
+	
 	mat.ior = materialBuffer[b + 1];
 	mat.roughness = materialBuffer[b + 2];
 	mat.intensity = materialBuffer[b + 3];
 	mat.colour = float4(materialBuffer[b + 4], materialBuffer[b + 5],
 		materialBuffer[b + 6], materialBuffer[b + 7]);
+	mat.texIdx = materialBuffer[b + 8];
 	
 	return mat;
 }

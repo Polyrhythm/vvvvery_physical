@@ -55,7 +55,7 @@
    </PIN>
    <PIN pinname="Transform" visible="1">
    </PIN>
-   <BOUNDS type="Window" left="8460" top="4005" width="12180" height="10260">
+   <BOUNDS type="Window" left="9405" top="8355" width="12180" height="10260">
    </BOUNDS>
    <PIN pinname="Texture Index" slicecount="1" values="-1">
    </PIN>

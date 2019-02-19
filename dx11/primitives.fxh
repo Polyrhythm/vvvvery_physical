@@ -24,10 +24,9 @@ struct Primitive
 	uint materialIdx;
 	float4 args;
 	float4x4 inverseTransform;
-	int texIdx;
 };
 
-#define primitiveBufferStride 23
+#define primitiveBufferStride 22
 
 float2 intersectSDF(const Ray ray, Texture3D sdfVolume, out float t,
 	out float3 pos)
