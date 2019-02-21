@@ -14,15 +14,15 @@ struct vs2ps
 {
     float4 PosWVP: SV_POSITION;
     float4 TexCd: TEXCOORD0;
+	RandomSampler RandSampler: RANDSAMPLER;
 };
 
-float3 render(const float2 uv, const Options options, float4 pos)
+float3 render(const float2 uv, const Options options, float4 pos,
+	const RandomSampler randSampler)
 {
 	float scale = tan(radians(options.fov * 0.5));
 	float imageAspectRatio = TextureSize.x / TextureSize.y;
 	
-	uint seed = jenkins_hash(uint3(pos.yx,SampleIndex));
-	RandomSampler randSampler = RandomSampler::New( seed );
 	float2 st = randSampler.SampleFloat2()-0.5;
 	pos.xy += st;
 	
@@ -30,7 +30,7 @@ float3 render(const float2 uv, const Options options, float4 pos)
 	ray.origin = tVI[3].xyz;
 	ray.dir = UVtoEYE(uv.xy + st/TextureSize.xy);
 	
-	return castRay(ray, pos);
+	return castRay(ray, pos, randSampler);
 }
 
 // ********
@@ -41,6 +41,12 @@ vs2ps VS(VS_IN input)
     vs2ps output;
     output.PosWVP  = input.PosO;
     output.TexCd = input.TexCd;
+	
+	uint seed = jenkins_hash(uint3(input.PosO.yx, SampleIndex));
+	RandomSampler randSampler = RandomSampler::New(seed);
+	
+	output.RandSampler = randSampler;
+	
     return output;
 }
 
@@ -48,7 +54,7 @@ float4 PS(vs2ps In): SV_Target
 {
 	Options opts;
 	opts.fov = 51.52;
-	float3 colour = render(In.TexCd.xy, opts, In.PosWVP);
+	float3 colour = render(In.TexCd.xy, opts, In.PosWVP, In.RandSampler);
     return float4(colour, 1);
 }
 

@@ -118,11 +118,11 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 				float G = GS( surf.nor, Wr, Wi );
 
 				// Exclude fresnel term here, gets factored in later.
-				res.value = (D * G * 0.25) / (max(0,dot( surf.nor, Wi ))*max(0,dot( surf.nor, Wr )));
+				res.value = (D * G * 0.25) / NWi * max(0, dot(surf.nor, Wr));
 				res.value *= NWi;
 				// eq. 38 - but see also:
 				// eq. 17 in http://www.graphics.cornell.edu/~bjw/wardnotes.pdf
-				res.pdf = (pm * 0.25) / (max(0,dot( H, Wi ))*max(0,dot( H, Wr )));
+				res.pdf = (pm * 0.25) / max(0, dot(H, Wi)) * max(0, dot(H, Wr));
 				res.pdf *= NWi;
 			}
 		}
@@ -139,7 +139,7 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 		res.type = NULL_BSDF_TYPE;
 		Wi = surf.nor;
 
-		float a2 = pow(roughness,2);
+		float a2 = roughness * roughness;
 
 		// eq. 35,36 - sample random microfacet normal
 		float theta = atan((a2 * sqrt(rand.x)) / sqrt(1.0 - rand.x));
@@ -154,9 +154,10 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 		         + (cos(theta) * surf.nor);
 
 		// is microfacet visible?
-		if( dot( m, Wr ) > 0 ){
+		float IoM = dot(m, Wr);
+		if(IoM > 0 ){
 			// eq. 39 - get incident ray for m
-			Wi = 2.0 * dot(m,Wr) * m - Wr;
+			Wi = 2.0 * IoM * m - Wr;
 
 
 			float NWi = max(0,dot( surf.nor, Wi ));
@@ -173,12 +174,12 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 					float G = GS( surf.nor, Wr, Wi );
 
 					// Exclude fresnel term here, gets factored in later.
-					res.value = (D * G * 0.25) / (max(0,dot( surf.nor, Wi ))*max(0,dot( surf.nor, Wr )));
+					res.value = (D * G * 0.25) / max(0, dot(surf.nor, Wi) * max(0, dot(surf.nor, Wr)));
 					res.value *= NWi;
 
 					// eq. 38 - but see also:
 					// eq. 17 in http://www.graphics.cornell.edu/~bjw/wardnotes.pdf
-					res.pdf = (pm * 0.25) / (max(0,dot( m, Wi ))*max(0,dot( m, Wr )));
+					res.pdf = (pm * 0.25) / (max(0, dot(m, Wi)) * IoM);
 					res.pdf *= NWi;
 				}
 				res.type = BRDF_TYPE;

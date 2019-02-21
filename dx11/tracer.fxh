@@ -8,6 +8,9 @@
 #include "lights.fxh"
 #include "materials.fxh"
 #include "sky.fxh"
+#include "textures.fxh"
+
+// #define STRATIFIED // if defined, use stratified sampling
 
 Surface intersect(const Primitive hit, const Ray ray, out float t)
 {
@@ -50,7 +53,7 @@ Surface intersect(const Primitive hit, const Ray ray, out float t)
 	return surf;
 }
 
-Surface trace(const Ray ray, float tMin, float tMax )
+Surface trace(const Ray ray, float tMax )
 {
 	Surface surf = (Surface)0;
 	float2 result = -1;
@@ -107,7 +110,7 @@ float shadow(const Surface surf, float3 lightDir)
 	float shad = 0.0;
 	if( dot(surf.nor,lightDir) > 0 ){
 		float t = INFINITY;
-		Surface surf = trace(shadowRay,0,ldist);
+		Surface surf = trace(shadowRay, ldist);
 		if (surf.matIdx != -1) {
 			shad = 1.0;
 		}
@@ -120,7 +123,7 @@ float3 getSkyColour(Ray ray) {
 	float3 outColour = 0.0;
 	
 	switch (renderSky) {
-		case 1:
+		case 2:
 			SimpleSky simpleSky = SimpleSky::New();
 			outColour = simpleSky.render(ray);
 			break;
@@ -132,10 +135,22 @@ float3 getSkyColour(Ray ray) {
 	return outColour;
 }
 
-float3 castRay(Ray ray, float4 pos)
+float3 getEnvMapColour(Ray ray) {
+	float2 uv = getEquirectUV(ray.dir);
+	return envMap.SampleLevel(linearSampler, uv, 0).rgb;
+}
+
+float3 castRay(Ray ray, float4 pos, const RandomSampler vsRandSampler)
 {
+	
+	// I'm leaving this option here to test stratified asmpling performance.
+	// Supposedly this can increase cache coherency.
+#ifdef STRATIFIED
+	RandomSampler randSampler = vsRandSampler;
+#else
 	uint seed = jenkins_hash(uint3(pos.xy,SampleIndex));
 	RandomSampler randSampler = RandomSampler::New( seed );
+#endif
 
 	float3 accumColour = 0.0;
 	float3 colourMask = 1.0;
@@ -154,11 +169,22 @@ float3 castRay(Ray ray, float4 pos)
 		newRay.dir = dir;
 		
 		float t;
-		Surface surf = trace(newRay,0,INFINITY);
+		Surface surf = trace(newRay, INFINITY);
 		if (surf.matIdx == -1) {
-			if (renderSky != 0) {
-				accumColour += colourMask * getSkyColour(newRay);
+			// Hit nothing...
+			switch (renderSky) {
+				case 1:
+					accumColour += colourMask * getEnvMapColour(newRay) * 1.0;
+					break;
+				
+				case 2:
+					accumColour += colourMask * getSkyColour(newRay);
+					break;
+				
+				default:
+					break;
 			}
+			
 			break;
 		}
 
@@ -185,9 +211,12 @@ float3 castRay(Ray ray, float4 pos)
 		count /= lightBufferStride;
 
 		if( count > 0 ){
+			// Randomly pick one of our lights
 			float r = randSampler.SampleFloat();
 			int j = floor(r*count);
 			Light light = fetchLightData(j);
+			
+			// Roughly approximate total light intensity
 			light.intensity *= count;
 			
 			PrimitiveLightModel lm;
@@ -200,7 +229,7 @@ float3 castRay(Ray ray, float4 pos)
 
 			BSDFSample lsamp = matModel.Evaluate( mat, surf, -dir, lightDir );
 			if( lsamp.type != NULL_BSDF_TYPE ){
-				accumColour += colourMask * clamp(lsamp.value,0,4)
+				accumColour += colourMask * clamp(lsamp.value, 0, 4)
 							* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity)
 			                        * attenuation);
 			}

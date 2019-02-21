@@ -60,4 +60,28 @@
    </PACK>
    <PACK Name="addonpack" Version="38.1.0">
    </PACK>
+   <NODE systemname="Change (Animation Spectral)" filename="%VVVV%\lib\nodes\modules\Animation\Change (Animation Spectral).v4p" nodename="Change (Animation Spectral)" componentmode="Hidden" id="5">
+   <BOUNDS type="Node" left="3690" top="3885" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="OnChange" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="PointLight" dstnodeid="5" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="6">
+   <BOUNDS type="Box" left="3675" top="4560" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3675" top="4560" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="OnChange">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="5" srcpinname="OnChange" dstnodeid="6" dstpinname="Y Input Value">
+   </LINK>
    </PATCH>

@@ -25,6 +25,7 @@ StructuredBuffer<float> materialBuffer;
 StructuredBuffer<float> lightBuffer;
 Texture3D sdfTexture;
 Texture2DArray textures;
+Texture2D envMap;
 
 Primitive fetchPrimitiveData(const uint index)
 {
@@ -51,9 +52,9 @@ Material fetchMaterialData(const uint index)
 	
 	mat.ior = materialBuffer[b + 1];
 	mat.roughness = materialBuffer[b + 2];
-	mat.intensity = materialBuffer[b + 3];
-	mat.colour = float4(materialBuffer[b + 4], materialBuffer[b + 5],
-		materialBuffer[b + 6], materialBuffer[b + 7]);
+	mat.colour = float4(materialBuffer[b + 3], materialBuffer[b + 4],
+		materialBuffer[b + 5], materialBuffer[b + 6]);
+	mat.intensity = materialBuffer[b + 7];
 	mat.texIdx = materialBuffer[b + 8];
 	mat.uvScale = float2(materialBuffer[b + 9], materialBuffer[b + 10]);
 	

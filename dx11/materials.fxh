@@ -13,8 +13,8 @@ struct Material
 	uint type;
 	float ior;
 	float roughness;
-	float intensity;
 	float4 colour;
+	float intensity;
 	int texIdx;
 	float2 uvScale;
 };
@@ -99,7 +99,7 @@ class MetallicMaterial : AbstractBSDF {
 		float f2 = (f.x + f.y + f.z)/3.0;
 		res.value *= f;
 		res.pdf *= f2;
-		res.pdf += (1.0-f2)*max(0,dot(surf.nor, Wi))*INV_PI;
+		res.pdf += (1.0 - f2) * max(0, dot(surf.nor, Wi)) * INV_PI;
 
 		return res;
 	}

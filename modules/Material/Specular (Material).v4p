@@ -1,9 +1,9 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta35.2.dtd" >
-   <PATCH nodename="C:\Users\dotprodukt\Documents\GitHub\vvvvery_physical\modules\Material\Specular (Material).v4p" systemname="Specular (Material)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Material\Specular (Material).v4p" scrollx="600" scrolly="1200">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
+   <PATCH nodename="D:\dev\vvvvery_physical\modules\Material\Specular (Material).v4p" systemname="Specular (Material)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Material\Specular (Material).v4p" scrollx="600" scrolly="1200">
    <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="2880" top="3270" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input Count" slicecount="1" values="4">
+   <PIN pinname="Input Count" slicecount="1" values="7">
    </PIN>
    <PIN pinname="Input 2" visible="1">
    </PIN>
@@ -23,6 +23,18 @@
    </PIN>
    <PIN pinname="Input 4 Bin Size" slicecount="1" values="4">
    </PIN>
+   <PIN pinname="Input 5 Bin Size" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 6 Bin Size" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 7 Bin Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Input 5" visible="1">
+   </PIN>
+   <PIN pinname="Input 6" visible="1">
+   </PIN>
+   <PIN pinname="Input 7" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="1" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="3195" top="2415" width="795" height="240">
@@ -38,7 +50,7 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="IOR">
    </PIN>
    </NODE>
-   <NODE systemname="NULL (Enumerations)" nodename="NULL (Enumerations)" componentmode="Hidden" id="3">
+   <NODE systemname="NULL (Enumerations Legacy)" nodename="NULL (Enumerations)" componentmode="Hidden" id="3">
    <BOUNDS type="Node" left="2565" top="2415" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Enum" slicecount="1" values="Materials">
@@ -69,7 +81,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4650" top="2445" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0.01">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0.2">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -136,11 +148,11 @@
    <LINKPOINT x="5475" y="2398">
    </LINKPOINT>
    </LINK>
-   <BOUNDS type="Window" left="5595" top="7065" width="8085" height="4860">
+   <BOUNDS type="Window" left="2865" top="4530" width="15945" height="4860">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
-   <PACK Name="addonpack" Version="35.0.0">
+   <PACK Name="addonpack" Version="38.1.0">
    </PACK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="2895" top="3930" width="915" height="1710">
@@ -158,4 +170,98 @@
    </NODE>
    <LINK srcnodeid="0" srcpinname="Output" dstnodeid="9" dstpinname="Y Input Value">
    </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="10">
+   <BOUNDS type="Box" left="9315" top="2025" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="9315" top="2025" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Intensity">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="10" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Input 5" linkstyle="VHV">
+   <LINKPOINT x="9315" y="2753">
+   </LINKPOINT>
+   <LINKPOINT x="4200" y="2753">
+   </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="11">
+   <BOUNDS type="Box" left="10815" top="2055" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="10815" top="2055" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Texture Index|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Input 6" linkstyle="VHV">
+   <LINKPOINT x="10815" y="2768">
+   </LINKPOINT>
+   <LINKPOINT x="4515" y="2768">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Vector (2d Join)" nodename="Vector (2d Join)" componentmode="Hidden" id="12">
+   <BOUNDS type="Node" left="13395" top="2610" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="XY" visible="1">
+   </PIN>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="12" srcpinname="XY" dstnodeid="0" dstpinname="Input 7" linkstyle="VHV">
+   <LINKPOINT x="13570" y="3128">
+   </LINKPOINT>
+   <LINKPOINT x="4655" y="2993">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Vector (2d Split)" nodename="Vector (2d Split)" componentmode="Hidden" id="13">
+   <BOUNDS type="Node" left="13410" top="2145" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   <PIN pinname="XY" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="13" srcpinname="X" dstnodeid="12" dstpinname="X">
+   </LINK>
+   <LINK srcnodeid="13" srcpinname="Y" dstnodeid="12" dstpinname="Y">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="14">
+   <BOUNDS type="Box" left="13410" top="1620" width="795" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="13410" top="1620" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="1,1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|UV Scale|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="14" srcpinname="Y Output Value" dstnodeid="13" dstpinname="XY">
+   </LINK>
+   <PACK Name="dx11" Version="1.3.1.1">
+   </PACK>
+   <PACK Name="VVVV.Packs.Image" Version="0.2.0">
+   </PACK>
    </PATCH>

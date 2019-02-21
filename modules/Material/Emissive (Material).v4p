@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\modules\Material\Emissive (Material).v4p" scrollx="0" scrolly="240" systemname="Emissive (Material)" filename="C:\Users\dotprodukt\Documents\GitHub\vvvvery_physical\modules\Material\Emissive (Material).v4p">
+   <PATCH nodename="D:\dev\vvvvery_physical\modules\Material\Emissive (Material).v4p" scrollx="0" scrolly="0" systemname="Emissive (Material)" filename="C:\Users\dotprodukt\Documents\GitHub\vvvvery_physical\modules\Material\Emissive (Material).v4p">
    <BOUNDS type="Window" left="7425" top="8610" width="9000" height="6000">
    </BOUNDS>
    <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="1">
@@ -23,9 +23,9 @@
    </PIN>
    <PIN pinname="Input 3 Bin Size" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Input 4 Bin Size" slicecount="1" values="1">
+   <PIN pinname="Input 4 Bin Size" slicecount="1" values="4">
    </PIN>
-   <PIN pinname="Input 5 Bin Size" slicecount="1" values="4">
+   <PIN pinname="Input 5 Bin Size" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Input 5" visible="1">
    </PIN>
@@ -91,7 +91,7 @@
    </PIN>
    <PIN pinname="Minimum" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Y Input Value" slicecount="1" values="2.5">
+   <PIN pinname="Y Input Value" slicecount="1" values="1.73">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
@@ -150,24 +150,12 @@
    </PACK>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
-   <LINK srcnodeid="4" srcpinname=" RGBA" dstnodeid="1" dstpinname="Input 5" linkstyle="VHV">
-   <LINKPOINT x="2755" y="2228">
-   </LINKPOINT>
-   <LINKPOINT x="2810" y="2213">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="6" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Input 4" linkstyle="VHV">
-   <LINKPOINT x="1200" y="1838">
-   </LINKPOINT>
-   <LINKPOINT x="2265" y="1838">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="12">
    <BOUNDS type="Box" left="6300" top="555" width="795" height="240">
    </BOUNDS>
    <BOUNDS type="Node" left="6300" top="555" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -228,4 +216,18 @@
    </LINK>
    <LINK srcnodeid="14" srcpinname="XY" dstnodeid="1" dstpinname="Input 7">
    </LINK>
+   <LINK srcnodeid="6" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Input 5" linkstyle="VHV">
+   <LINKPOINT x="1215" y="1838">
+   </LINKPOINT>
+   <LINKPOINT x="2550" y="1838">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="4" srcpinname=" RGBA" dstnodeid="1" dstpinname="Input 4" linkstyle="VHV">
+   <LINKPOINT x="2955" y="2220">
+   </LINKPOINT>
+   <LINKPOINT x="2265" y="2220">
+   </LINKPOINT>
+   </LINK>
+   <PACK Name="VVVV.Packs.Image" Version="0.2.0">
+   </PACK>
    </PATCH>

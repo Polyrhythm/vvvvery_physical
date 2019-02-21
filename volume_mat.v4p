@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\volume_mat.v4p" systemname="volume_mat" filename="D:\dev\vvvvery_physical\volume_mat.v4p" scrollx="525" scrolly="705">
+   <PATCH nodename="D:\dev\vvvvery_physical\volume_mat.v4p" systemname="volume_mat" filename="D:\dev\vvvvery_physical\volume_mat.v4p" scrollx="0" scrolly="255">
    <NODE systemname="DynamicBuffer (DX11.Buffer Value)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer Value)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="1515" top="3930" width="100" height="100">
    </BOUNDS>
@@ -10,22 +10,24 @@
    <PIN pinname="Data" visible="1" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <NODE systemname="Diffuse (Material)" filename="modules\Material\Diffuse (Material).v4p" nodename="Diffuse (Material)" componentmode="Hidden" id="1">
+   <NODE systemname="Diffuse (Material)" filename="modules\Material\Diffuse (Material).v4p" nodename="Diffuse (Material)" componentmode="InAWindow" id="1">
    <BOUNDS type="Node" left="1500" top="2220" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Material" visible="1">
    </PIN>
-   <PIN pinname="Colour" visible="1">
+   <PIN pinname="Colour" visible="1" slicecount="1" values="|0.24613,0.84899,0.00000,1.00000|">
    </PIN>
    <PIN pinname="Intensity" slicecount="1" values="1">
    </PIN>
    <BOUNDS type="Window" left="14325" top="5955" width="11730" height="6900">
    </BOUNDS>
+   <PIN pinname="Texture Index" slicecount="1" values="0">
+   </PIN>
    </NODE>
    <NODE systemname="Cons (Spreads)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Cons (Spreads)" componentmode="Hidden" id="2">
-   <BOUNDS type="Node" left="1605" top="3000" width="100" height="100">
+   <BOUNDS type="Node" left="1605" top="3210" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="1605" top="3000" width="3000" height="3000">
+   <BOUNDS type="Box" left="1605" top="3210" width="3000" height="3000">
    </BOUNDS>
    <PIN pinname="Input 1" visible="1">
    </PIN>
@@ -33,35 +35,29 @@
    </PIN>
    <PIN pinname="Input 2" visible="1">
    </PIN>
+   <PIN pinname="Input Count" slicecount="1" values="5">
+   </PIN>
+   <PIN pinname="Input 3" visible="1">
+   </PIN>
+   <PIN pinname="Input 4" visible="1" slicecount="11" values="0,1.3294,0.77,0.18,0.18,0.18,1,1,-1,1,1">
+   </PIN>
+   <PIN pinname="Input 5" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="Emissive (Material)" filename="modules\Material\Emissive (Material).v4p" nodename="Emissive (Material)" componentmode="Hidden" id="3">
    <BOUNDS type="Node" left="2595" top="2235" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Material" visible="1">
    </PIN>
-   <PIN pinname="Intensity" slicecount="1" values="2.5">
+   <PIN pinname="Intensity" slicecount="1" values="10">
    </PIN>
    <BOUNDS type="Window" left="7425" top="8610" width="9000" height="6000">
    </BOUNDS>
-   <PIN pinname="Texture Index" slicecount="1" values="1">
+   <PIN pinname="Texture Index" slicecount="1" values="-1">
    </PIN>
-   <PIN pinname="UV Scale" visible="1">
-   </PIN>
-   </NODE>
-   <NODE systemname="RGB (Color Join)" nodename="RGB (Color Join)" componentmode="Hidden" id="4">
-   <BOUNDS type="Node" left="2340" top="1500" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Red" slicecount="1" values="0.8">
-   </PIN>
-   <PIN pinname="Green" slicecount="1" values="0.8">
-   </PIN>
-   <PIN pinname="Blue" slicecount="1" values="0.8">
-   </PIN>
-   <PIN pinname="Output" visible="1">
+   <PIN pinname="UV Scale" visible="1" slicecount="2" values="1,1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="4" srcpinname="Output" dstnodeid="1" dstpinname="Colour">
-   </LINK>
    <LINK srcnodeid="2" srcpinname="Output" dstnodeid="0" dstpinname="Data">
    </LINK>
    <NODE id="5" systemname="IOBox (Node)" componentmode="InABox" nodename="IOBox (Node)">
@@ -78,28 +74,122 @@
    </LINK>
    <LINK srcnodeid="3" srcpinname="Material" dstnodeid="2" dstpinname="Input 2">
    </LINK>
-   <BOUNDS type="Window" left="7470" top="6660" width="4185" height="5520">
+   <BOUNDS type="Window" left="3315" top="6300" width="10815" height="5520">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
    <PACK Name="addonpack" Version="38.1.0">
    </PACK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="6">
-   <BOUNDS type="Box" left="3465" top="1455" width="795" height="480">
+   <NODE systemname="Change (Animation Spectral)" filename="%VVVV%\lib\nodes\modules\Animation\Change (Animation Spectral).v4p" nodename="Change (Animation Spectral)" componentmode="Hidden" id="6">
+   <BOUNDS type="Node" left="2805" top="3915" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Node" left="3465" top="1455" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="1,1">
+   <PIN pinname="Input" visible="1">
    </PIN>
+   <PIN pinname="OnChange" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="2" srcpinname="Output" dstnodeid="6" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="7">
+   <BOUNDS type="Box" left="2865" top="4755" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2865" top="4755" width="0" height="0">
+   </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
-   <PIN pinname="Vector Size" slicecount="1" values="2">
-   </PIN>
-   <PIN pinname="Rows" slicecount="1" values="2">
+   <PIN pinname="Descriptive Name" slicecount="1" values="OnChange">
    </PIN>
    </NODE>
-   <LINK srcnodeid="6" srcpinname="Y Output Value" dstnodeid="3" dstpinname="UV Scale">
+   <LINK srcnodeid="6" srcpinname="OnChange" dstnodeid="7" dstpinname="Y Input Value">
+   </LINK>
+   <PACK Name="VVVV.Packs.Image" Version="0.2.0">
+   </PACK>
+   <NODE systemname="Specular (Material)" filename="modules\Material\Specular (Material).v4p" nodename="Specular (Material)" componentmode="Hidden" id="8">
+   <BOUNDS type="Node" left="3900" top="2295" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Material" visible="1">
+   </PIN>
+   <PIN pinname="roughness" slicecount="1" values="0.2">
+   </PIN>
+   <PIN pinname="Colour" visible="1">
+   </PIN>
+   <BOUNDS type="Window" left="3345" top="10320" width="15945" height="4860">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="8" srcpinname="Material" dstnodeid="2" dstpinname="Input 3">
+   </LINK>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="9">
+   <BOUNDS type="Node" left="3915" top="1185" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3915" top="1185" width="2250" height="480">
+   </BOUNDS>
+   <PIN pinname="Color Output" visible="1">
+   </PIN>
+   <PIN pinname="Color Input" slicecount="1" values="|1.00000,1.00000,1.00000,1.00000|">
+   </PIN>
+   </NODE>
+   <NODE systemname="SRGBToLinear (Color)" filename="modules\Color\SRGBToLinear (Color).v4p" nodename="SRGBToLinear (Color)" componentmode="Hidden" id="10">
+   <BOUNDS type="Node" left="3930" top="1890" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Color" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="9" srcpinname="Color Output" dstnodeid="10" dstpinname="Color">
+   </LINK>
+   <LINK srcnodeid="10" srcpinname="Color" dstnodeid="8" dstpinname="Colour">
+   </LINK>
+   <NODE systemname="Diffuse (Material)" filename="modules\Material\Diffuse (Material).v4p" nodename="Diffuse (Material)" componentmode="Hidden" id="13">
+   <BOUNDS type="Node" left="6360" top="2505" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Material" visible="1">
+   </PIN>
+   <PIN pinname="Colour" visible="1" slicecount="1" values="|0.97410,0.03631,0.00000,1.00000|">
+   </PIN>
+   <PIN pinname="Intensity" slicecount="1" values="1">
+   </PIN>
+   <BOUNDS type="Window" left="14325" top="5955" width="11730" height="6900">
+   </BOUNDS>
+   <PIN pinname="Texture Index" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="roughness" slicecount="1" values="0.9">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="13" srcpinname="Material" dstnodeid="2" dstpinname="Input 4">
+   </LINK>
+   <NODE systemname="SRGBToLinear (Color)" filename="modules\Color\SRGBToLinear (Color).v4p" nodename="SRGBToLinear (Color)" componentmode="Hidden" id="14">
+   <BOUNDS type="Node" left="6825" top="1845" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Color" visible="1" slicecount="1" values="|0.03765,0.50105,0.00000,1.00000|">
+   </PIN>
+   </NODE>
+   <NODE systemname="Diffuse (Material)" filename="modules\Material\Diffuse (Material).v4p" nodename="Diffuse (Material)" componentmode="InAWindow" id="16">
+   <BOUNDS type="Node" left="8160" top="2565" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Material" visible="1">
+   </PIN>
+   <PIN pinname="Texture Index" slicecount="1" values="1">
+   </PIN>
+   <BOUNDS type="Window" left="14685" top="5040" width="11730" height="6900">
+   </BOUNDS>
+   <PIN pinname="roughness" slicecount="1" values="0.9">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="16" srcpinname="Material" dstnodeid="2" dstpinname="Input 5">
+   </LINK>
+   <NODE systemname="IOBox (Color)" nodename="IOBox (Color)" componentmode="InABox" id="17">
+   <BOUNDS type="Node" left="6825" top="1155" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6825" top="1155" width="2250" height="480">
+   </BOUNDS>
+   <PIN pinname="Color Output" visible="1">
+   </PIN>
+   <PIN pinname="Color Input" slicecount="1" values="|0.50273,0.50273,0.50273,1.00000|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="17" srcpinname="Color Output" dstnodeid="14" dstpinname="Color">
+   </LINK>
+   <LINK srcnodeid="14" srcpinname="Color" dstnodeid="13" dstpinname="Colour">
    </LINK>
    </PATCH>
