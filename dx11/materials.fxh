@@ -1,8 +1,8 @@
 #ifndef __MATERIALS_FXH__
 #define __MATERIALS_FXH__
 
-static const uint DIFFUSE = 0;
-static const uint SPECULAR = 1;
+static const uint DIELECTRIC = 0;
+static const uint METALLIC = 1;
 static const uint EMISSIVE = 2;
 
 #include "shading/fresnel.fxh"
@@ -136,7 +136,7 @@ class PrimitiveMaterialModel : IMaterialModel {
 		if( !brdfOnly ) Wi = (float3)0;
 
 		switch( mat.type ){
-			case DIFFUSE:{
+			case DIELECTRIC:{
 				DiffuseDielectricMaterial brdf = DiffuseDielectricMaterial::New( mat.colour.rgb, mat.roughness );
 				//LambertianBRDF brdf = LambertianBRDF::New( mat.colour.rgb );
 				if( brdfOnly ){
@@ -145,7 +145,7 @@ class PrimitiveMaterialModel : IMaterialModel {
 					bsamp = brdf.Sample( surf, samp, Wr, Wi );
 				}
 				break;}
-			case SPECULAR:{
+			case METALLIC:{
 				MetallicMaterial brdf = MetallicMaterial::New( mat.colour.rgb, mat.roughness );
 				if( brdfOnly ){
 					bsamp = brdf.Evaluate( surf, Wr, Wi );

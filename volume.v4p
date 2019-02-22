@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="0" scrolly="6225">
-   <BOUNDS type="Window" left="2085" top="3030" width="13005" height="9285">
+   <PATCH nodename="D:\dev\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="0" scrolly="5085">
+   <BOUNDS type="Window" left="1770" top="4125" width="13005" height="9285">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
@@ -55,7 +55,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="3450" top="12810" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="14775" top="2160" width="13065" height="13065">
+   <BOUNDS type="Window" left="14775" top="2160" width="13275" height="13065">
    </BOUNDS>
    <PIN pinname="Layers" visible="1">
    </PIN>
@@ -184,12 +184,12 @@
    <LINKPOINT x="4205" y="8825">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="volume_mat" filename="volume_mat.v4p" nodename="volume_mat.v4p" componentmode="Hidden" id="56">
+   <NODE systemname="volume_mat" filename="volume_mat.v4p" nodename="volume_mat.v4p" componentmode="InAWindow" id="56">
    <BOUNDS type="Node" left="5286" top="5967" width="0" height="0">
    </BOUNDS>
    <BOUNDS type="Box" left="3189" top="3202" width="4195" height="5530">
    </BOUNDS>
-   <BOUNDS type="Window" left="3315" top="6300" width="10815" height="5520">
+   <BOUNDS type="Window" left="2340" top="9735" width="10815" height="5520">
    </BOUNDS>
    <PIN pinname="OnChange" visible="1">
    </PIN>
@@ -289,7 +289,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="6870" top="4440" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -399,7 +399,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="15375" top="5205" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="3" visible="1" values="diffuse,specular,emissive">
+   <PIN pinname="Input String" slicecount="3" visible="1" values="dielectric,metallic,emissive">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -435,7 +435,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="60" top="3163" width="6615" height="5625">
    </BOUNDS>
-   <BOUNDS type="Window" left="1980" top="4350" width="10650" height="6735">
+   <BOUNDS type="Window" left="2205" top="7590" width="10650" height="6735">
    </BOUNDS>
    <PIN pinname="OnChange" visible="1">
    </PIN>
