@@ -1,12 +1,12 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\ryan\Development\creative\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="3315" scrolly="5295">
-   <BOUNDS type="Window" left="705" top="3825" width="13875" height="9765">
+   <PATCH nodename="D:\dev\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="1500" scrolly="6165">
+   <BOUNDS type="Window" left="1170" top="3570" width="13875" height="9765">
    </BOUNDS>
-   <PACK Name="dx11" Version="1.3.1">
+   <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
    <PACK Name="addonpack" Version="38.1.0">
    </PACK>
-   <NODE systemname="Raytracer (Renderer)" filename="modules\Renderer\Raytracer (Renderer).v4p" nodename="Raytracer (Renderer)" componentmode="Hidden" id="0" stayontop="0">
+   <NODE systemname="Raytracer (Renderer)" filename="modules\Renderer\Raytracer (Renderer).v4p" nodename="Raytracer (Renderer)" componentmode="InAWindow" id="0" stayontop="0">
    <BOUNDS type="Node" left="3690" top="10995" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer Out" visible="1">
@@ -37,7 +37,7 @@
    </PIN>
    <PIN pinname="renderSky" visible="1">
    </PIN>
-   <BOUNDS type="Window" left="2954" top="3031" width="11949" height="10885">
+   <BOUNDS type="Window" left="7725" top="2865" width="11940" height="10875">
    </BOUNDS>
    <PIN pinname="envMap" visible="1" slicecount="1" values="||">
    </PIN>
@@ -57,13 +57,15 @@
    </PIN>
    <PIN pinname="Enable" visible="1">
    </PIN>
+   <PIN pinname="Average Luminance" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="10">
-   <BOUNDS type="Node" left="5172" top="11494" width="100" height="100">
+   <BOUNDS type="Node" left="5652" top="12304" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="5172" top="11494" width="6000" height="4500">
+   <BOUNDS type="Box" left="5652" top="12304" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="15295" top="406" width="11417" height="13552">
+   <BOUNDS type="Window" left="16365" top="585" width="11415" height="13545">
    </BOUNDS>
    <PIN pinname="Layers" visible="1">
    </PIN>
@@ -72,12 +74,10 @@
    <PIN pinname="Show Cursor" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="0" srcpinname="Layer Out" dstnodeid="10" dstpinname="Layers">
-   </LINK>
    <LINK srcnodeid="10" srcpinname="Actual BackBuffer SizeXY" dstnodeid="0" dstpinname="Texture SizeXY" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="4363" y="13778">
+   <LINKPOINT x="4683" y="14318">
    </LINKPOINT>
-   <LINKPOINT x="1199" y="9536">
+   <LINKPOINT x="1359" y="9806">
    </LINKPOINT>
    </LINK>
    <NODE systemname="AspectRatio (Transform)" nodename="AspectRatio (Transform)" componentmode="Hidden" id="13">
@@ -103,9 +103,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="10" srcpinname="Actual BackBuffer SizeXY" dstnodeid="14" dstpinname="XY" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="4833" y="13103">
+   <LINKPOINT x="5153" y="13643">
    </LINKPOINT>
-   <LINKPOINT x="1059" y="10046">
+   <LINKPOINT x="1219" y="10316">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="14" srcpinname="X" dstnodeid="13" dstpinname="Aspect Width">
@@ -565,7 +565,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="7073" top="7101" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -577,7 +577,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Enable sample debug|">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="86" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Enable sample debug" linkstyle="Bezier" hiddenwhenlocked="1">
@@ -597,7 +597,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="10212" top="7107" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-1.22">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-0.9">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -617,7 +617,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="8771" top="7077" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -629,7 +629,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Enable Pixel Analysis|">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="115" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Enable Pixel Analysis" linkstyle="Bezier" hiddenwhenlocked="1">
@@ -679,7 +679,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="6300" top="7140" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -691,7 +691,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Enable">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="118" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Enable" linkstyle="Bezier" hiddenwhenlocked="1">
@@ -760,6 +760,52 @@
    <LINKPOINT x="9492" y="9909">
    </LINKPOINT>
    <LINKPOINT x="9184" y="9909">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="PerfMeter (DX11.Debug)" filename="%VVVV%\packs\dx11\nodes\modules\PerfMeter (DX11.Debug).v4p" nodename="PerfMeter (DX11.Debug)" componentmode="Hidden" id="132">
+   <BOUNDS type="Node" left="6510" top="11130" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Group (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Group (DX11.Layer)" componentmode="Hidden" id="136">
+   <BOUNDS type="Node" left="5790" top="11775" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5790" top="11775" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Layer 1" visible="1">
+   </PIN>
+   <PIN pinname="Layer 2" visible="1">
+   </PIN>
+   <PIN pinname="Layer Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Layer Out" dstnodeid="136" dstpinname="Layer 1">
+   </LINK>
+   <LINK srcnodeid="132" srcpinname="Layer" dstnodeid="136" dstpinname="Layer 2">
+   </LINK>
+   <LINK srcnodeid="136" srcpinname="Layer Out" dstnodeid="10" dstpinname="Layers">
+   </LINK>
+   <NODE systemname="ProcessEnvMap (Value)" filename="vl\VVVV.Value.ProcessEnvMap.vl" nodename="ProcessEnvMap (Value)" componentmode="Hidden" id="153">
+   <BOUNDS type="Node" left="11475" top="11595" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="155">
+   <BOUNDS type="Box" left="6195" top="14400" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6195" top="14400" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Average Luminance|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Average Luminance" dstnodeid="155" dstpinname="Y Input Value" linkstyle="Bezier">
+   <LINKPOINT x="5700" y="12833">
+   </LINKPOINT>
+   <LINKPOINT x="6210" y="12833">
    </LINKPOINT>
    </LINK>
    </PATCH>

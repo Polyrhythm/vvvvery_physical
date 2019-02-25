@@ -1,0 +1,54 @@
+Texture2D texture2d : PREVIOUS;
+
+SamplerState linearSampler : IMMUTABLE
+{
+    Filter = MIN_MAG_MIP_LINEAR;
+    AddressU = Clamp;
+    AddressV = Clamp;
+};
+
+bool useTonemapping = true;
+
+struct psInput
+{
+	float4 p : SV_Position;
+	float2 uv : TEXCOORD0;
+};
+
+// Reinhard Tonemapper
+float4 tonemap_reinhard(in float3 colour)
+{
+   colour *= 16;
+   colour = colour / (1 + colour);
+   return float4(colour,1);
+}
+
+// Filmic tonemapper
+float3 tonemap_filmic(in float3 color)
+{
+    color = max(0, color - 0.004f);
+    color = (color * (6.2f * color + 0.5f)) / (color * (6.2f * color + 1.7f)+ 0.06f);
+
+    return color;
+}
+
+float4 PS(psInput input) : SV_Target
+{
+	float4 c = texture2d.Sample(linearSampler,input.uv);
+	if (useTonemapping) {
+		c.rgb = tonemap_filmic(c.rgb);
+	}
+	
+	return c;
+}
+
+technique10 Process
+{
+	pass P0
+	{
+		SetPixelShader(CompileShader(ps_4_0,PS()));
+	}
+}
+
+
+

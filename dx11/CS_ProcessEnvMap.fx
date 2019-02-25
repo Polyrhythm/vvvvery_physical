@@ -1,19 +1,12 @@
-RWStructuredBuffer<float4> pdf2d : BACKBUFFER;
+RWStructuredBuffer<float4> data : BACKBUFFER;
 
 Texture2D<float4> envMap <string uiname="Environment Map";>;
 
-#define ThreadsX 32
-#define ThreadsY 32
+#define ThreadsX 1
+#define ThreadsY 1
 
 #define Width 4096
 #define Height 2048
-
-SamplerState linearSampler : IMMUTABLE
-{
-	Filter = MIN_MAG_MIP_LINEAR;
-	AddressU = Clamp;
-	AddressV = Clamp;
-};
 
 float getLuminance(const float3 colour)
 {
@@ -23,8 +16,36 @@ float getLuminance(const float3 colour)
 [numthreads(ThreadsX, ThreadsY, 1)]
 void CS(uint3 tid : SV_DispatchThreadID, uint3 groupTid : SV_GroupThreadID)
 {
-	float4 col = envMap.Load(uint3(tid.xy, 0));
-	pdf2d[groupTid.y * ThreadsY + tid.x] = col;
+	float colWeightSum = 0.0f;
+	
+	for (uint y = 0; y < Height; y++)
+	{
+		float rowWeightSum = 0.0f;
+		
+		for (uint x = 0; x < Width; x++)
+		{
+			const float4 col = envMap.Load(uint3(x, y, 0));
+			const float weight = getLuminance(col.rgb);
+			
+			rowWeightSum += weight;
+			
+			data[y * Width + x] = float4(weight, rowWeightSum, 0.0, 0.0);
+		}
+		
+		for (uint x2 = 0; x2 < Width; x2++)
+		{
+			data[y * Width + x2].xy /= rowWeightSum;
+		}
+		
+		colWeightSum += rowWeightSum;
+		
+		data[y * Width].zw = float2(rowWeightSum, colWeightSum);
+	}
+	
+	for (uint j = 0; j < Height; j++)
+	{
+		data[j * Height].zw /= colWeightSum;
+	}
 }
 
 technique11 Process

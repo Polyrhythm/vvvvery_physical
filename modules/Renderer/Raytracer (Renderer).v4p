@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\ryan\Development\creative\vvvvery_physical\modules\Renderer\Raytracer (Renderer).v4p" scrollx="0" scrolly="3283" systemname="Raytracer (Renderer)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Renderers\Raytracer (Renderer).v4p">
+   <PATCH nodename="D:\dev\vvvvery_physical\modules\Renderer\Raytracer (Renderer).v4p" scrollx="0" scrolly="5445" systemname="Raytracer (Renderer)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Renderers\Raytracer (Renderer).v4p">
    <NODE systemname="Quad (DX11.Geometry)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Geometry)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="2745" top="3135" width="100" height="100">
    </BOUNDS>
@@ -98,6 +98,8 @@
    <PIN pinname="Technique" visible="-1" pintype="Input" slicecount="1" values="Levels">
    </PIN>
    <PIN pinname="Enabled" visible="-1" pintype="Input" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Default SizeXY" slicecount="2" values="255.97,255.97">
    </PIN>
    </NODE>
    <NODE systemname="Renderer (DX11 TempTarget)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 TempTarget)" componentmode="Hidden" id="7">
@@ -293,9 +295,9 @@
    </PIN>
    <PIN pinname="TranslateX" slicecount="1" values="-1.49">
    </PIN>
-   <PIN pinname="CenterX" slicecount="1" values="476.08" visible="1">
+   <PIN pinname="CenterX" slicecount="1" visible="1" values="476.08">
    </PIN>
-   <PIN pinname="CenterY" slicecount="1" values="0" visible="1">
+   <PIN pinname="CenterY" slicecount="1" visible="1" values="0">
    </PIN>
    </NODE>
    <NODE systemname="Add (String)" nodename="Add (String)" componentmode="Hidden" id="22">
@@ -520,7 +522,7 @@
    </LINK>
    <LINK srcnodeid="34" srcpinname="Y Output Value" dstnodeid="21" dstpinname="ScaleY">
    </LINK>
-   <BOUNDS type="Window" left="2954" top="3031" width="11949" height="10885">
+   <BOUNDS type="Window" left="7725" top="2865" width="11940" height="10875">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
@@ -712,7 +714,7 @@
    <LINKPOINT x="4470" y="2130">
    </LINKPOINT>
    </LINK>
-   <PACK Name="dx11" Version="1.3.1">
+   <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="45">
    <BOUNDS type="Box" left="915" top="435" width="795" height="240">
@@ -879,7 +881,7 @@
    <LINK srcnodeid="61" srcpinname="Output" dstnodeid="65" dstpinname="DataXY">
    </LINK>
    <NODE systemname="ReadPixel (DX11.Effect)" filename="dx11\ReadPixel.fx" nodename="ReadPixel (DX11.Effect)" componentmode="Hidden" id="67">
-   <BOUNDS type="Node" left="217" top="10227" width="100" height="100">
+   <BOUNDS type="Node" left="232" top="10767" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Geometry" visible="1">
    </PIN>
@@ -903,15 +905,15 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="68" srcpinname="Geometry Out" dstnodeid="67" dstpinname="Geometry" linkstyle="Bezier">
-   <LINKPOINT x="147" y="9996">
+   <LINKPOINT x="152" y="10176">
    </LINKPOINT>
-   <LINKPOINT x="518" y="9996">
+   <LINKPOINT x="528" y="10356">
    </LINKPOINT>
    </LINK>
    <NODE systemname="ReadBack (DX11.Buffer 4d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="ReadBack (DX11.Buffer 4d)" componentmode="Hidden" id="69">
-   <BOUNDS type="Node" left="245" top="11193" width="100" height="100">
+   <BOUNDS type="Node" left="260" top="11733" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="245" top="11193" width="1400" height="1400">
+   <BOUNDS type="Box" left="260" top="11733" width="1400" height="1400">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -919,9 +921,9 @@
    </PIN>
    </NODE>
    <NODE systemname="Renderer (DX11 Buffer)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 Buffer)" componentmode="Hidden" id="70">
-   <BOUNDS type="Node" left="273" top="10661" width="100" height="100">
+   <BOUNDS type="Node" left="288" top="11201" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="273" top="10661" width="1400" height="1400">
+   <BOUNDS type="Box" left="288" top="11201" width="1400" height="1400">
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
    </PIN>
@@ -935,9 +937,9 @@
    <LINK srcnodeid="65" srcpinname="Buffer" dstnodeid="67" dstpinname="UV Buffer">
    </LINK>
    <LINK srcnodeid="6" srcpinname="Texture Out" dstnodeid="67" dstpinname="Texture" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="3283" y="9023">
+   <LINKPOINT x="3288" y="9203">
    </LINKPOINT>
-   <LINKPOINT x="882" y="9023">
+   <LINKPOINT x="892" y="9383">
    </LINKPOINT>
    </LINK>
    <NODE systemname="Vector (4d Split)" nodename="Vector (4d Split)" componentmode="Hidden" id="73">
@@ -973,9 +975,9 @@
    <LINK srcnodeid="73" srcpinname="Z" dstnodeid="74" dstpinname="Z">
    </LINK>
    <LINK srcnodeid="69" srcpinname="OutputXYZW" dstnodeid="73" dstpinname="XYZW" linkstyle="Bezier">
-   <LINKPOINT x="280" y="12380">
+   <LINKPOINT x="290" y="12740">
    </LINKPOINT>
-   <LINKPOINT x="973" y="12380">
+   <LINKPOINT x="978" y="12560">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="75">
@@ -1031,8 +1033,14 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Enable Pixel Analysis|">
    </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="78" srcpinname="Y Output Value" dstnodeid="67" dstpinname="Enabled">
+   <LINK srcnodeid="78" srcpinname="Y Output Value" dstnodeid="67" dstpinname="Enabled" linkstyle="Bezier">
+   <LINKPOINT x="1455" y="10455">
+   </LINKPOINT>
+   <LINKPOINT x="1395" y="10455">
+   </LINKPOINT>
    </LINK>
    <LINK srcnodeid="29" srcpinname="Y Output Value" dstnodeid="7" dstpinname="Texture SizeXY" linkstyle="Bezier" hiddenwhenlocked="1">
    <LINKPOINT x="6538" y="3318">
@@ -1071,5 +1079,71 @@
    <LINK srcnodeid="83" srcpinname="X" dstnodeid="21" dstpinname="CenterX">
    </LINK>
    <LINK srcnodeid="83" srcpinname="Y" dstnodeid="21" dstpinname="CenterY">
+   </LINK>
+   <NODE id="84" componentmode="Hidden" systemname="GetLuminance" filename="..\Texture\GetLuminance.v4p" nodename="..\Texture\GetLuminance.v4p" hiddenwhenlocked="0" managers="">
+   <PIN pinname="Texture" visible="1" slicecount="1" pintype="Input" values="||">
+   </PIN>
+   <BOUNDS type="Node" left="1800" top="11355" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="dimensionsXY" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1" pintype="Output">
+   </PIN>
+   <PIN pinname="Enabled" visible="1">
+   </PIN>
+   <BOUNDS type="Window" left="11685" top="4320" width="9000" height="11250">
+   </BOUNDS>
+   <BOUNDS type="Box" left="0" top="0" width="4800" height="3600">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Tag" pintype="Configuration" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Evaluate" pintype="Input" visible="-1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Window Handle" pintype="Output" visible="-1">
+   </PIN>
+   <PIN pinname="Patch" pintype="Output" visible="-1">
+   </PIN>
+   <PIN pinname="ID" pintype="Output" visible="-1">
+   </PIN>
+   <PIN pinname="Average Luminance" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="6" srcpinname="Texture Out" dstnodeid="84" dstpinname="Texture" hiddenwhenlocked="1" linkstyle="Bezier">
+   <LINKPOINT x="3285" y="9600">
+   </LINKPOINT>
+   <LINKPOINT x="1830" y="9600">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="29" srcpinname="Y Output Value" dstnodeid="84" dstpinname="dimensionsXY" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="6525" y="6038">
+   </LINKPOINT>
+   <LINKPOINT x="2415" y="6038">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="78" srcpinname="Y Output Value" dstnodeid="84" dstpinname="Enabled" linkstyle="Bezier">
+   <LINKPOINT x="1585" y="10863">
+   </LINKPOINT>
+   <LINKPOINT x="2900" y="10633">
+   </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="86">
+   <BOUNDS type="Box" left="4230" top="14775" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4230" top="14775" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Average Luminance|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="84" srcpinname="Average Luminance" dstnodeid="86" dstpinname="Y Input Value" linkstyle="Bezier">
+   <LINKPOINT x="1860" y="13193">
+   </LINKPOINT>
+   <LINKPOINT x="4230" y="13193">
+   </LINKPOINT>
    </LINK>
    </PATCH>
