@@ -1,12 +1,12 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="1500" scrolly="6165">
-   <BOUNDS type="Window" left="1170" top="3570" width="13875" height="9765">
+   <PATCH nodename="D:\dev\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="1470" scrolly="6450">
+   <BOUNDS type="Window" left="1920" top="6495" width="13875" height="9765">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
    <PACK Name="addonpack" Version="38.1.0">
    </PACK>
-   <NODE systemname="Raytracer (Renderer)" filename="modules\Renderer\Raytracer (Renderer).v4p" nodename="Raytracer (Renderer)" componentmode="InAWindow" id="0" stayontop="0">
+   <NODE systemname="Raytracer (Renderer)" filename="modules\Renderer\Raytracer (Renderer).v4p" nodename="Raytracer (Renderer)" componentmode="Hidden" id="0" stayontop="0">
    <BOUNDS type="Node" left="3690" top="10995" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer Out" visible="1">
@@ -593,11 +593,11 @@
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="114">
-   <BOUNDS type="Box" left="10212" top="7107" width="795" height="240">
+   <BOUNDS type="Box" left="10437" top="7092" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="10212" top="7107" width="0" height="0">
+   <BOUNDS type="Node" left="10437" top="7092" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-0.9">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-0.37">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -607,9 +607,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="114" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Brightness" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="9778" y="9128">
+   <LINKPOINT x="9928" y="9118">
    </LINKPOINT>
-   <LINKPOINT x="5744" y="9184">
+   <LINKPOINT x="5819" y="9179">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="115">
