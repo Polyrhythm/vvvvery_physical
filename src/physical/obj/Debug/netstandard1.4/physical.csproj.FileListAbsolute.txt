@@ -1,0 +1,11 @@
+D:\dev\vvvvery_physical\src\physical\bin\Debug\netstandard1.4\dll\x86\OpenCvSharpExtern.dll
+D:\dev\vvvvery_physical\src\physical\bin\Debug\netstandard1.4\dll\x86\opencv_ffmpeg400.dll
+D:\dev\vvvvery_physical\src\physical\bin\Debug\netstandard1.4\dll\x64\OpenCvSharpExtern.dll
+D:\dev\vvvvery_physical\src\physical\bin\Debug\netstandard1.4\dll\x64\opencv_ffmpeg400_64.dll
+D:\dev\vvvvery_physical\src\physical\bin\Debug\netstandard1.4\physical.deps.json
+D:\dev\vvvvery_physical\src\physical\bin\Debug\netstandard1.4\physical.dll
+D:\dev\vvvvery_physical\src\physical\bin\Debug\netstandard1.4\physical.pdb
+D:\dev\vvvvery_physical\src\physical\obj\Debug\netstandard1.4\physical.csproj.CoreCompileInputs.cache
+D:\dev\vvvvery_physical\src\physical\obj\Debug\netstandard1.4\physical.AssemblyInfo.cs
+D:\dev\vvvvery_physical\src\physical\obj\Debug\netstandard1.4\physical.dll
+D:\dev\vvvvery_physical\src\physical\obj\Debug\netstandard1.4\physical.pdb
