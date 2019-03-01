@@ -6,23 +6,22 @@ namespace physical
 {
     public enum PrimitiveType
     {
-        Sphere,
-        Box,
-        SDF
+        Sphere = 0,
+        Box = 1,
+        SDF = 2
     }
 
     public enum MaterialType
     {
-        Dielectric,
-        Metallic,
-        Emissive
+        Dielectric = 0,
+        Metallic = 1,
+        Emissive = 2
     }
 
     public enum LightType
     {
-        Point,
-        Spot,
-        Directional
+        Point = 0,
+        Spot = 1
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -32,14 +31,39 @@ namespace physical
         public uint MaterialIndex;
         public Vector4 Params;
         public Matrix InverseTransform;
+        public BoundingBox AABB;
 
         public Primitive(PrimitiveType primitiveType, uint materialIndex, Vector4 primitiveParams,
-            Matrix inverseTransform)
+            Matrix transform)
         {
             PrimitiveType = primitiveType;
             MaterialIndex = materialIndex;
             Params = primitiveParams;
-            InverseTransform = inverseTransform;
+            InverseTransform = transform;
+
+            // All transforms going into the raytracer need to be inverse for ray calculation
+            InverseTransform.Invert();
+
+            Vector3 pos = transform.TranslationVector;
+
+            switch (primitiveType)
+            {
+                case PrimitiveType.Sphere:
+                    float radius = primitiveParams.X;
+                    BoundingSphere bSphere = new BoundingSphere(pos, radius);
+                    AABB = BoundingBox.FromSphere(bSphere);
+                    break;
+
+                case PrimitiveType.Box:
+                    Vector3 size = new Vector3(primitiveParams.X, primitiveParams.Y, primitiveParams.Z);
+                    AABB = new BoundingBox(pos - size / 2.0f, pos + size / 2.0f);
+                    break;
+
+                default:
+                    Vector3 defaultSize = new Vector3(1.0f, 1.0f, 1.0f);
+                    AABB = new BoundingBox(pos - defaultSize / 2.0f, pos + defaultSize / 2.0f);
+                    break;
+            }
         }
     }
 

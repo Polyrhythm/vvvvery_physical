@@ -18,11 +18,9 @@ D:\dev\vvvvery_physical\physical\bin\x64\Debug\OpenCvSharp.Extensions.pdb
 D:\dev\vvvvery_physical\physical\bin\x64\Debug\OpenCvSharp.Extensions.xml
 D:\dev\vvvvery_physical\physical\bin\x64\Debug\OpenCvSharp.UserInterface.pdb
 D:\dev\vvvvery_physical\physical\bin\x64\Debug\OpenCvSharp.UserInterface.xml
-D:\dev\vvvvery_physical\physical\bin\x64\Debug\SharpDX.pdb
-D:\dev\vvvvery_physical\physical\bin\x64\Debug\SharpDX.Mathematics.pdb
 D:\dev\vvvvery_physical\physical\bin\x64\Debug\SharpDX.Mathematics.xml
 D:\dev\vvvvery_physical\physical\obj\x64\Debug\physical.csproj.CoreCompileInputs.cache
 D:\dev\vvvvery_physical\physical\obj\x64\Debug\physical.csproj.CopyComplete
 D:\dev\vvvvery_physical\physical\obj\x64\Debug\physical.dll
 D:\dev\vvvvery_physical\physical\obj\x64\Debug\physical.pdb
-D:\dev\vvvvery_physical\physical\obj\x64\Debug\physical.csprojAssemblyReference.cache
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\SharpDX.xml
