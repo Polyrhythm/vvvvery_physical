@@ -81,7 +81,7 @@ namespace physical
             _primitives.Skip(leftIdx).Take(rightIdx - leftIdx + 1)
                 .OrderBy(x =>
                 {
-                    Vector3 mid = Vector3.Lerp(x.Primitive.AABB.Minimum, x.Primitive.AABB.Maximum, 0.5f);
+                    Vector3 mid = Vector3.Lerp(x.Primitive.MinBounds, x.Primitive.MaxBounds, 0.5f);
 
                     if (maxDir.X > 0)
                     {
@@ -111,7 +111,7 @@ namespace physical
                 for (; midIdx < rightIdx - 1; midIdx++)
                 {
                     BVHPrimitive sortedPrim = _primitives[midIdx];
-                    Vector3 mid = Vector3.Lerp(sortedPrim.Primitive.AABB.Minimum, sortedPrim.Primitive.AABB.Maximum, 0.5f) * maxDir;
+                    Vector3 mid = Vector3.Lerp(sortedPrim.Primitive.MinBounds, sortedPrim.Primitive.MaxBounds, 0.5f) * maxDir;
                     Vector3 nodeMid = midpoint * maxDir;
 
                     // Check to see if the current intersectable is to the right of the current BVH node midpoint
@@ -126,23 +126,29 @@ namespace physical
             BoundingBox rightBox;
             if (rightIdx - leftIdx == 1)
             {
-                leftBox = _primitives[leftIdx].Primitive.AABB;
-                rightBox = _primitives[rightIdx].Primitive.AABB;
+                Primitive leftPrim = _primitives[leftIdx].Primitive;
+                Primitive rightPrim = _primitives[rightIdx].Primitive;
+                leftBox = new BoundingBox(leftPrim.MinBounds, leftPrim.MaxBounds);
+                rightBox = new BoundingBox(rightPrim.MinBounds, rightPrim.MaxBounds);
             }
             else
             {
                 // Create left side bounding box
-                leftBox = _primitives[leftIdx].Primitive.AABB;
+                Primitive leftPrim = _primitives[leftIdx].Primitive;
+                leftBox = new BoundingBox(leftPrim.MinBounds, leftPrim.MaxBounds);
                 for (int x = leftIdx + 1; x <= midIdx; x++)
                 {
-                    leftBox = BoundingBox.Merge(leftBox, _primitives[x].Primitive.AABB);
+                    leftPrim = _primitives[x].Primitive;
+                    leftBox = BoundingBox.Merge(leftBox, new BoundingBox(leftPrim.MinBounds, leftPrim.MaxBounds));
                 }
 
                 // Create right side bounding box
-                rightBox = _primitives[midIdx + 1].Primitive.AABB;
+                Primitive rightPrim = _primitives[midIdx + 1].Primitive;
+                rightBox = new BoundingBox(rightPrim.MinBounds, rightPrim.MaxBounds);
                 for (int y = midIdx + 2; y <= rightIdx; y++)
                 {
-                    rightBox = BoundingBox.Merge(rightBox, _primitives[y].Primitive.AABB);
+                    rightPrim = _primitives[y].Primitive;
+                    rightBox = BoundingBox.Merge(rightBox, new BoundingBox(rightPrim.MinBounds, rightPrim.MaxBounds));
                 }
 
             }
@@ -200,7 +206,7 @@ namespace physical
 
             foreach (var primitive in primitives)
             {
-                WorldAABB = BoundingBox.Merge(WorldAABB, primitive.AABB);
+                WorldAABB = BoundingBox.Merge(WorldAABB, new BoundingBox(primitive.MinBounds, primitive.MaxBounds));
             }
 
             return WorldAABB;

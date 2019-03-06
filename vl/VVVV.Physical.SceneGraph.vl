@@ -492,12 +492,103 @@
               </p:TypeAnnotation>
             </Pad>
             <ControlPoint Id="NgvqsDysqA5Og2Q1FhSR6I" Bounds="725,831" />
+            <Node Bounds="-84,297,125,22" Id="M82apNMJVs7NelvcPcQO4Q">
+              <p:NodeReference LastCategoryFullName="physical.Material" LastSymbolSource="physical.dll">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="AssemblyCategory" Name="Material" />
+                <Choice Kind="OperationCallFlag" Name="Create" />
+              </p:NodeReference>
+              <Pin Id="VR7OlHR99gNLk836kVCqCW" Name="Material Type" Kind="InputPin" DefaultValue="Metallic">
+                <p:TypeAnnotation LastCategoryFullName="physical" LastSymbolSource="physical.dll">
+                  <Choice Kind="TypeFlag" Name="MaterialType" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="N5efhh4aCDuLc6DR08s36e" Name="Ior" Kind="InputPin" DefaultValue="1.37">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Float32" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="HFb5s93UbAmMp4dyAevjSs" Name="Roughness" Kind="InputPin" DefaultValue="0.8">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Float32" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="U28eCcbgzoeNUQiuhMI27r" Name="Colour" Kind="InputPin" />
+              <Pin Id="J4GjAisB6J2L4WUq65O9aO" Name="Intensity" Kind="InputPin" DefaultValue="0.56">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Float32" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="AgatxBhBf2VNmKMoKtOVHo" Name="Texture Index" Kind="InputPin" DefaultValue="19">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Integer32" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="Vs1dvMWPVNpP0CGe4AKrob" Name="Uv Scale" Kind="InputPin" DefaultValue="10, 10">
+                <p:TypeAnnotation LastCategoryFullName="2D" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Vector2" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="Rrov62JI4PxQQ45MxgOpUJ" Name="Output" Kind="StateOutputPin" />
+            </Node>
+            <Node Bounds="21,454,102,22" Id="UQOzLRD8eWQPHPuFswm0Ik">
+              <p:NodeReference LastCategoryFullName="Collections.Spread" LastSymbolSource="VL.CoreLib.VVVV.vl">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <Choice Kind="OperationCallFlag" Name="ToBufferDescription" />
+                <CategoryReference Kind="RecordType" Name="Spread" NeedsToBeDirectParent="true" />
+              </p:NodeReference>
+              <Pin Id="OqmHZBJPYJDPuWRbWZWuz6" Name="Data" Kind="InputPin" />
+              <Pin Id="Utwj2ZtpJDGO8oyj2T4DCB" Name="Set" Kind="InputPin" />
+              <Pin Id="BN3iseuaM9EMGiLo1ySbuS" Name="Output" Kind="OutputPin" />
+            </Node>
+            <Node Bounds="-32,394" Id="PqiZoRbZkOELpqWlK2c4Gp">
+              <p:NodeReference LastCategoryFullName="Collections.Spread" LastSymbolSource="VL.Collections.vl">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <Choice Kind="OperationCallFlag" Name="FromValue" />
+                <CategoryReference Kind="RecordType" Name="Spread" NeedsToBeDirectParent="true" />
+              </p:NodeReference>
+              <Pin Id="NcL0HJeFLkOLKO8fAeU1MD" Name="Input" Kind="StateInputPin" />
+              <Pin Id="K8JpFMI9FqpPT5zDZ58hgU" Name="Result" Kind="OutputPin" />
+            </Node>
+            <Pad Id="OIlswWK7NQnOoDvfUhL4Uu" Comment="Colour" Bounds="-26,250,124,20" ShowValueBox="true" isIOBox="true" Value="0.95, 0, 0.171, 1">
+              <p:TypeAnnotation LastCategoryFullName="Color" LastSymbolSource="CoreLibBasics.vl">
+                <Choice Kind="TypeFlag" Name="RGBA" />
+              </p:TypeAnnotation>
+            </Pad>
+            <Pad Id="E7VyaYVFPm2PQTEi7l2wYn" Comment="Material Type" Bounds="-160,236,67,18" ShowValueBox="true" isIOBox="true" Value="Dielectric">
+              <p:TypeAnnotation LastCategoryFullName="physical" LastSymbolSource="physical.dll">
+                <Choice Kind="TypeFlag" Name="MaterialType" />
+              </p:TypeAnnotation>
+            </Pad>
+            <Node Bounds="-133,511" Id="Ut7SdBDbiNhLuXLS7g8rhG">
+              <p:NodeReference LastCategoryFullName="Collections.Array" LastSymbolSource="VL.CoreLib.VVVV.vl">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <Choice Kind="OperationCallFlag" Name="ToBufferDescription (Stride)" />
+                <CategoryReference Kind="ClassType" Name="Array" NeedsToBeDirectParent="true" />
+              </p:NodeReference>
+              <Pin Id="E9vTHKJE41gPNN4JEt7bTN" Name="Data" Kind="InputPin" />
+              <Pin Id="KEAniqgXZgfOWmiYaBI9KT" Name="Stride In Bytes" Kind="InputPin" DefaultValue="44">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Integer32" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="HwuJQUUqm0pPIo7CrZnSa9" Name="Set" Kind="InputPin" />
+              <Pin Id="G47MCWGolDaOlceW8068Ya" Name="Output" Kind="OutputPin" />
+            </Node>
+            <Node Bounds="-122,448" Id="AAhIbYdqRTtNLoTyFIDU0a">
+              <p:NodeReference LastCategoryFullName="Collections.Mutable.MutableArray" LastSymbolSource="VL.Collections.vl">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <Choice Kind="OperationCallFlag" Name="ToArray" />
+                <CategoryReference Kind="ArrayType" Name="MutableArray" NeedsToBeDirectParent="true" />
+              </p:NodeReference>
+              <Pin Id="DiO0OMaKCUdQMfkjf8bAtf" Name="Input" Kind="StateInputPin" />
+              <Pin Id="ShPoh4Y4VpGLr5A9klxYHn" Name="Result" Kind="OutputPin" />
+            </Node>
           </Canvas>
           <ProcessDefinition Id="FHNLl8GWgcVOJzRkkPI83E">
             <Fragment Id="MRFnVwHDf0WOO7H3jKbCxI" Patch="ESJZDDS0I02LAWDOx9RJVV" Enabled="true" />
             <Fragment Id="PulIQZQ5YLtPp6C2yvbTNE" Patch="OkqGvJfa3PDOppp4PFQghD" Enabled="true" />
           </ProcessDefinition>
-          <Link Id="ISNYyrChjKeNXlMA3p4OAM" Ids="C1ie9rlPAvzLdWNsjJ0coZ,Mi3h1EXhaJRPPAZ2EO6DNQ" />
           <Link Id="TevRCaKoEAQPPSpVpYe3zL" Ids="Mi3h1EXhaJRPPAZ2EO6DNQ,JSJTOfiTuQGOChQaCFiYI3" IsHidden="true" />
           <Link Id="Tve4CTJHSrcQTau1yojuyT" Ids="GcldJ86BWlgPtfVqye2lJ3,M3aKRMACzHUPwkYxp9fOFs" IsHidden="true" />
           <Link Id="PMYp3YLSgJ6L4HckDWG2tX" Ids="UVvzpNyQ5nsLVIfU2CoB5T,FoWyWzzVjdSMKnAVAbpY1P" />
@@ -549,6 +640,13 @@
           <Link Id="MuUYCInVMshQd0ZG2hqsZL" Ids="PpczGJoUcQ2NSTW1uzbH72,NgvqsDysqA5Og2Q1FhSR6I" />
           <Link Id="CIiKN1MaHv8NxVBe4AvFUV" Ids="NgvqsDysqA5Og2Q1FhSR6I,KedJqf3uI6AQFtCnFf2Jds" IsHidden="true" />
           <Link Id="AnBe6EIZNibMd0rKpGzu70" Ids="KryuNP5RgJ0Nfe8N5CLRcP,GcldJ86BWlgPtfVqye2lJ3" />
+          <Link Id="ByBe68XSbELNYs7Tkf7sO3" Ids="Rrov62JI4PxQQ45MxgOpUJ,NcL0HJeFLkOLKO8fAeU1MD" />
+          <Link Id="SKSvA7j1fddODDXh3s6ExF" Ids="K8JpFMI9FqpPT5zDZ58hgU,OqmHZBJPYJDPuWRbWZWuz6" />
+          <Link Id="E17RuZf4df9MlRLQJxNMk9" Ids="OIlswWK7NQnOoDvfUhL4Uu,U28eCcbgzoeNUQiuhMI27r" />
+          <Link Id="KMMHV7pk7ndPGu9Vb5DR8u" Ids="E7VyaYVFPm2PQTEi7l2wYn,VR7OlHR99gNLk836kVCqCW" />
+          <Link Id="FW2QkeBsWEAO7EnC6ycrm3" Ids="Rrov62JI4PxQQ45MxgOpUJ,DiO0OMaKCUdQMfkjf8bAtf" />
+          <Link Id="A39LbzSySCMO9puWKmex7K" Ids="ShPoh4Y4VpGLr5A9klxYHn,E9vTHKJE41gPNN4JEt7bTN" />
+          <Link Id="V71z81lBCEYMdpURISEJtb" Ids="G47MCWGolDaOlceW8068Ya,Mi3h1EXhaJRPPAZ2EO6DNQ" />
         </Patch>
       </Node>
     </Canvas>

@@ -4,21 +4,21 @@ using SharpDX;
 
 namespace physical
 {
-    public enum PrimitiveType
+    public enum PrimitiveType : int
     {
         Sphere = 0,
         Box = 1,
         SDF = 2
     }
 
-    public enum MaterialType
+    public enum MaterialType : int
     {
         Dielectric = 0,
         Metallic = 1,
         Emissive = 2
     }
 
-    public enum LightType
+    public enum LightType : int
     {
         Point = 0,
         Spot = 1
@@ -27,16 +27,17 @@ namespace physical
     [StructLayout(LayoutKind.Sequential)]
     public struct Primitive
     {
-        public PrimitiveType PrimitiveType;
-        public uint MaterialIndex;
+        public float PrimitiveType;
+        public float MaterialIndex;
         public Vector4 Params;
         public Matrix InverseTransform;
-        public BoundingBox AABB;
+        public Vector3 MinBounds;
+        public Vector3 MaxBounds;
 
-        public Primitive(PrimitiveType primitiveType, uint materialIndex, Vector4 primitiveParams,
+        public Primitive(PrimitiveType primitiveType, float materialIndex, Vector4 primitiveParams,
             Matrix transform)
         {
-            PrimitiveType = primitiveType;
+            PrimitiveType = (float)primitiveType;
             MaterialIndex = materialIndex;
             Params = primitiveParams;
             InverseTransform = transform;
@@ -46,22 +47,29 @@ namespace physical
 
             Vector3 pos = transform.TranslationVector;
 
+            BoundingBox aabb;
             switch (primitiveType)
             {
-                case PrimitiveType.Sphere:
+                case physical.PrimitiveType.Sphere:
                     float radius = primitiveParams.X;
                     BoundingSphere bSphere = new BoundingSphere(pos, radius);
-                    AABB = BoundingBox.FromSphere(bSphere);
+                    aabb = BoundingBox.FromSphere(bSphere);
+                    MinBounds = aabb.Minimum;
+                    MaxBounds = aabb.Maximum;
                     break;
 
-                case PrimitiveType.Box:
+                case physical.PrimitiveType.Box:
                     Vector3 size = new Vector3(primitiveParams.X, primitiveParams.Y, primitiveParams.Z);
-                    AABB = new BoundingBox(pos - size / 2.0f, pos + size / 2.0f);
+                    aabb = new BoundingBox(pos - size / 2.0f, pos + size / 2.0f);
+                    MinBounds = aabb.Minimum;
+                    MaxBounds = aabb.Maximum;
                     break;
 
                 default:
                     Vector3 defaultSize = new Vector3(1.0f, 1.0f, 1.0f);
-                    AABB = new BoundingBox(pos - defaultSize / 2.0f, pos + defaultSize / 2.0f);
+                    aabb = new BoundingBox(pos - defaultSize / 2.0f, pos + defaultSize / 2.0f);
+                    MinBounds = aabb.Minimum;
+                    MaxBounds = aabb.Maximum;
                     break;
             }
         }
@@ -70,18 +78,18 @@ namespace physical
     [StructLayout(LayoutKind.Sequential)]
     public struct Material
     {
-        public MaterialType MaterialType;
+        public float MaterialType;
         public float IOR;
         public float Roughness;
         public Color4 Colour;
         public float Intensity;
-        public int TextureIndex;
+        public float TextureIndex;
         public Vector2 UVScale;
 
         public Material(MaterialType materialType, float ior, float roughness, Color4 colour, float intensity,
             int textureIndex, Vector2 uvScale)
         {
-            MaterialType = materialType;
+            MaterialType = (float)materialType;
             IOR = ior;
             Roughness = roughness;
             Colour = colour;
@@ -94,7 +102,7 @@ namespace physical
     [StructLayout(LayoutKind.Sequential)]
     public struct Light
     {
-        public LightType LightType;
+        public float LightType;
         public Color4 Colour;
         public float Intensity;
         public Matrix Transform;
@@ -102,7 +110,7 @@ namespace physical
 
         public Light(LightType lightType, Color4 colour, float intensity, Matrix transform, Vector4 lightParams)
         {
-            LightType = lightType;
+            LightType = (float)lightType;
             Colour = colour;
             Intensity = intensity;
             Transform = transform;
