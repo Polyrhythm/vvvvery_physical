@@ -168,6 +168,7 @@ float3 castRay(Ray ray, float4 pos, const RandomSampler vsRandSampler)
 		newRay.origin = origin;
 		newRay.dir = dir;
 		
+		
 		float t;
 		Surface surf = trace(newRay, INFINITY);
 		if (surf.matIdx == -1) {

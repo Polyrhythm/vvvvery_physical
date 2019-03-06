@@ -24,3 +24,4 @@ D:\dev\vvvvery_physical\physical\obj\x64\Debug\physical.csproj.CopyComplete
 D:\dev\vvvvery_physical\physical\obj\x64\Debug\physical.dll
 D:\dev\vvvvery_physical\physical\obj\x64\Debug\physical.pdb
 D:\dev\vvvvery_physical\physical\bin\x64\Debug\SharpDX.xml
+D:\dev\vvvvery_physical\physical\obj\x64\Debug\physical.csprojAssemblyReference.cache
