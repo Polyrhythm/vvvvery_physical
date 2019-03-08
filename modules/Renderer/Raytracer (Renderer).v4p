@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\modules\Renderer\Raytracer (Renderer).v4p" scrollx="1275" scrolly="0" systemname="Raytracer (Renderer)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Renderers\Raytracer (Renderer).v4p">
+   <PATCH nodename="D:\dev\vvvvery_physical\modules\Renderer\Raytracer (Renderer).v4p" scrollx="540" scrolly="1905" systemname="Raytracer (Renderer)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Renderers\Raytracer (Renderer).v4p">
    <NODE systemname="Quad (DX11.Geometry)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Geometry)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="2745" top="3135" width="100" height="100">
    </BOUNDS>
@@ -1306,28 +1306,6 @@
    <LINKPOINT x="4485" y="2640">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="Glow (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Filter\Glow.tfx" nodename="Glow (DX11.TextureFX)" componentmode="Hidden" id="105">
-   <BOUNDS type="Node" left="3360" top="8430" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Texture In" visible="1">
-   </PIN>
-   <PIN pinname="Texture Out" visible="1">
-   </PIN>
-   <PIN pinname="Amount" slicecount="1" values="1.01">
-   </PIN>
-   <PIN pinname="Shape" slicecount="1" values="-0.48">
-   </PIN>
-   <PIN pinname="Highlight Boost" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Exposure" slicecount="1" values="0.63">
-   </PIN>
-   <PIN pinname="Saturation" slicecount="1" values="2.04">
-   </PIN>
-   <PIN pinname="Auto Exposure Factor" slicecount="1" values="0">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="6" srcpinname="Texture Out" dstnodeid="105" dstpinname="Texture In">
-   </LINK>
-   <LINK srcnodeid="105" srcpinname="Texture Out" dstnodeid="57" dstpinname="Texture In">
+   <LINK srcnodeid="6" srcpinname="Texture Out" dstnodeid="57" dstpinname="Texture In">
    </LINK>
    </PATCH>
