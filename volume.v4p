@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="0" scrolly="4005">
+   <PATCH nodename="D:\dev\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="0" scrolly="5310">
    <BOUNDS type="Window" left="1185" top="3630" width="13875" height="9765">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
@@ -69,7 +69,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="5652" top="12304" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="16365" top="585" width="11415" height="13545">
+   <BOUNDS type="Window" left="15855" top="585" width="11925" height="13545">
    </BOUNDS>
    <PIN pinname="Layers" visible="1">
    </PIN>
@@ -541,7 +541,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="7073" top="7101" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -553,7 +553,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Enable sample debug|">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="86" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Enable sample debug" linkstyle="Bezier" hiddenwhenlocked="1">
@@ -573,7 +573,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="10437" top="7092" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-1.08">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-1.05">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -729,9 +729,11 @@
    </LINKPOINT>
    </LINK>
    <NODE systemname="PerfMeter (DX11.Debug)" filename="%VVVV%\packs\dx11\nodes\modules\PerfMeter (DX11.Debug).v4p" nodename="PerfMeter (DX11.Debug)" componentmode="Hidden" id="132">
-   <BOUNDS type="Node" left="6510" top="11130" width="100" height="100">
+   <BOUNDS type="Node" left="6915" top="11445" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Enabled" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="Group (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Group (DX11.Layer)" componentmode="Hidden" id="136">
@@ -867,5 +869,23 @@
    <LINK srcnodeid="163" srcpinname="SizeXY" dstnodeid="126" dstpinname="Input 3">
    </LINK>
    <LINK srcnodeid="163" srcpinname="Texture Out" dstnodeid="67" dstpinname="Input 3">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="165">
+   <BOUNDS type="Box" left="8010" top="10890" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8010" top="10890" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="165" srcpinname="Y Output Value" dstnodeid="132" dstpinname="Enabled">
    </LINK>
    </PATCH>
