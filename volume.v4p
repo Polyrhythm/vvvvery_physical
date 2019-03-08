@@ -1,12 +1,12 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="90" scrolly="4500">
+   <PATCH nodename="D:\dev\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="0" scrolly="4005">
    <BOUNDS type="Window" left="1185" top="3630" width="13875" height="9765">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
    <PACK Name="addonpack" Version="38.1.0">
    </PACK>
-   <NODE systemname="Raytracer (Renderer)" filename="modules\Renderer\Raytracer (Renderer).v4p" nodename="Raytracer (Renderer)" componentmode="InAWindow" id="0" stayontop="0">
+   <NODE systemname="Raytracer (Renderer)" filename="modules\Renderer\Raytracer (Renderer).v4p" nodename="Raytracer (Renderer)" componentmode="Hidden" id="0" stayontop="0">
    <BOUNDS type="Node" left="3690" top="10995" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer Out" visible="1">
@@ -37,7 +37,7 @@
    </PIN>
    <PIN pinname="renderSky" visible="1">
    </PIN>
-   <BOUNDS type="Window" left="1980" top="1530" width="11940" height="10875">
+   <BOUNDS type="Window" left="8130" top="1050" width="11940" height="10875">
    </BOUNDS>
    <PIN pinname="envMap" visible="1" slicecount="1" values="||">
    </PIN>
@@ -826,10 +826,6 @@
    <LINKPOINT x="6945" y="10268">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="Constant (DX11.Effect)" filename="%VVVV%\packs\dx11\nodes\dx11\Constant.fx" nodename="Constant (DX11.Effect)" componentmode="Hidden" id="160">
-   <BOUNDS type="Node" left="390" top="7110" width="100" height="100">
-   </BOUNDS>
-   </NODE>
    <NODE nodename="IOBox (Color)" componentmode="InABox" id="161">
    <BOUNDS type="Box" left="525" top="9090" width="2250" height="480">
    </BOUNDS>
