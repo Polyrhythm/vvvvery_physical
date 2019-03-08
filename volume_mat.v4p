@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\volume_mat.v4p" systemname="volume_mat" filename="D:\dev\vvvvery_physical\volume_mat.v4p" scrollx="1380" scrolly="15">
+   <PATCH nodename="D:\dev\vvvvery_physical\volume_mat.v4p" systemname="volume_mat" filename="D:\dev\vvvvery_physical\volume_mat.v4p" scrollx="840" scrolly="45">
    <NODE systemname="DynamicBuffer (DX11.Buffer Value)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer Value)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="1845" top="6075" width="100" height="100">
    </BOUNDS>
@@ -23,7 +23,7 @@
    </BOUNDS>
    <PIN pinname="Texture Index" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="roughness" slicecount="1" values="0.7">
+   <PIN pinname="roughness" slicecount="1" values="0.18">
    </PIN>
    <PIN pinname="UV Scale" visible="1">
    </PIN>
@@ -189,7 +189,7 @@
    <LINK srcnodeid="14" srcpinname="Color" dstnodeid="13" dstpinname="Colour">
    </LINK>
    <NODE id="16" componentmode="InAWindow" systemname="Dielectric (Material)" filename="modules\Material\Dielectric (Material).v4p" nodename="Dielectric (Material)" hiddenwhenlocked="0" managers="">
-   <PIN pinname="roughness" slicecount="1" pintype="Input" visible="1" values="0.17">
+   <PIN pinname="roughness" slicecount="1" pintype="Input" visible="1" values="0.81">
    </PIN>
    <PIN pinname="Texture Index" slicecount="1" pintype="Input" visible="1" values="1">
    </PIN>
