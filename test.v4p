@@ -1,19 +1,13 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\ryan\Development\creative\vvvvery_physical\test.v4p" systemname="test" filename="C:\Users\ryan\Development\creative\vvvvery_physical\test.v4p" scrollx="0" scrolly="308">
+   <PATCH nodename="D:\dev\vvvvery_physical\test.v4p" systemname="test" filename="C:\Users\ryan\Development\creative\vvvvery_physical\test.v4p" scrollx="0" scrolly="308">
    <BOUNDS type="Window" left="833" top="3647" width="8995" height="5999">
    </BOUNDS>
-   <PACK Name="dx11" Version="1.3.1">
+   <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
    <PACK Name="VVVV.Packs.Image" Version="0.2.0">
    </PACK>
    <PACK Name="addonpack" Version="38.1.0">
    </PACK>
-   <NODE systemname="TestScene (Physical)" filename="vl\VVVV.Physical.TestScene.vl" nodename="TestScene (Physical)" componentmode="Hidden" id="0">
-   <BOUNDS type="Node" left="3066" top="903" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="buf" visible="1">
-   </PIN>
-   </NODE>
    <NODE systemname="CS_Test_InOutBuffer (DX11.Effect)" filename="dx11\CS_Test_InOutBuffer.fx" nodename="CS_Test_InOutBuffer (DX11.Effect)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="1218" top="2079" width="100" height="100">
    </BOUNDS>
@@ -45,7 +39,7 @@
    </PIN>
    <PIN pinname="Buffers" visible="1">
    </PIN>
-   <PIN pinname="Element Count" slicecount="1" values="36">
+   <PIN pinname="Element Count" slicecount="1" values="13">
    </PIN>
    <PIN pinname="Stride" slicecount="1" values="4">
    </PIN>
@@ -94,6 +88,12 @@
    </NODE>
    <LINK srcnodeid="6" srcpinname="Buffer" dstnodeid="1" dstpinname="InBuffer">
    </LINK>
-   <LINK srcnodeid="0" srcpinname="buf" dstnodeid="6" dstpinname="Buffer Description">
+   <NODE systemname="TestBuffers (Physical)" filename="vl\VVVV.Physical.TestBuffers.vl" nodename="TestBuffers (Physical)" componentmode="Hidden" id="7">
+   <BOUNDS type="Node" left="4590" top="795" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="7" srcpinname="Output" dstnodeid="6" dstpinname="Buffer Description">
    </LINK>
    </PATCH>

@@ -11,10 +11,10 @@ namespace physical
 {
     public static class EnvMap
     {
-        public static void BuildDistributions(OpenCvSharp.Mat envMap, out Mat marginalDistTexture, out Mat conditionalDistTexture, bool enabled = false)
+        public static void BuildDistributions(OpenCvSharp.Mat envMap, out Mat marginalDistImage, out Mat conditionalImage, bool enabled = false)
         {
-            marginalDistTexture = new Mat();
-            conditionalDistTexture = new Mat();
+            marginalDistImage = new Mat();
+            conditionalImage = new Mat();
 
             if (!enabled)
             {
@@ -25,8 +25,8 @@ namespace physical
             int height = envMap.Height;
             int[] sizes = {width, height};
 
-            Point2f[] marginalData = new Point2f[height];
-            Point2f[] conditionalData = new Point2f[width * height];
+            Vector2[] marginalData = new Vector2[height];
+            Vector2[] conditionalData = new Vector2[width * height];
 
             float[] pdf2d = new float[width * height];
             float[] cdf2d = new float[width * height];
@@ -71,7 +71,7 @@ namespace physical
             {
                 float invHeight = (float)i / height;
                 int row = LowerBound(ref cdf1d, 0, height, invHeight);
-                Point2f result = new Point2f(row / (float)height, pdf1d[i]);
+                Vector2 result = new Vector2(row / (float)height, pdf1d[i]);
                 marginalData[i] = result;
             }
 
@@ -81,14 +81,14 @@ namespace physical
                 {
                     float invWidth = (float) x / width;
                     int col = LowerBound(ref cdf2d, y * width, (y + 1) * width, invWidth) - y * width;
-                    Point2f result = new Point2f(col / (float)width, pdf2d[y * width + x]);
+                    Vector2 result = new Vector2(col / (float)width, pdf2d[y * width + x]);
                     conditionalData[y * width + x] = result;
                 }
             }
 
             // set the output vars
-            marginalDistTexture = new Mat(height, 1, MatType.CV_32FC2, marginalData);
-            conditionalDistTexture = new Mat(width, height, MatType.CV_32FC2, conditionalData);
+            marginalDistImage = new Mat(sizes, MatType.CV_32FC2, marginalData);
+            conditionalImage = new Mat(sizes, MatType.CV_32FC2, conditionalData);
         }
 
         private static float getLuminance(Vec3f colour)

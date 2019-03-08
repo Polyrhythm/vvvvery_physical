@@ -1,9 +1,9 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="C:\Users\ryan\Development\creative\vvvvery_physical\volume_geo.v4p" systemname="volume_geo" filename="D:\dev\vvvvery_physical\volume_geo.v4p" scrollx="1410" scrolly="60">
+   <PATCH nodename="D:\dev\vvvvery_physical\volume_geo.v4p" systemname="volume_geo" filename="D:\dev\vvvvery_physical\volume_geo.v4p" scrollx="2205" scrolly="0">
    <NODE systemname="DynamicBuffer (DX11.Buffer Value)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer Value)" componentmode="Hidden" id="0">
-   <BOUNDS type="Node" left="3645" top="4515" width="1080" height="270">
+   <BOUNDS type="Node" left="3690" top="5655" width="1080" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="3645" top="4515" width="3000" height="3000">
+   <BOUNDS type="Box" left="3690" top="5655" width="3000" height="3000">
    </BOUNDS>
    <PIN pinname="Buffer" visible="1">
    </PIN>
@@ -33,9 +33,9 @@
    </PIN>
    </NODE>
    <NODE systemname="Cons (Spreads)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Cons (Spreads)" componentmode="Hidden" id="2">
-   <BOUNDS type="Node" left="3390" top="3480" width="100" height="100">
+   <BOUNDS type="Node" left="3705" top="4665" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="3390" top="3480" width="3000" height="3000">
+   <BOUNDS type="Box" left="3705" top="4665" width="3000" height="3000">
    </BOUNDS>
    <PIN pinname="Input 1" visible="1" slicecount="22" values="2,0,0,0,0,0,0.999999940395355,0,0,0,0,0.999999940395355,0,0,0,0,0.999999940395355,0,0,0,0,0.999999940395355">
    </PIN>
@@ -43,13 +43,17 @@
    </PIN>
    <PIN pinname="Input 2" visible="1">
    </PIN>
-   <PIN pinname="Input Count" slicecount="1" values="5">
+   <PIN pinname="Input Count" slicecount="1" values="7">
    </PIN>
    <PIN pinname="Input 3" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Input 4" visible="1">
    </PIN>
    <PIN pinname="Input 5" visible="1">
+   </PIN>
+   <PIN pinname="Input 6" visible="1">
+   </PIN>
+   <PIN pinname="Input 7" visible="1" slicecount="1" values="0">
    </PIN>
    </NODE>
    <NODE systemname="Box (Primitive)" filename="modules\Primitive\Box (Primitive).v4p" nodename="Box (Primitive)" componentmode="Hidden" id="3">
@@ -63,6 +67,10 @@
    </BOUNDS>
    <PIN pinname="Texture Index" slicecount="1" values="-1">
    </PIN>
+   <PIN pinname="Size Z" slicecount="1" values="20">
+   </PIN>
+   <PIN pinname="Size X" slicecount="1" values="20">
+   </PIN>
    </NODE>
    <NODE systemname="Transform (Transform 3d)" nodename="Transform (Transform 3d)" componentmode="Hidden" id="4">
    <BOUNDS type="Node" left="4695" top="1605" width="100" height="100">
@@ -73,32 +81,32 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="3" srcpinname="Box" dstnodeid="2" dstpinname="Input 2" linkstyle="Bezier">
-   <LINKPOINT x="4055" y="3175">
+   <LINKPOINT x="4160" y="3570">
    </LINKPOINT>
-   <LINKPOINT x="3655" y="3245">
+   <LINKPOINT x="3865" y="4035">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="2" srcpinname="Output" dstnodeid="0" dstpinname="Data" linkstyle="Bezier">
-   <LINKPOINT x="3300" y="4043">
+   <LINKPOINT x="3525" y="5213">
    </LINKPOINT>
-   <LINKPOINT x="3795" y="4193">
+   <LINKPOINT x="3930" y="5348">
    </LINKPOINT>
    </LINK>
    <NODE id="6" systemname="IOBox (Node)" componentmode="InABox" nodename="IOBox (Node)">
    <PIN pinname="Descriptive Name" slicecount="1" values="Buffer">
    </PIN>
-   <BOUNDS type="Box" left="3645" top="5285" width="750" height="240">
+   <BOUNDS type="Box" left="3690" top="6425" width="750" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="3645" top="5285" width="750" height="240">
+   <BOUNDS type="Node" left="3690" top="6425" width="750" height="240">
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="0" srcpinname="Buffer" dstnodeid="6" dstpinname="Input Node">
    </LINK>
    <LINK srcnodeid="4" srcpinname="Transform Out" dstnodeid="3" dstpinname="Transform">
    </LINK>
-   <BOUNDS type="Window" left="1267" top="3934" width="11977" height="7980">
+   <BOUNDS type="Window" left="2040" top="5190" width="11970" height="7980">
    </BOUNDS>
-   <PACK Name="dx11" Version="1.3.1">
+   <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
    <PACK Name="addonpack" Version="38.1.0">
    </PACK>
@@ -125,9 +133,9 @@
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="7" srcpinname="Sphere" dstnodeid="2" dstpinname="Input 1" linkstyle="Bezier">
-   <LINKPOINT x="2180" y="3168">
+   <LINKPOINT x="2285" y="3563">
    </LINKPOINT>
-   <LINKPOINT x="3370" y="3238">
+   <LINKPOINT x="3580" y="4028">
    </LINKPOINT>
    </LINK>
    <NODE systemname="Box (Primitive)" filename="modules\Primitive\Box (Primitive).v4p" nodename="Box (Primitive)" componentmode="Hidden" id="9">
@@ -141,9 +149,9 @@
    </PIN>
    <PIN pinname="Size X" visible="1" slicecount="1" values="0.01">
    </PIN>
-   <PIN pinname="Size Y" visible="1" slicecount="1" values="1">
+   <PIN pinname="Size Y" visible="1" slicecount="1" values="2">
    </PIN>
-   <PIN pinname="Size Z" visible="1" slicecount="1" values="1">
+   <PIN pinname="Size Z" visible="1" slicecount="1" values="2">
    </PIN>
    <BOUNDS type="Window" left="13740" top="3645" width="12180" height="10260">
    </BOUNDS>
@@ -151,9 +159,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="9" srcpinname="Box" dstnodeid="2" dstpinname="Input 3" linkstyle="Bezier">
-   <LINKPOINT x="6575" y="3183">
+   <LINKPOINT x="6680" y="3578">
    </LINKPOINT>
-   <LINKPOINT x="3865" y="3253">
+   <LINKPOINT x="4075" y="4043">
    </LINKPOINT>
    </LINK>
    <NODE systemname="Transform (Transform 3d)" nodename="Transform (Transform 3d)" componentmode="Hidden" id="10">
@@ -163,17 +171,19 @@
    </PIN>
    <PIN pinname="TranslateX" slicecount="1" values="0.81">
    </PIN>
-   <PIN pinname="TranslateY" slicecount="1" values="0">
+   <PIN pinname="TranslateY" slicecount="1" values="1.88">
    </PIN>
    <PIN pinname="Pitch" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Roll" slicecount="1" values="0.08">
+   <PIN pinname="Roll" slicecount="1" values="0.21">
+   </PIN>
+   <PIN pinname="Yaw" slicecount="1" values="-0.01">
    </PIN>
    </NODE>
    <LINK srcnodeid="10" srcpinname="Transform Out" dstnodeid="9" dstpinname="Transform">
    </LINK>
    <NODE systemname="Change (Animation Spectral)" filename="%VVVV%\lib\nodes\modules\Animation\Change (Animation Spectral).v4p" nodename="Change (Animation Spectral)" componentmode="Hidden" id="11">
-   <BOUNDS type="Node" left="5430" top="4470" width="100" height="100">
+   <BOUNDS type="Node" left="5475" top="5610" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -183,9 +193,9 @@
    <LINK srcnodeid="2" srcpinname="Output" dstnodeid="11" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="12">
-   <BOUNDS type="Box" left="5535" top="5670" width="795" height="240">
+   <BOUNDS type="Box" left="5580" top="6810" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="5535" top="5670" width="0" height="0">
+   <BOUNDS type="Node" left="5580" top="6810" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -209,9 +219,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="14" srcpinname="Sphere" dstnodeid="2" dstpinname="Input 4" linkstyle="Bezier">
-   <LINKPOINT x="8575" y="3243">
+   <LINKPOINT x="8680" y="3638">
    </LINKPOINT>
-   <LINKPOINT x="4310" y="3253">
+   <LINKPOINT x="4520" y="4043">
    </LINKPOINT>
    </LINK>
    <NODE systemname="Transform (Transform 3d)" nodename="Transform (Transform 3d)" componentmode="Hidden" id="15">
@@ -261,5 +271,123 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="17" srcpinname="Transform Out" dstnodeid="16" dstpinname="Transform">
+   </LINK>
+   <NODE systemname="SDF (Primitive)" filename="modules\Primitive\SDF (Primitive).v4p" nodename="SDF (Primitive)" componentmode="Hidden" id="18">
+   <BOUNDS type="Node" left="12304" top="2779" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Sphere" visible="1">
+   </PIN>
+   <PIN pinname="Texture Index" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Transform" visible="1">
+   </PIN>
+   <PIN pinname="SDF Index" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Material Index" slicecount="1" values="5">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="18" srcpinname="Sphere" dstnodeid="2" dstpinname="Input 6" linkstyle="Bezier">
+   <LINKPOINT x="12300" y="3840">
+   </LINKPOINT>
+   <LINKPOINT x="4605" y="3840">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Transform (Transform 3d)" nodename="Transform (Transform 3d)" componentmode="Hidden" id="19">
+   <BOUNDS type="Node" left="11922" top="1621" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="TranslateY" slicecount="1" values="-1.06">
+   </PIN>
+   <PIN pinname="TranslateX" slicecount="1" values="-0.18">
+   </PIN>
+   <PIN pinname="ScaleX" visible="1">
+   </PIN>
+   <PIN pinname="ScaleY" visible="1">
+   </PIN>
+   <PIN pinname="ScaleZ" visible="1">
+   </PIN>
+   <PIN pinname="TranslateZ" slicecount="1" values="-0.17">
+   </PIN>
+   <PIN pinname="Yaw" slicecount="1" values="0.16">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="19" srcpinname="Transform Out" dstnodeid="18" dstpinname="Transform" linkstyle="VHV">
+   <LINKPOINT x="11985" y="2318">
+   </LINKPOINT>
+   <LINKPOINT x="12675" y="2318">
+   </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="20">
+   <BOUNDS type="Box" left="12514" top="971" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="12514" top="971" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1.73">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|ScaleX - ScaleY - ScaleZ|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="20" srcpinname="Y Output Value" dstnodeid="19" dstpinname="ScaleX">
+   </LINK>
+   <LINK srcnodeid="20" srcpinname="Y Output Value" dstnodeid="19" dstpinname="ScaleY">
+   </LINK>
+   <LINK srcnodeid="20" srcpinname="Y Output Value" dstnodeid="19" dstpinname="ScaleZ">
+   </LINK>
+   <NODE systemname="Box (Primitive)" filename="modules\Primitive\Box (Primitive).v4p" nodename="Box (Primitive)" componentmode="Hidden" id="28">
+   <BOUNDS type="Node" left="13500" top="2745" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Box" visible="1">
+   </PIN>
+   <PIN pinname="Transform" visible="1">
+   </PIN>
+   <PIN pinname="Texture Index" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Size X" visible="1" slicecount="1" values="0.01">
+   </PIN>
+   <PIN pinname="Size Y" visible="1" slicecount="1" values="2.12">
+   </PIN>
+   <PIN pinname="Size Z" visible="1" slicecount="1" values="3.92">
+   </PIN>
+   <BOUNDS type="Window" left="13740" top="3645" width="12180" height="10260">
+   </BOUNDS>
+   <PIN pinname="Material Index" slicecount="1" values="6">
+   </PIN>
+   </NODE>
+   <NODE systemname="Transform (Transform 3d)" nodename="Transform (Transform 3d)" componentmode="Hidden" id="27">
+   <BOUNDS type="Node" left="14205" top="1620" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="TranslateX" slicecount="1" values="-0.18">
+   </PIN>
+   <PIN pinname="TranslateY" slicecount="1" values="0.23">
+   </PIN>
+   <PIN pinname="Pitch" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Roll" slicecount="1" values="0.09">
+   </PIN>
+   <PIN pinname="Yaw" slicecount="1" values="-0.25">
+   </PIN>
+   <PIN pinname="TranslateZ" slicecount="1" values="1.78">
+   </PIN>
+   <PIN pinname="ScaleZ" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="ScaleY" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="27" srcpinname="Transform Out" dstnodeid="28" dstpinname="Transform">
+   </LINK>
+   <LINK srcnodeid="28" srcpinname="Box" dstnodeid="2" dstpinname="Input 7" linkstyle="Bezier">
+   <LINKPOINT x="13425" y="3785">
+   </LINKPOINT>
+   <LINKPOINT x="4830" y="3865">
+   </LINKPOINT>
    </LINK>
    </PATCH>

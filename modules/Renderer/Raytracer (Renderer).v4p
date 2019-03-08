@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\modules\Renderer\Raytracer (Renderer).v4p" scrollx="1935" scrolly="0" systemname="Raytracer (Renderer)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Renderers\Raytracer (Renderer).v4p">
+   <PATCH nodename="D:\dev\vvvvery_physical\modules\Renderer\Raytracer (Renderer).v4p" scrollx="1275" scrolly="0" systemname="Raytracer (Renderer)" filename="C:\Users\polyr\OneDrive\Documents\vvvv\patches\vvvvery_physical\modules\Renderers\Raytracer (Renderer).v4p">
    <NODE systemname="Quad (DX11.Geometry)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Geometry)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="2745" top="3135" width="100" height="100">
    </BOUNDS>
@@ -522,7 +522,7 @@
    </LINK>
    <LINK srcnodeid="34" srcpinname="Y Output Value" dstnodeid="21" dstpinname="ScaleY">
    </LINK>
-   <BOUNDS type="Window" left="7650" top="3150" width="11940" height="10875">
+   <BOUNDS type="Window" left="1980" top="1530" width="11940" height="10875">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
@@ -648,6 +648,8 @@
    <PIN pinname="renderSky" visible="1">
    </PIN>
    <PIN pinname="envMap" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="World Colour" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="24" srcpinname="Layer" dstnodeid="4" dstpinname="Layer In">
@@ -784,10 +786,6 @@
    <LINKPOINT x="6590" y="8505">
    </LINKPOINT>
    <LINKPOINT x="4945" y="8760">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="6" srcpinname="Texture Out" dstnodeid="57" dstpinname="Texture In">
-   <LINKPOINT x="3311" y="7791">
    </LINKPOINT>
    </LINK>
    <NODE systemname="Mouse (Devices Window)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Mouse (Devices Window)" componentmode="Hidden" id="59">
@@ -1161,6 +1159,8 @@
    </PIN>
    <PIN pinname="Color" visible="1">
    </PIN>
+   <PIN pinname="Enabled" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="Box (DX11.Geometry)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Box (DX11.Geometry)" componentmode="Hidden" id="90">
    <BOUNDS type="Node" left="8295" top="3555" width="100" height="100">
@@ -1237,7 +1237,7 @@
    <NODE systemname="Count (Node)" nodename="Count (Node)" componentmode="Hidden" id="100">
    <BOUNDS type="Node" left="8910" top="1920" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Count" visible="1">
    </PIN>
@@ -1269,5 +1269,65 @@
    <LINK srcnodeid="101" srcpinname="Output" dstnodeid="102" dstpinname="Hue">
    </LINK>
    <LINK srcnodeid="102" srcpinname="Output" dstnodeid="91" dstpinname="Color">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="103">
+   <BOUNDS type="Box" left="11190" top="1470" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="11190" top="1470" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Visualize BVH|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="103" srcpinname="Y Output Value" dstnodeid="91" dstpinname="Enabled">
+   </LINK>
+   <NODE nodename="IOBox (Color)" componentmode="InABox" id="104">
+   <BOUNDS type="Box" left="2955" top="1230" width="2250" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2955" top="1230" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Color Input" slicecount="1" visible="1" values="|0.00000,0.00000,0.00000,1.00000|">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|World Colour|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="104" srcpinname="Color Output" dstnodeid="24" dstpinname="World Colour" linkstyle="Bezier">
+   <LINKPOINT x="3015" y="2640">
+   </LINKPOINT>
+   <LINKPOINT x="4485" y="2640">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Glow (DX11.TextureFX)" filename="%VVVV%\packs\dx11\nodes\texture11\Filter\Glow.tfx" nodename="Glow (DX11.TextureFX)" componentmode="Hidden" id="105">
+   <BOUNDS type="Node" left="3360" top="8430" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Texture In" visible="1">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <PIN pinname="Amount" slicecount="1" values="1.01">
+   </PIN>
+   <PIN pinname="Shape" slicecount="1" values="-0.48">
+   </PIN>
+   <PIN pinname="Highlight Boost" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Exposure" slicecount="1" values="0.63">
+   </PIN>
+   <PIN pinname="Saturation" slicecount="1" values="2.04">
+   </PIN>
+   <PIN pinname="Auto Exposure Factor" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="6" srcpinname="Texture Out" dstnodeid="105" dstpinname="Texture In">
+   </LINK>
+   <LINK srcnodeid="105" srcpinname="Texture Out" dstnodeid="57" dstpinname="Texture In">
    </LINK>
    </PATCH>

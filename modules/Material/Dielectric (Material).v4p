@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\modules\Material\Dielectric (Material).v4p" systemname="Dielectric (Material)" filename="D:\dev\vvvvery_physical\modules\Material\Dielectric (Material).v4p" scrollx="1545" scrolly="510">
+   <PATCH nodename="D:\dev\vvvvery_physical\modules\Material\Dielectric (Material).v4p" systemname="Dielectric (Material)" filename="D:\dev\vvvvery_physical\modules\Material\Dielectric (Material).v4p" scrollx="885" scrolly="510">
    <NODE systemname="Zip (Value Bin)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="Zip (Value Bin)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="2880" top="3270" width="100" height="100">
    </BOUNDS>
@@ -95,7 +95,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4650" top="2445" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0.77">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0.7">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -162,14 +162,14 @@
    <LINKPOINT x="5475" y="2398">
    </LINKPOINT>
    </LINK>
-   <BOUNDS type="Window" left="13710" top="8715" width="11730" height="6900">
+   <BOUNDS type="Window" left="2985" top="1140" width="11730" height="6900">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
    <PACK Name="addonpack" Version="38.1.0">
    </PACK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="2895" top="3930" width="945" height="1890">
+   <BOUNDS type="Box" left="2895" top="3930" width="1005" height="2310">
    </BOUNDS>
    <BOUNDS type="Node" left="2895" top="3930" width="0" height="0">
    </BOUNDS>
@@ -177,7 +177,7 @@
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
-   <PIN pinname="Rows" slicecount="1" values="9">
+   <PIN pinname="Rows" slicecount="1" values="11">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Material">
    </PIN>

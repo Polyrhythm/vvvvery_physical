@@ -124,8 +124,7 @@ float3 getSkyColour(Ray ray) {
 	
 	switch (renderSky) {
 		case 2:
-			SimpleSky simpleSky = SimpleSky::New();
-			outColour = simpleSky.render(ray);
+			outColour = worldColour.rgb;
 			break;
 		
 		default:

@@ -13,6 +13,7 @@ cbuffer cbPerDraw : register( b0 )
 	uint bounces = 1;
 	uint SampleIndex = 0;
 	uint renderSky = 0;
+	float4 worldColour <bool color=true;String uiname="World Colour";> = { 0.0f, 0.0f, 0.0f, 1.0f };
 };
 
 cbuffer cbPerObj : register( b1 )

@@ -106,15 +106,16 @@ namespace physical
         public Color4 Colour;
         public float Intensity;
         public Matrix Transform;
-        public Vector4 Params;
+        public Vector2 Params;
 
-        public Light(LightType lightType, Color4 colour, float intensity, Matrix transform, Vector4 lightParams)
+        public Light(LightType lightType, Color4 colour, float intensity, Matrix transform, float penumbra, float umbra)
         {
             LightType = (float)lightType;
             Colour = colour;
             Intensity = intensity;
             Transform = transform;
-            Params = lightParams;
+            Params.X = penumbra;
+            Params.Y = umbra;
         }
     }
 }
