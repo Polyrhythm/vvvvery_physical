@@ -6,9 +6,9 @@
 #include "math.fxh"
 #include "common.fxh"
 
-static const uint SPHERE = 0;
-static const uint BOX = 1;
-static const uint SDF = 2;
+static const int SPHERE = 0;
+static const int BOX = 1;
+static const int SDF = 2;
 
 SamplerState linearSampler : IMMUTABLE
 {
@@ -20,13 +20,13 @@ SamplerState linearSampler : IMMUTABLE
 
 struct Primitive
 {
-	uint type;
-	uint materialIdx;
+	int type;
+	int materialIdx;
 	float4 args;
-	float4x4 inverseTransform;
+	row_major float4x4 inverseTransform;
+	float3 minBounds;
+	float3 maxBounds;
 };
-
-#define primitiveBufferStride 22
 
 float2 intersectSDF(const Ray ray, Texture3D sdfVolume, out float t,
 	out float3 pos)
@@ -112,6 +112,24 @@ void getBoxBounds(const float3 size, const float4x4 transform,
 	
 	bounds[0] = float3(pos - size / 2);
 	bounds[1] = float3(pos + size / 2);
+}
+
+float2 intersectBVH(const Ray ray, const float3 minBounds, const float3 maxBounds)
+{
+	float3 tMin = (minBounds - ray.origin) / ray.dir;
+	float3 tMax = (maxBounds - ray.origin) / ray.dir;
+	float3 t1 = min(tMin, tMax);
+	float3 t2 = max(tMin, tMax);
+	float tNear = max(max(t1.x, t1.y), t1.z);
+	float tFar = min(min(t2.x, t2.y), t2.z);
+	
+	float2 res = (float2)-1;
+	
+	if (max(tNear,0) <= tFar) {
+		res = float2(tNear, tFar);
+	}
+		
+	return res;
 }
 
 float2 intersectBox(const Ray ray, const float3 size, const float4x4 transform,

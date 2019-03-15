@@ -1,6 +1,17 @@
-RWStructuredBuffer<float> OutputBuffer : BACKBUFFER;
+struct Material
+{
+	int type;
+	float ior;
+	float roughness;
+	float4 colour;
+	float intensity;
+	int texIdx;
+	float2 uvScale;
+};
 
-StructuredBuffer<float> InBuffer;
+RWStructuredBuffer<Material> OutputBuffer : BACKBUFFER;
+
+StructuredBuffer<Material> InBuffer;
 
 [numthreads(32,1,1)]
 void CS(uint3 tid : SV_DispatchThreadID)

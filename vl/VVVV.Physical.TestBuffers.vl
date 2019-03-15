@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:p="property" Id="GB2VxUl5VdhM5rsl5IbjQg" Version="0.94">
+  <NugetDependency Id="RKFCmk1Lg5EP3I4IQegLTw" Location="VL.CoreLib" Version="0.35.21" />
+  <NugetDependency Id="U2JwHqMJLyGLDs97lM6eZ6" Location="VL.CoreLib.VVVV" Version="0.35.21" />
+  <Patch Id="Th8hpfHvBF4Lk6VOwDCc9D">
+    <Canvas Id="NtZT52Xp5qNOXK0fF2H7kv" DefaultCategory="VVVV.Physical" BordersChecked="false" CanvasType="FullCategory">
+      <!--
+
+    ************************ TestBuffers ************************
+
+-->
+      <Node Name="TestBuffers" Bounds="153,200" Id="TSttkfeJHQSN5gkEF54G9o">
+        <p:NodeReference>
+          <Choice Kind="ContainerDefinition" Name="Patch" />
+          <FullNameCategoryReference ID="Primitive" />
+        </p:NodeReference>
+        <Patch Id="CzjSvRY5dvXQDxmAOA8mZj">
+          <Patch Id="ESJZDDS0I02LAWDOx9RJVV" Name="Create" />
+          <Patch Id="OkqGvJfa3PDOppp4PFQghD" Name="Update">
+            <Pin Id="KJgHRZgI8tVNEHkLRFuGWT" Name="Output" Kind="OutputPin" />
+          </Patch>
+          <Canvas Id="C4yd3S6BFv9NWqJ2WO3OFi" CanvasType="Group">
+            <Node Bounds="310,258,65,22" Id="JTYNmCcmVjtLsAAcaq9Vu4">
+              <p:NodeReference LastCategoryFullName="physical.Primitive" LastSymbolSource="physical.dll">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="AssemblyCategory" Name="Primitive" />
+                <Choice Kind="OperationCallFlag" Name="Create" />
+              </p:NodeReference>
+              <Pin Id="DI6wFMIQAfLL82YffSns07" Name="Primitive Type" Kind="InputPin" DefaultValue="Box">
+                <p:TypeAnnotation LastCategoryFullName="physical" LastSymbolSource="physical.dll">
+                  <Choice Kind="TypeFlag" Name="PrimitiveType" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="L6miuvroCZePtuvVjbVW44" Name="Material Index" Kind="InputPin" DefaultValue="1.42">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Float32" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="M78cHrAMQpTLshYUni2Dok" Name="Primitive Params" Kind="InputPin" />
+              <Pin Id="Abbpe0wcaRlPa8m706PXaz" Name="Transform" Kind="InputPin" />
+              <Pin Id="UrTZryvgFeBNXRM6WvVO3t" Name="Output" Kind="StateOutputPin" />
+            </Node>
+            <Node Bounds="303,393,102,22" Id="MLATKHh74tlLDAuHVYhAqO">
+              <p:NodeReference LastCategoryFullName="Collections.Spread" LastSymbolSource="VL.CoreLib.VVVV.vl">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <Choice Kind="OperationCallFlag" Name="ToBufferDescription" />
+                <CategoryReference Kind="RecordType" Name="Spread" NeedsToBeDirectParent="true" />
+              </p:NodeReference>
+              <Pin Id="MfRzOKWtgphLiZi1KBij3K" Name="Data" Kind="InputPin" />
+              <Pin Id="SVy9X5UWvDhMpaBHgJ1xna" Name="Set" Kind="InputPin" />
+              <Pin Id="PCbPdjzQRQOMe1Bzdowut6" Name="Output" Kind="OutputPin" />
+            </Node>
+            <Node Bounds="301,327,58,22" Id="HHCP6tRDkWTNZo2aL4U7Ay">
+              <p:NodeReference LastCategoryFullName="Collections.Spread" LastSymbolSource="VL.Collections.vl">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <Choice Kind="OperationCallFlag" Name="FromValue" />
+                <CategoryReference Kind="RecordType" Name="Spread" NeedsToBeDirectParent="true" />
+              </p:NodeReference>
+              <Pin Id="KnfUTFIodSXLGlNWVlf6c8" Name="Input" Kind="StateInputPin" />
+              <Pin Id="CCjU8KuF1cuODj47mMG00a" Name="Result" Kind="OutputPin" />
+            </Node>
+            <ControlPoint Id="NshukPBZDstPnp1hvZXX1V" Bounds="348,569" />
+            <Node Bounds="481,275" Id="KGHOk1B8ALPP9ayMUOfSzo">
+              <p:NodeReference LastCategoryFullName="physical.Light" LastSymbolSource="physical.dll">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="AssemblyCategory" Name="Light" />
+                <Choice Kind="OperationCallFlag" Name="Create" />
+              </p:NodeReference>
+              <Pin Id="A7O4cmtDsCkPF5AucPuTt0" Name="Light Type" Kind="InputPin" DefaultValue="Spot">
+                <p:TypeAnnotation LastCategoryFullName="physical" LastSymbolSource="physical.dll">
+                  <Choice Kind="TypeFlag" Name="LightType" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="GYmJRXqDPXYPPOssqo4ByD" Name="Colour" Kind="InputPin" DefaultValue="0.74, 0.74, 0.74, 1">
+                <p:TypeAnnotation LastCategoryFullName="Color" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="RGBA" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="LUdUVotFvjjMeyhodc89Xz" Name="Intensity" Kind="InputPin" DefaultValue="0.37">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Float32" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="Tdww8w4q2mOQSzgTs9mgjR" Name="Transform" Kind="InputPin" />
+              <Pin Id="V8dy80T5gkkMTDAmfaoQxd" Name="Penumbra" Kind="InputPin" DefaultValue="0.16">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Float32" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="S4WgB9FibtcMFdeRduGRuf" Name="Umbra" Kind="InputPin" DefaultValue="0.15">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Float32" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="GpVDJAoVQ3dNfJiRpVuJ3E" Name="Output" Kind="StateOutputPin" />
+            </Node>
+          </Canvas>
+          <ProcessDefinition Id="FHNLl8GWgcVOJzRkkPI83E">
+            <Fragment Id="MRFnVwHDf0WOO7H3jKbCxI" Patch="ESJZDDS0I02LAWDOx9RJVV" Enabled="true" />
+            <Fragment Id="PulIQZQ5YLtPp6C2yvbTNE" Patch="OkqGvJfa3PDOppp4PFQghD" Enabled="true" />
+          </ProcessDefinition>
+          <Link Id="UXXPCqpJKVDOwgAwHUyK2g" Ids="CCjU8KuF1cuODj47mMG00a,MfRzOKWtgphLiZi1KBij3K" />
+          <Link Id="Vd2fKNiz53uPqywrSyPmYk" Ids="NshukPBZDstPnp1hvZXX1V,KJgHRZgI8tVNEHkLRFuGWT" IsHidden="true" />
+          <Link Id="O78rhlOYL9PPQ2pjthuYaa" Ids="PCbPdjzQRQOMe1Bzdowut6,NshukPBZDstPnp1hvZXX1V" />
+          <Link Id="BtJ6h8n4fN8NCAY8o9Cp1u" Ids="GpVDJAoVQ3dNfJiRpVuJ3E,KnfUTFIodSXLGlNWVlf6c8" />
+        </Patch>
+      </Node>
+    </Canvas>
+  </Patch>
+  <PlatformDependency Id="LKTIDHwTpBcPYfXN6LICAs" Location="../physical/bin/x64/Debug/physical.dll" />
+</Document>

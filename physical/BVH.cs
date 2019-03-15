@@ -31,17 +31,31 @@ namespace physical
         [StructLayout(LayoutKind.Sequential)]
         public struct BVHNode
         {
-            public BoundingBox AABB;
+            public Vector3 MinBounds;
+            public Vector3 MaxBounds;
             public bool IsLeaf;
             public int LeftIndex;
             public int RightIndex;
+            public Matrix InverseTransform;
 
             public BVHNode(BoundingBox aabb, bool isLeaf, int leftIndex, int rightIndex)
             {
-                AABB = aabb;
+                MinBounds = aabb.Minimum;
+                MaxBounds = aabb.Maximum;
                 IsLeaf = isLeaf;
                 LeftIndex = leftIndex;
                 RightIndex = rightIndex;
+
+                Vector3 midpoint = Vector3.Lerp(MinBounds, MaxBounds, 0.5f);
+                Matrix transform = Matrix.Translation(midpoint);
+                transform.Invert();
+                InverseTransform = transform;
+            }
+
+            public void SetAABB(BoundingBox aabb)
+            {
+                MinBounds = aabb.Minimum;
+                MaxBounds = aabb.Maximum;
             }
         }
 
@@ -73,8 +87,8 @@ namespace physical
             }
 
             // find largest dimension of current BVH node
-            Vector3 midpoint = Vector3.Lerp(node.AABB.Minimum, node.AABB.Maximum, 0.5f);
-            Vector3 diff = node.AABB.Maximum - node.AABB.Minimum;
+            Vector3 midpoint = Vector3.Lerp(node.MinBounds, node.MaxBounds, 0.5f);
+            Vector3 diff = node.MaxBounds - node.MinBounds;
             Vector3 maxDir = BVHBuilder.FindMaxDir(diff);
 
             // sort by largest dimension
@@ -158,8 +172,8 @@ namespace physical
             BVHNode leftNode = new BVHNode();
             BVHNode rightNode = new BVHNode();
 
-            leftNode.AABB = leftBox;
-            rightNode.AABB = rightBox;
+            leftNode.SetAABB(leftBox);
+            rightNode.SetAABB(rightBox);
 
             // Set indices on current node to point to children
             node.LeftIndex = _nodes.Count();
@@ -181,8 +195,13 @@ namespace physical
             }
 
             BVHNode root = new BVHNode();
-            root.AABB = _worldBounds;
+            root.SetAABB(_worldBounds);
             _nodes.Add(root);
+
+            if (_primitives.Length == 1)
+            {
+                return;
+            }
 
             int left = 0;
             int right = _primitives.Count() - 1;
@@ -245,10 +264,10 @@ namespace physical
             foreach (var node in nodes)
             {
                 Matrix transform = Matrix.Identity;
-                Vector3 size = node.AABB.Maximum - node.AABB.Minimum;
+                Vector3 size = node.MaxBounds - node.MinBounds;
                 transform.ScaleVector = size;
 
-                Vector3 pos = Vector3.Lerp(node.AABB.Minimum, node.AABB.Maximum, 0.5f);
+                Vector3 pos = Vector3.Lerp(node.MinBounds, node.MaxBounds, 0.5f);
                 transform.TranslationVector = pos;
 
                 matrices.Add(transform);

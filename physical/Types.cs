@@ -27,17 +27,17 @@ namespace physical
     [StructLayout(LayoutKind.Sequential)]
     public struct Primitive
     {
-        public float PrimitiveType;
-        public float MaterialIndex;
+        public PrimitiveType PrimitiveType;
+        public int MaterialIndex;
         public Vector4 Params;
         public Matrix InverseTransform;
         public Vector3 MinBounds;
         public Vector3 MaxBounds;
 
-        public Primitive(PrimitiveType primitiveType, float materialIndex, Vector4 primitiveParams,
+        public Primitive(PrimitiveType primitiveType, int materialIndex, Vector4 primitiveParams,
             Matrix transform)
         {
-            PrimitiveType = (float)primitiveType;
+            PrimitiveType = primitiveType;
             MaterialIndex = materialIndex;
             Params = primitiveParams;
             InverseTransform = transform;
@@ -78,18 +78,18 @@ namespace physical
     [StructLayout(LayoutKind.Sequential)]
     public struct Material
     {
-        public float MaterialType;
+        public MaterialType MaterialType;
         public float IOR;
         public float Roughness;
         public Color4 Colour;
         public float Intensity;
-        public float TextureIndex;
+        public int TextureIndex;
         public Vector2 UVScale;
 
         public Material(MaterialType materialType, float ior, float roughness, Color4 colour, float intensity,
             int textureIndex, Vector2 uvScale)
         {
-            MaterialType = (float)materialType;
+            MaterialType = materialType;
             IOR = ior;
             Roughness = roughness;
             Colour = colour;
@@ -102,7 +102,7 @@ namespace physical
     [StructLayout(LayoutKind.Sequential)]
     public struct Light
     {
-        public float LightType;
+        public LightType LightType;
         public Color4 Colour;
         public float Intensity;
         public Matrix Transform;
@@ -110,7 +110,7 @@ namespace physical
 
         public Light(LightType lightType, Color4 colour, float intensity, Matrix transform, float penumbra, float umbra)
         {
-            LightType = (float)lightType;
+            LightType = lightType;
             Colour = colour;
             Intensity = intensity;
             Transform = transform;

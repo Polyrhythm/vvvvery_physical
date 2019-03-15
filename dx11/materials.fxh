@@ -1,16 +1,16 @@
 #ifndef __MATERIALS_FXH__
 #define __MATERIALS_FXH__
 
-static const uint DIELECTRIC = 0;
-static const uint METALLIC = 1;
-static const uint EMISSIVE = 2;
+static const int DIELECTRIC = 0;
+static const int METALLIC = 1;
+static const int EMISSIVE = 2;
 
 #include "shading/fresnel.fxh"
 #include "shading/ggx.fxh"
 
 struct Material
 {
-	uint type;
+	int type;
 	float ior;
 	float roughness;
 	float4 colour;
@@ -18,8 +18,6 @@ struct Material
 	int texIdx;
 	float2 uvScale;
 };
-
-#define materialBufferStride 11
 
 class DiffuseDielectricMaterial : AbstractBSDF {
 	LambertianBRDF  Fd;
@@ -47,7 +45,6 @@ class DiffuseDielectricMaterial : AbstractBSDF {
 
 			BSDFSample d = Fd.Evaluate( surf, Wr, Wi );
 			BSDFSample s = Fs.Evaluate( surf, Wr, Wi );
-
 
 			res.value = d.value * (1.0-f) + s.value * f;
 			res.pdf   = d.pdf * (1.0-f) + s.pdf * f;

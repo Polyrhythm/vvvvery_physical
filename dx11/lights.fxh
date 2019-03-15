@@ -3,19 +3,17 @@
 
 #include "common.fxh"
 
-static const uint POINT = 0;
-static const uint SPOTLIGHT = 1;
+static const int POINT = 0;
+static const int SPOTLIGHT = 1;
 
 struct Light
 {
-	uint type;
+	int type;
 	float4 colour;
 	float intensity;
-	float4x4 transform;
-	float4 params;
+	row_major float4x4 transform;
+	float2 params;
 };
-
-#define lightBufferStride 26
 
 interface ILight {
 	float getAttenuation(float3 p);

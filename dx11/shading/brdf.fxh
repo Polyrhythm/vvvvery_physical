@@ -5,7 +5,6 @@
 #include "sampling.fxh"
 
 // BSDF types
-static const int DEBUG_BSDF_TYPE = -1;
 static const int  NULL_BSDF_TYPE =  0;
 static const int  BRDF_TYPE = 1;
 static const int  BTDF_TYPE = 2;
@@ -49,6 +48,62 @@ interface IBSDF {
 class AbstractBSDF : IBSDF {
 	BSDFSample Evaluate( Surface surf, float3 Wr, float3 Wi );
 	BSDFSample   Sample( Surface surf, ISampler samp, float3 Wr, out float3 Wi );
+};
+
+class OrenNayarBRDF : AbstractBSDF
+{
+	float3 albedo;
+	float rho;
+	float sigma;
+	
+	void Init(float3 albedo, float rho, float sigma)
+	{
+		this.albedo = albedo;
+		this.rho = rho;
+		this.sigma = sigma;
+	}
+	
+	static OrenNayarBRDF New(float3 albedo, float rho, float sigma)
+	{
+		OrenNayarBRDF brdf;
+		
+		brdf.Init(albedo, rho, sigma);
+		return brdf;
+	}
+	
+	BSDFSample Evaluate(Surface surf, float3 Wr, float3 Wi)
+	{
+		BSDFSample res = (BSDFSample)0;
+		
+		float VdotN = saturate(dot(surf.nor, Wi));
+		float LdotN = saturate(dot(surf.nor, Wr));
+		float thetaR = acos(VdotN);
+		float sigma2 = (sigma * PI / 180.0) * (sigma * PI / 180.0);
+		
+		float cosPhiDiff = dot(normalize(Wi - surf.nor * VdotN), normalize(Wr - surf.nor * LdotN));
+		float thetaI = acos(LdotN);
+		float alpha = max(thetaI, thetaR);
+		float beta = min(thetaI, thetaR);
+		if (alpha > PI / 2.0)
+		{
+			res.type = NULL_BSDF_TYPE;
+			return res;
+		}
+		
+		float C1 = 1 - 0.5 * sigma2 / (sigma2 + 0.33);
+		float C2 = 0.45 * sigma2 / (sigma2 + 0.09);
+		if (cosPhiDiff >= 0)
+		{
+			C2 *= sin(alpha);
+		}
+		else
+		{
+			float beta3 = (2 * beta / PI) * (2 * beta / PI) * (2 * beta / PI);
+			C2 *= (sin(alpha) - beta3);
+		}
+		float denom = (4 * alpha * beta) / (PI * PI);
+		float C3 = 0.125 * sigma2 / (sigma2 + 0.09) * denom * denom;
+	}
 };
 
 class LambertianBRDF : AbstractBSDF {
