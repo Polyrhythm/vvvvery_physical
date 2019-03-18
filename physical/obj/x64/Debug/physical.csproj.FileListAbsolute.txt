@@ -47,8 +47,6 @@ C:\Users\ryan\Development\creative\vvvvery_physical\physical\bin\x64\Debug\OpenC
 C:\Users\ryan\Development\creative\vvvvery_physical\physical\bin\x64\Debug\OpenCvSharp.UserInterface.xml
 C:\Users\ryan\Development\creative\vvvvery_physical\physical\bin\x64\Debug\SharpDX.xml
 C:\Users\ryan\Development\creative\vvvvery_physical\physical\bin\x64\Debug\SharpDX.Mathematics.xml
-C:\Users\ryan\Development\creative\vvvvery_physical\physical\obj\x64\Debug\physical.csprojAssemblyReference.cache
-C:\Users\ryan\Development\creative\vvvvery_physical\physical\obj\x64\Debug\physical.csproj.CoreCompileInputs.cache
-C:\Users\ryan\Development\creative\vvvvery_physical\physical\obj\x64\Debug\physical.csproj.CopyComplete
 C:\Users\ryan\Development\creative\vvvvery_physical\physical\obj\x64\Debug\physical.dll
 C:\Users\ryan\Development\creative\vvvvery_physical\physical\obj\x64\Debug\physical.pdb
+C:\Users\ryan\Development\creative\vvvvery_physical\physical\obj\x64\Debug\physical.csprojResolveAssemblyReference.cache

@@ -115,7 +115,6 @@ Surface trace(const Ray ray, float tMax )
 		}
 		
 		// Check both child nodes for a hit
-		Ray nray = (Ray)0;
 		float2 bvHit = float2(-1, -1);
 		BVHNode childNode;
 		nodeIdx = -1;
@@ -132,13 +131,8 @@ Surface trace(const Ray ray, float tMax )
 			{
 				childNode = fetchBVHNodeData(node.rightIndex);
 			}
-			
-			nray.origin = mul(float4(ray.origin,1), childNode.inverseTransform).xyz;
-			nray.dir = mul(float4(ray.dir,0), childNode.inverseTransform).xyz;
-			float rscale = 1.0/length(nray.dir);
-			nray.dir *= rscale;
 		
-			bvHit = intersectBVH(nray, childNode.minBounds, childNode.maxBounds, bvT);
+			bvHit = intersectBVH(ray, childNode.minBounds, childNode.maxBounds, bvT);
 			
 			if (bvHit.x != -1.0)
 			{
