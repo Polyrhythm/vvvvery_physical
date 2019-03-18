@@ -385,7 +385,7 @@
                   <Choice Kind="TypeFlag" Name="PrimitiveType" />
                 </p:TypeAnnotation>
               </Pin>
-              <Pin Id="SFINPkC8DqQMdMOYmP3EI6" Name="Material Index" Kind="InputPin" DefaultValue="4">
+              <Pin Id="SFINPkC8DqQMdMOYmP3EI6" Name="Material Index" Kind="InputPin" DefaultValue="6">
                 <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
                   <Choice Kind="TypeFlag" Name="Integer32" />
                 </p:TypeAnnotation>
@@ -413,7 +413,7 @@
               <Pin Id="M6AhmNR2SVkQIxUbw0syax" Name="Translation" Kind="InputPin" />
               <Pin Id="D6h5v4vUlZWOdtHdP0ic5A" Name="Output" Kind="OutputPin" />
             </Node>
-            <Pad Id="CNuGia2nKoBOg8JbUOL4kp" Comment="Translation" Bounds="833,273,38,57" ShowValueBox="true" isIOBox="true" Value="0, -0.58, 0.91">
+            <Pad Id="CNuGia2nKoBOg8JbUOL4kp" Comment="Translation" Bounds="833,273,38,57" ShowValueBox="true" isIOBox="true" Value="0, -0.53, 0.91">
               <p:TypeAnnotation LastCategoryFullName="3D" LastSymbolSource="CoreLibBasics.vl">
                 <Choice Kind="TypeFlag" Name="Vector3" />
               </p:TypeAnnotation>
@@ -444,7 +444,7 @@
                   <Choice Kind="TypeFlag" Name="PrimitiveType" />
                 </p:TypeAnnotation>
               </Pin>
-              <Pin Id="M1jg8Z16felOXuTyc5G3ls" Name="Material Index" Kind="InputPin" DefaultValue="6">
+              <Pin Id="M1jg8Z16felOXuTyc5G3ls" Name="Material Index" Kind="InputPin" DefaultValue="4">
                 <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
                   <Choice Kind="TypeFlag" Name="Integer32" />
                 </p:TypeAnnotation>
@@ -540,11 +540,6 @@
             <Pin Id="TdbTUPMMyGJLtkUXEjKhYy" Name="GeoSpread" Kind="OutputPin" />
             <Pin Id="KowBeCNf1svOzI6YKZC11P" Name="Changed" Kind="OutputPin" />
           </Patch>
-          <!--
-
-    ************************  ************************
-
--->
           <ProcessDefinition Id="B6h0FjwBn9GOJKMZdx4czp">
             <Fragment Id="MuUg9HT8BbEPDwDhvevzY7" Patch="EfnrNwcjNbfL3MwexAZLAI" Enabled="true" />
             <Fragment Id="S14pgUTUVF0P2CgXWYkELA" Patch="CF39WIJh1gpNBAYXjOtfTL" Enabled="true" />
@@ -655,6 +650,7 @@
                   <Pin Id="R9Ayzto3BJtLlLTKtUaYwQ" Name="Input 4" Kind="InputPin" />
                   <Pin Id="NDfTQL2rItVM7YGGgU7zii" Name="Input 5" Kind="InputPin" />
                   <Pin Id="PzRv1UEs0uxNrjotf8asYZ" Name="Input 6" Kind="InputPin" />
+                  <Pin Id="Lq3H6Jt0yWeQarXHgqi4G4" Name="Input 7" Kind="InputPin" />
                   <Pin Id="FxcfnrPgIzALc10XEeXrd4" Name="Result" Kind="OutputPin" />
                 </Node>
                 <ControlPoint Id="BduJFrsRIzzPzaHNfb6HV7" Bounds="433,325" />
@@ -802,7 +798,7 @@
               <Pin Id="QVoOHAivYfFM9rcKSWTiU3" Name="Uv Scale" Kind="InputPin" />
               <Pin Id="LjuIwlSSMNAMQSD9rnhWYT" Name="Output" Kind="StateOutputPin" />
             </Node>
-            <Pad Id="UxsaIdeFIQ0QX7d1WCfzpg" Comment="Colour" Bounds="827,167,194,20" ShowValueBox="true" isIOBox="true" Value="0.52, 0.52, 0.52, 1">
+            <Pad Id="UxsaIdeFIQ0QX7d1WCfzpg" Comment="Colour" Bounds="827,167,194,20" ShowValueBox="true" isIOBox="true" Value="0.03, 0.03, 0.03, 1">
               <p:TypeAnnotation LastCategoryFullName="Color" LastSymbolSource="CoreLibBasics.vl">
                 <Choice Kind="TypeFlag" Name="RGBA" />
               </p:TypeAnnotation>
@@ -839,17 +835,44 @@
                 <Choice Kind="TypeFlag" Name="Vector2" />
               </p:TypeAnnotation>
             </Pad>
+            <Node Bounds="1059,329" Id="Mq9wNi2ztoZNweFVD6O7SG">
+              <p:NodeReference LastCategoryFullName="physical.Material" LastSymbolSource="physical.dll">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="AssemblyCategory" Name="Material" />
+                <Choice Kind="OperationCallFlag" Name="Create" />
+              </p:NodeReference>
+              <Pin Id="MNaTyl4UyZrOzlzagWc5qN" Name="Material Type" Kind="InputPin">
+                <p:TypeAnnotation LastCategoryFullName="physical" LastSymbolSource="physical.dll">
+                  <Choice Kind="TypeFlag" Name="MaterialType" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="KdgumjFTxflP3EQMi35roe" Name="Ior" Kind="InputPin" />
+              <Pin Id="MTFsIp4Awl1PDsLn9O8tf1" Name="Roughness" Kind="InputPin" DefaultValue="0.86">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Float32" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="GrR20IVGScSQanI0ctyrhb" Name="Colour" Kind="InputPin" />
+              <Pin Id="LexBzOqdnB7Lh5XEOETS8J" Name="Intensity" Kind="InputPin" />
+              <Pin Id="AhU0BaskJvnQJIjbjtXO9d" Name="Texture Index" Kind="InputPin" DefaultValue="1">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Integer32" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="IeGdghz0eQCOHLZyDQKfFO" Name="Uv Scale" Kind="InputPin" />
+              <Pin Id="DjIpRE9w845Pb0CMkvRjT6" Name="Output" Kind="StateOutputPin" />
+            </Node>
+            <Pad Id="LJb1dkJshR7Lq4ieUvwuBJ" Comment="Uv Scale" Bounds="1184,265,33,38" ShowValueBox="true" isIOBox="true" Value="1, 1">
+              <p:TypeAnnotation LastCategoryFullName="2D" LastSymbolSource="CoreLibBasics.vl">
+                <Choice Kind="TypeFlag" Name="Vector2" />
+              </p:TypeAnnotation>
+            </Pad>
           </Canvas>
           <Patch Id="Qah76chdtUPNZwPah3vbnk" Name="Create" />
           <Patch Id="LrObohp4zyqNNxA8nBapJJ" Name="Update">
             <Pin Id="PgV9PuPx2zwOd3yHf184Jh" Name="MatSpread" Kind="OutputPin" />
             <Pin Id="T5dvBrk9WAxPKevHW85i8T" Name="Changed" Kind="OutputPin" />
           </Patch>
-          <!--
-
-    ************************  ************************
-
--->
           <ProcessDefinition Id="MePNwqmmzEbOtw4MWCNO0L">
             <Fragment Id="NHl1H44H7YDOMEFTFTX44C" Patch="Qah76chdtUPNZwPah3vbnk" Enabled="true" />
             <Fragment Id="Dnh88QmYgAmMRlm9qxgp1w" Patch="LrObohp4zyqNNxA8nBapJJ" Enabled="true" />
@@ -878,6 +901,8 @@
           <Link Id="UFGeQp8SiCuMrTCAQHpdEq" Ids="QAQ6gvH6E7pNnvLRHyfTPg,BduJFrsRIzzPzaHNfb6HV7,PzRv1UEs0uxNrjotf8asYZ" />
           <Link Id="HKNlYuhRAITMe0JYd7nodM" Ids="LCH3vWOmMUINoTfV35D6I1,ETj2OtGM2W9LHGbGPFAo9T" />
           <Link Id="OzBHIciQbuYOs3TTXKB3o3" Ids="QAv4lOPIL9gMISh7KFhQff,RlCwGUX8ot2Ou86KCsDRau" />
+          <Link Id="Ut1MHmKgc6xN6y2lqsbpHH" Ids="DjIpRE9w845Pb0CMkvRjT6,Lq3H6Jt0yWeQarXHgqi4G4" />
+          <Link Id="Jn20RPNJctGMCjfLwOIEla" Ids="LJb1dkJshR7Lq4ieUvwuBJ,IeGdghz0eQCOHLZyDQKfFO" />
         </Patch>
       </Node>
     </Canvas>

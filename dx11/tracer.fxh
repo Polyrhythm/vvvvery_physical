@@ -11,7 +11,7 @@
 #include "textures.fxh"
 
 //#define STRATIFIED // use stratified sampling
-//#define USE_BVH // use bvh nodes for scene traversal
+#define USE_BVH // use bvh nodes for scene traversal
 
 Surface intersect(const Primitive hit, const Ray ray, out float t)
 {
@@ -90,52 +90,39 @@ Surface trace(const Ray ray, float tMax )
 	Primitive hit;
 
 #ifdef USE_BVH
-	uint nodesTraversed = 0;
-	uint count, stride;
-	bvhBuffer.GetDimensions(count, stride);
+	int nodeIdx = 0;
 	
-	BVHNode node = fetchBVHNodeData(0);
+	// Create a stack for keeping track of what nodes to test against
+	int nodeStack[35];
+	// Initial node is root
+	nodeStack[0] = 0;
+	// Start the offset at one since we have a root node
+	int nodeStackOffset = 1;
+	
+	int primStack[35];
+	int primStackOffset = 0;
+	
 	[fastopt]
-	while (nodesTraversed <= count)
+	while (nodeStackOffset > 0)
 	{
-		if (node.isLeaf)
+		BVHNode node = fetchBVHNodeData(nodeStack[--nodeStackOffset]);
+		
+		if (node.isLeaf == 1)
 		{
-			uint i = node.leftIndex;
-			
-			//checkIntersection(ray, tMax, i, hitId, tNear, surf, hit);
-			Ray nray = (Ray)0;
-			float t = INFINITY;
-			hit = fetchPrimitiveData(i);
-
-			// create new ray in object space using inverse transform.
-			nray.origin = mul(float4(ray.origin,1),hit.inverseTransform).xyz;
-			nray.dir = mul(float4(ray.dir,0),hit.inverseTransform).xyz;
-			// rscale tells how distance changes between object and world space in the direction of the ray.
-			float rscale = 1.0/length(nray.dir);
-			nray.dir *= rscale;
-
-			Surface nsurf = intersect(hit, nray, t);
-			// t is currently in object space, so we scale it into world space.
-			t *= rscale;
-
-			if (nsurf.matIdx != -1 && t < tMax && t < tNear ) {			
-				hitId = i;
-				tNear = t;
-				surf = nsurf;
-				// Object space normals into world space using transpose inverse transform.
-				surf.nor = normalize(mul(float4(surf.nor,0),transpose(hit.inverseTransform)).xyz);
-			}
-			
-			break;
+			int i = node.leftIndex;
+			primStack[primStackOffset++] = i;
+			continue;
 		}
 		
 		// Check both child nodes for a hit
 		Ray nray = (Ray)0;
 		float2 bvHit = float2(-1, -1);
 		BVHNode childNode;
+		nodeIdx = -1;
+		float bvT = INFINITY;
 		
-		[unroll]
-		for (uint x = 0; x < 1; x++)
+		[fastopt]
+		for (uint x = 0; x < 2; x++)
 		{
 			if (x == 0)
 			{
@@ -151,23 +138,43 @@ Surface trace(const Ray ray, float tMax )
 			float rscale = 1.0/length(nray.dir);
 			nray.dir *= rscale;
 		
-			bvHit = intersectBVH(nray, childNode.minBounds, childNode.maxBounds);
+			bvHit = intersectBVH(nray, childNode.minBounds, childNode.maxBounds, bvT);
 			
-			if (bvHit.x != -1)
+			if (bvHit.x != -1.0)
 			{
-				// exit childNode check
-				break;
+				if (x == 0) nodeIdx = nodeStack[nodeStackOffset++] = node.leftIndex;
+				else nodeIdx = nodeStack[nodeStackOffset++] = node.rightIndex;
 			}
 		}
-		
-		if (bvHit.x == -1)
-		{
-			// Doesn't intersect child nodes, exit while loop
-			break;
+	}
+	
+	[fastopt]
+	while (primStackOffset > 0)
+	{
+		//checkIntersection(ray, tMax, i, hitId, tNear, surf, hit);
+		Ray nray = (Ray)0;
+		float t = INFINITY;
+		int i = primStack[--primStackOffset];
+		hit = fetchPrimitiveData(i);
+
+		// create new ray in object space using inverse transform.
+		nray.origin = mul(float4(ray.origin,1),hit.inverseTransform).xyz;
+		nray.dir = mul(float4(ray.dir,0),hit.inverseTransform).xyz;
+		// rscale tells how distance changes between object and world space in the direction of the ray.
+		float rscale = 1.0/length(nray.dir);
+		nray.dir *= rscale;
+
+		Surface nsurf = intersect(hit, nray, t);
+		// t is currently in object space, so we scale it into world space.
+		t *= rscale;
+
+		if (nsurf.matIdx != -1 && t < tMax && t < tNear ) {			
+			hitId = i;
+			tNear = t;
+			surf = nsurf;
+			// Object space normals into world space using transpose inverse transform.
+			surf.nor = normalize(mul(float4(surf.nor,0),transpose(hit.inverseTransform)).xyz);
 		}
-		
-		node = childNode;
-		nodesTraversed++;
 	}
 	
 #else

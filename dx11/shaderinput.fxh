@@ -33,6 +33,7 @@ Texture2D envMap;
 BVHNode fetchBVHNodeData(const uint index)
 {
 	BVHNode bvh = bvhBuffer[index];
+	
 	return bvh;
 }
 

@@ -5,7 +5,7 @@ struct BVHNode
 {
 	float3 minBounds;
 	float3 maxBounds;
-	bool isLeaf;
+	int isLeaf;
 	int leftIndex;
 	int rightIndex;
 	row_major float4x4 inverseTransform;

@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using SharpDX;
 
@@ -47,7 +48,7 @@ namespace physical
 
             Vector3 pos = transform.TranslationVector;
 
-            BoundingBox aabb;
+            BoundingBox aabb = new BoundingBox();
             switch (primitiveType)
             {
                 case physical.PrimitiveType.Sphere:
@@ -59,19 +60,45 @@ namespace physical
                     break;
 
                 case physical.PrimitiveType.Box:
+                    MinBounds = aabb.Minimum;
+                    MaxBounds = aabb.Maximum;
+
                     Vector3 size = new Vector3(primitiveParams.X, primitiveParams.Y, primitiveParams.Z);
-                    aabb = new BoundingBox(pos - size / 2.0f, pos + size / 2.0f);
+                    aabb = GetAABBFromPoints(size, transform);
                     MinBounds = aabb.Minimum;
                     MaxBounds = aabb.Maximum;
                     break;
 
                 default:
                     Vector3 defaultSize = new Vector3(1.0f, 1.0f, 1.0f);
-                    aabb = new BoundingBox(pos - defaultSize / 2.0f, pos + defaultSize / 2.0f);
+                    MinBounds = aabb.Minimum;
+                    MaxBounds = aabb.Maximum;
+                    aabb = GetAABBFromPoints(defaultSize, transform);
+
                     MinBounds = aabb.Minimum;
                     MaxBounds = aabb.Maximum;
                     break;
             }
+        }
+
+        private BoundingBox GetAABBFromPoints(Vector3 size, Matrix transform)
+        {
+            List<Vector3> points = new List<Vector3>();
+            points.Add(new Vector3(-size.X, -size.Y, -size.Z) * 0.5f);
+            points.Add(new Vector3( size.X, -size.Y, -size.Z) * 0.5f);
+            points.Add(new Vector3( size.X, -size.Y,  size.Z) * 0.5f);
+            points.Add(new Vector3(-size.X, -size.Y,  size.Z) * 0.5f);
+            points.Add(new Vector3(-size.X,  size.Y, -size.Z) * 0.5f);
+            points.Add(new Vector3( size.X,  size.Y, -size.Z) * 0.5f);
+            points.Add(new Vector3( size.X,  size.Y,  size.Z) * 0.5f);
+            points.Add(new Vector3(-size.X,  size.Y,  size.Z) * 0.5f);
+
+            for (int i = 0; i < 8; i++)
+            {
+                points[i] = (Vector3)Vector3.Transform(points[i], transform);
+            }
+
+            return BoundingBox.FromPoints(points.ToArray());
         }
     }
 

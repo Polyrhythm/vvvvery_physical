@@ -33,12 +33,12 @@ namespace physical
         {
             public Vector3 MinBounds;
             public Vector3 MaxBounds;
-            public bool IsLeaf;
+            public int IsLeaf;
             public int LeftIndex;
             public int RightIndex;
             public Matrix InverseTransform;
 
-            public BVHNode(BoundingBox aabb, bool isLeaf, int leftIndex, int rightIndex)
+            public BVHNode(BoundingBox aabb, int isLeaf, int leftIndex, int rightIndex)
             {
                 MinBounds = aabb.Minimum;
                 MaxBounds = aabb.Maximum;
@@ -46,16 +46,20 @@ namespace physical
                 LeftIndex = leftIndex;
                 RightIndex = rightIndex;
 
-                Vector3 midpoint = Vector3.Lerp(MinBounds, MaxBounds, 0.5f);
-                Matrix transform = Matrix.Translation(midpoint);
-                transform.Invert();
-                InverseTransform = transform;
+                InverseTransform = Matrix.Identity;
+                InverseTransform.TranslationVector = Vector3.Lerp(aabb.Minimum, aabb.Maximum, 0.5f);
+                InverseTransform.Invert();
             }
 
             public void SetAABB(BoundingBox aabb)
             {
                 MinBounds = aabb.Minimum;
                 MaxBounds = aabb.Maximum;
+
+                InverseTransform = Matrix.Identity;
+                InverseTransform.TranslationVector = Vector3.Lerp(aabb.Minimum, aabb.Maximum, 0.5f);
+                InverseTransform.Invert();
+
             }
         }
 
@@ -77,7 +81,7 @@ namespace physical
             if (rightIdx - leftIdx <= _threshold)
             {
                 // assign node as leaf node
-                node.IsLeaf = true;
+                node.IsLeaf = 1;
                 node.LeftIndex = (int)_primitives[leftIdx].OriginalIndex;
                 node.RightIndex = -1;
                 _leaves++;
@@ -197,11 +201,6 @@ namespace physical
             BVHNode root = new BVHNode();
             root.SetAABB(_worldBounds);
             _nodes.Add(root);
-
-            if (_primitives.Length == 1)
-            {
-                return;
-            }
 
             int left = 0;
             int right = _primitives.Count() - 1;

@@ -1,17 +1,17 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="1095" scrolly="3885">
+   <PATCH nodename="D:\dev\vvvvery_physical\volume.v4p" systemname="volume" filename="D:\dev\vvvvery_physical\volume.v4p" scrollx="0" scrolly="2445">
    <BOUNDS type="Window" left="1380" top="1635" width="14535" height="12960">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
    <PACK Name="addonpack" Version="38.1.0">
    </PACK>
-   <NODE systemname="Raytracer (Renderer)" filename="modules\Renderer\Raytracer (Renderer).v4p" nodename="Raytracer (Renderer)" componentmode="Hidden" id="0" stayontop="0">
+   <NODE systemname="Raytracer (Renderer)" filename="modules\Renderer\Raytracer (Renderer).v4p" nodename="Raytracer (Renderer)" componentmode="InAWindow" id="0" stayontop="0">
    <BOUNDS type="Node" left="3690" top="10995" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer Out" visible="1">
    </PIN>
-   <PIN pinname="Texture SizeXY" visible="1">
+   <PIN pinname="Texture SizeXY" visible="1" slicecount="2" values="779,864">
    </PIN>
    <PIN pinname="Aspect Ratio" visible="1">
    </PIN>
@@ -66,26 +66,6 @@
    <PIN pinname="BVH Transforms" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="10">
-   <BOUNDS type="Node" left="5652" top="12304" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="5652" top="12304" width="6000" height="4500">
-   </BOUNDS>
-   <BOUNDS type="Window" left="16485" top="1260" width="11925" height="13545">
-   </BOUNDS>
-   <PIN pinname="Layers" visible="1">
-   </PIN>
-   <PIN pinname="Actual BackBuffer SizeXY" visible="1">
-   </PIN>
-   <PIN pinname="Show Cursor" slicecount="1" values="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="10" srcpinname="Actual BackBuffer SizeXY" dstnodeid="0" dstpinname="Texture SizeXY" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="4683" y="14318">
-   </LINKPOINT>
-   <LINKPOINT x="1359" y="9806">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="AspectRatio (Transform)" nodename="AspectRatio (Transform)" componentmode="Hidden" id="13">
    <BOUNDS type="Node" left="5804" top="10466" width="100" height="100">
    </BOUNDS>
@@ -101,19 +81,13 @@
    <NODE systemname="Vector (2d Split)" nodename="Vector (2d Split)" componentmode="Hidden" id="14">
    <BOUNDS type="Node" left="5715" top="9870" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="XY" visible="1">
+   <PIN pinname="XY" visible="1" slicecount="2" values="779,864">
    </PIN>
    <PIN pinname="X" visible="1">
    </PIN>
    <PIN pinname="Y" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="10" srcpinname="Actual BackBuffer SizeXY" dstnodeid="14" dstpinname="XY" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="5153" y="13643">
-   </LINKPOINT>
-   <LINKPOINT x="1219" y="10316">
-   </LINKPOINT>
-   </LINK>
    <LINK srcnodeid="14" srcpinname="X" dstnodeid="13" dstpinname="Aspect Width">
    </LINK>
    <LINK srcnodeid="14" srcpinname="Y" dstnodeid="13" dstpinname="Aspect Height">
@@ -455,7 +429,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="10437" top="7092" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-1.05">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-1.1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -619,9 +593,9 @@
    </PIN>
    </NODE>
    <NODE systemname="Group (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Group (DX11.Layer)" componentmode="Hidden" id="136">
-   <BOUNDS type="Node" left="5790" top="11775" width="100" height="100">
+   <BOUNDS type="Node" left="5790" top="12075" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="5790" top="11775" width="3000" height="3000">
+   <BOUNDS type="Box" left="5790" top="12075" width="3000" height="3000">
    </BOUNDS>
    <PIN pinname="Layer 1" visible="1">
    </PIN>
@@ -633,8 +607,6 @@
    <LINK srcnodeid="0" srcpinname="Layer Out" dstnodeid="136" dstpinname="Layer 1">
    </LINK>
    <LINK srcnodeid="132" srcpinname="Layer" dstnodeid="136" dstpinname="Layer 2">
-   </LINK>
-   <LINK srcnodeid="136" srcpinname="Layer Out" dstnodeid="10" dstpinname="Layers">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="155">
    <BOUNDS type="Box" left="6195" top="14400" width="795" height="240">
@@ -834,6 +806,36 @@
    <LINKPOINT x="4650" y="10538">
    </LINKPOINT>
    <LINKPOINT x="6000" y="10538">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="169">
+   <BOUNDS type="Node" left="6615" top="12870" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6615" top="12870" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="16140" top="1845" width="10770" height="12510">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1">
+   </PIN>
+   <PIN pinname="Actual BackBuffer SizeXY" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="136" srcpinname="Layer Out" dstnodeid="169" dstpinname="Layers">
+   </LINK>
+   <LINK srcnodeid="169" srcpinname="Actual BackBuffer SizeXY" dstnodeid="0" dstpinname="Texture SizeXY" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="1980" y="13440">
+   </LINKPOINT>
+   <LINKPOINT x="3480" y="9615">
+   </LINKPOINT>
+   <LINKPOINT x="5445" y="10410">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="169" srcpinname="Actual BackBuffer SizeXY" dstnodeid="14" dstpinname="XY" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="1560" y="14415">
+   </LINKPOINT>
+   <LINKPOINT x="2775" y="8370">
+   </LINKPOINT>
+   <LINKPOINT x="4560" y="8340">
    </LINKPOINT>
    </LINK>
    </PATCH>
