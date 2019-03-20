@@ -11,7 +11,7 @@
 #include "textures.fxh"
 
 //#define STRATIFIED // use stratified sampling
-#define USE_BVH // use bvh nodes for scene traversal
+//#define USE_BVH // use bvh nodes for scene traversal
 
 Surface intersect(const Primitive hit, const Ray ray, out float t)
 {
@@ -90,6 +90,9 @@ Surface trace(const Ray ray, float tMax )
 	Primitive hit;
 
 #ifdef USE_BVH
+	uint count, stride;
+	bvhBuffer.GetDimensions(count, stride);
+	
 	int nodeIdx = 0;
 	
 	// Create a stack for keeping track of what nodes to test against
@@ -103,7 +106,7 @@ Surface trace(const Ray ray, float tMax )
 	int primStackOffset = 0;
 	
 	[fastopt]
-	while (nodeStackOffset > 0)
+	while (nodeStackOffset > 0 && count > 0)
 	{
 		BVHNode node = fetchBVHNodeData(nodeStack[--nodeStackOffset]);
 		

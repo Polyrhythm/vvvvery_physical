@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\simple.v4p" systemname="simple" filename="D:\dev\vvvvery_physical\simple.v4p" scrollx="6990" scrolly="2235">
-   <BOUNDS type="Window" left="1485" top="2565" width="14925" height="11340">
+   <PATCH nodename="D:\dev\vvvvery_physical\simple.v4p" systemname="simple" filename="D:\dev\vvvvery_physical\simple.v4p" scrollx="3000" scrolly="0">
+   <BOUNDS type="Window" left="390" top="2445" width="13710" height="11340">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
@@ -8,7 +8,7 @@
    </PACK>
    <PACK Name="addonpack" Version="38.1.0">
    </PACK>
-   <NODE systemname="Raytracer (Renderer)" filename="modules\Renderer\Raytracer (Renderer).v4p" nodename="Raytracer (Renderer)" componentmode="InAWindow" id="43" stayontop="0">
+   <NODE systemname="Raytracer (Renderer)" filename="modules\Renderer\Raytracer (Renderer).v4p" nodename="Raytracer (Renderer)" componentmode="Hidden" id="43" stayontop="0">
    <BOUNDS type="Node" left="7425" top="8940" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer Out" visible="1">
@@ -39,7 +39,7 @@
    </PIN>
    <PIN pinname="renderSky" visible="1">
    </PIN>
-   <BOUNDS type="Window" left="9420" top="3225" width="11940" height="10875">
+   <BOUNDS type="Window" left="5520" top="12450" width="11940" height="10875">
    </BOUNDS>
    <PIN pinname="envMap" visible="1" slicecount="1" values="||">
    </PIN>
@@ -75,7 +75,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="9252" top="12199" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="16245" top="1110" width="11415" height="13545">
+   <BOUNDS type="Window" left="15090" top="1110" width="12570" height="13545">
    </BOUNDS>
    <PIN pinname="Layers" visible="1">
    </PIN>

@@ -50,3 +50,5 @@ C:\Users\ryan\Development\creative\vvvvery_physical\physical\bin\x64\Debug\Sharp
 C:\Users\ryan\Development\creative\vvvvery_physical\physical\obj\x64\Debug\physical.dll
 C:\Users\ryan\Development\creative\vvvvery_physical\physical\obj\x64\Debug\physical.pdb
 C:\Users\ryan\Development\creative\vvvvery_physical\physical\obj\x64\Debug\physical.csprojResolveAssemblyReference.cache
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\ObjParser.dll
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\ObjParser.pdb

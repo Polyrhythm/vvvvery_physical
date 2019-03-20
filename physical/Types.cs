@@ -9,7 +9,8 @@ namespace physical
     {
         Sphere = 0,
         Box = 1,
-        SDF = 2
+        SDF = 2,
+        Triangle = 3
     }
 
     public enum MaterialType : int
@@ -35,6 +36,18 @@ namespace physical
         public Vector3 MinBounds;
         public Vector3 MaxBounds;
 
+        public int Va;
+        public int Vb;
+        public int Vc;
+
+        public int UVa;
+        public int UVb;
+        public int UVc;
+
+        public int Na;
+        public int Nb;
+        public int Nc;
+
         public Primitive(PrimitiveType primitiveType, int materialIndex, Vector4 primitiveParams,
             Matrix transform)
         {
@@ -42,6 +55,16 @@ namespace physical
             MaterialIndex = materialIndex;
             Params = primitiveParams;
             InverseTransform = transform;
+
+            Va = -1;
+            Vb = -1;
+            Vc = -1;
+            UVa = -1;
+            UVb = -1;
+            UVc = -1;
+            Na = -1;
+            Nb = -1;
+            Nc = -1;
 
             // All transforms going into the raytracer need to be inverse for ray calculation
             InverseTransform.Invert();
@@ -70,7 +93,7 @@ namespace physical
                     break;
 
                 default:
-                    Vector3 defaultSize = new Vector3(1.0f, 1.0f, 1.0f);
+                    Vector3 defaultSize = new Vector3(2.0f, 2.0f, 2.0f);
                     MinBounds = aabb.Minimum;
                     MaxBounds = aabb.Maximum;
                     aabb = GetAABBFromPoints(defaultSize, transform);
@@ -112,6 +135,7 @@ namespace physical
         public float Intensity;
         public int TextureIndex;
         public Vector2 UVScale;
+        public float Padding;
 
         public Material(MaterialType materialType, float ior, float roughness, Color4 colour, float intensity,
             int textureIndex, Vector2 uvScale)
@@ -123,6 +147,7 @@ namespace physical
             Intensity = intensity;
             TextureIndex = textureIndex;
             UVScale = uvScale;
+            Padding = 0;
         }
     }
 

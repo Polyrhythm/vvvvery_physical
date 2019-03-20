@@ -17,6 +17,7 @@ struct Material
 	float intensity;
 	int texIdx;
 	float2 uvScale;
+	float padding;
 };
 
 class DiffuseDielectricMaterial : AbstractBSDF {

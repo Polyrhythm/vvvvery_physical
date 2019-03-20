@@ -5,6 +5,7 @@
 #include "materials.fxh"
 #include "lights.fxh"
 #include "BVH.fxh"
+#include "geometry.fxh"
 
 cbuffer cbPerDraw : register( b0 )
 {

@@ -20,4 +20,9 @@ struct Surface {
 	float2 uv;
 };
 
+struct Intersection {
+	int triangleId;
+	float U, V, T;
+};
+
 #endif

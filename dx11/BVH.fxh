@@ -8,7 +8,6 @@ struct BVHNode
 	int isLeaf;
 	int leftIndex;
 	int rightIndex;
-	row_major float4x4 inverseTransform;
 };
 
 #endif

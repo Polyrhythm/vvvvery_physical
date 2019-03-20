@@ -9,6 +9,7 @@
 static const int SPHERE = 0;
 static const int BOX = 1;
 static const int SDF = 2;
+static const int TRIANGLE = 3;
 
 SamplerState linearSampler : IMMUTABLE
 {
@@ -26,6 +27,18 @@ struct Primitive
 	row_major float4x4 inverseTransform;
 	float3 minBounds;
 	float3 maxBounds;
+	
+	int Va;
+    int Vb;
+    int Vc;
+
+    int UVa;
+    int UVb;
+    int UVc;
+
+    int Na;
+    int Nb;
+    int Nc;
 };
 
 float2 intersectSDF(const Ray ray, Texture3D sdfVolume, out float t,
@@ -209,6 +222,36 @@ void getBoxUV(const float3 size, const float4x4 transform, const float3 nor,
 		uvHit.x = -pHit.x / bounds[0].x * 0.5 + 0.5;
 		uvHit.y = pHit.y / bounds[0].y * 0.5 + 0.5;
 	}
+}
+
+Intersection intersectTriangle(const float3 A, const float3 B, const float3 C,
+	const Ray ray)
+{
+	Intersection intersection;
+	intersection.triangleId = -1;
+	
+	float3 P, T, Q;
+	float3 E1 = B - A;
+	float3 E2 = C - A;
+	P = cross(ray.dir, E2);
+	float det = 1.0f / dot(E1, P);
+	T = ray.origin - A;
+	intersection.U = dot(T, P) * det;
+	Q = cross(T, E1);
+	intersection.V = dot(ray.dir, Q) * det;
+	intersection.T = dot(E2, Q) * det;
+	
+	return intersection;
+}
+
+bool RayTriangleTest(Intersection intersection)
+{
+	return (
+		(intersection.U >= 0.0f) &&
+		(intersection.V >= 0.0f) &&
+		((intersection.U + intersection.V) <= 1.0f) &&
+		(intersection.T >= 0.0f)
+	);
 }
 
 #endif

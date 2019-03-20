@@ -371,7 +371,7 @@
                 <Choice Kind="TypeFlag" Name="Vector3" />
               </p:TypeAnnotation>
             </Pad>
-            <Pad Id="UWIc4XXZ7vsLOaHAurrQog" Comment="Count" Bounds="92,50,16,18" ShowValueBox="true" isIOBox="true" Value="40">
+            <Pad Id="UWIc4XXZ7vsLOaHAurrQog" Comment="Count" Bounds="92,50,16,18" ShowValueBox="true" isIOBox="true" Value="250">
               <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
                 <Choice Kind="TypeFlag" Name="Integer32" />
               </p:TypeAnnotation>

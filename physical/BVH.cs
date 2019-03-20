@@ -36,7 +36,6 @@ namespace physical
             public int IsLeaf;
             public int LeftIndex;
             public int RightIndex;
-            public Matrix InverseTransform;
 
             public BVHNode(BoundingBox aabb, int isLeaf, int leftIndex, int rightIndex)
             {
@@ -45,21 +44,12 @@ namespace physical
                 IsLeaf = isLeaf;
                 LeftIndex = leftIndex;
                 RightIndex = rightIndex;
-
-                InverseTransform = Matrix.Identity;
-                InverseTransform.TranslationVector = Vector3.Lerp(aabb.Minimum, aabb.Maximum, 0.5f);
-                InverseTransform.Invert();
             }
 
             public void SetAABB(BoundingBox aabb)
             {
                 MinBounds = aabb.Minimum;
                 MaxBounds = aabb.Maximum;
-
-                InverseTransform = Matrix.Identity;
-                InverseTransform.TranslationVector = Vector3.Lerp(aabb.Minimum, aabb.Maximum, 0.5f);
-                InverseTransform.Invert();
-
             }
         }
 
