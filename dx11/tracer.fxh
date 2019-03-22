@@ -11,7 +11,7 @@
 #include "textures.fxh"
 
 //#define STRATIFIED // use stratified sampling
-#define USE_BVH // use bvh nodes for scene traversal
+//#define USE_BVH // use bvh nodes for scene traversal
 
 Surface intersectShadow(const Primitive hit, const Ray ray)
 {
