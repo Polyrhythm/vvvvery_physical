@@ -73,7 +73,11 @@ namespace physical
                 Vertex c = obj.VertexList[triangle.Vc];
                 Vector3 vc = new Vector3((float)c.X, (float)c.Y, (float)c.Z);
 
-                BoundingBox aabb = BoundingBox.FromPoints(new Vector3[]{va, vb, vc});
+                Vector3 ta = (Vector3)Vector3.Transform(va, transform);
+                Vector3 tb = (Vector3)Vector3.Transform(vb, transform);
+                Vector3 tc = (Vector3)Vector3.Transform(vc, transform);
+
+                BoundingBox aabb = BoundingBox.FromPoints(new Vector3[]{ta, tb, tc});
                 triangle.MinBounds = aabb.Minimum;
                 triangle.MaxBounds = aabb.Maximum;
 

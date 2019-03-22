@@ -228,7 +228,6 @@ Intersection intersectTriangle(const float3 A, const float3 B, const float3 C,
 	const Ray ray)
 {
 	Intersection intersection;
-	intersection.triangleId = -1;
 	
 	float3 P, T, Q;
 	float3 E1 = B - A;
@@ -244,7 +243,7 @@ Intersection intersectTriangle(const float3 A, const float3 B, const float3 C,
 	return intersection;
 }
 
-bool RayTriangleTest(Intersection intersection)
+bool testTriangleIntersect(Intersection intersection)
 {
 	return (
 		(intersection.U >= 0.0f) &&
@@ -252,6 +251,26 @@ bool RayTriangleTest(Intersection intersection)
 		((intersection.U + intersection.V) <= 1.0f) &&
 		(intersection.T >= 0.0f)
 	);
+}
+
+float2 getTriangleUV(const float2 UVa, const float2 UVb, const float2 UVc,
+	const Intersection intersection)
+{
+	return intersection.U * UVb + intersection.V * UVc +
+		(1.0 - (intersection.U + intersection.V)) * UVa;
+}
+
+float3 getBarycentric(const float3 Na, const float3 Nb, const float3 Nc,
+	const float2 uv)
+{
+	float3 fOut = 0.0;
+	float t = 1.0 - (uv.x + uv.y);
+	
+	fOut.x = Na.x * t + Nb.x * uv.x + Nc.x * uv.y;
+	fOut.y = Na.y * t + Nb.y * uv.x + Nc.y * uv.y;
+	fOut.z = Na.z * t + Nb.z * uv.x + Nc.z * uv.y;
+	
+	return fOut;
 }
 
 #endif

@@ -21,7 +21,6 @@ struct Surface {
 };
 
 struct Intersection {
-	int triangleId;
 	float U, V, T;
 };
 

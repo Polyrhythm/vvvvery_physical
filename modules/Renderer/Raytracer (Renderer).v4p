@@ -653,6 +653,12 @@
    </PIN>
    <PIN pinname="bvhBuffer" visible="1" slicecount="1" values="||">
    </PIN>
+   <PIN pinname="normalBuffer" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="uvBuffer" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="vertexBuffer" visible="1" slicecount="1" values="||">
+   </PIN>
    </NODE>
    <LINK srcnodeid="24" srcpinname="Layer" dstnodeid="4" dstpinname="Layer In">
    </LINK>
@@ -1333,5 +1339,53 @@
    <LINK srcnodeid="106" srcpinname="OutputXYZW" dstnodeid="73" dstpinname="XYZW">
    </LINK>
    <LINK srcnodeid="78" srcpinname="Y Output Value" dstnodeid="106" dstpinname="Enabled">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="107">
+   <BOUNDS type="Box" left="6225" top="1515" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6225" top="1515" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="normalBuffer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="107" srcpinname="Output Node" dstnodeid="24" dstpinname="normalBuffer" linkstyle="Bezier">
+   <LINKPOINT x="6225" y="2663">
+   </LINKPOINT>
+   <LINKPOINT x="5100" y="2663">
+   </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="108">
+   <BOUNDS type="Box" left="5895" top="1920" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5895" top="1920" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="uvBuffer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="108" srcpinname="Output Node" dstnodeid="24" dstpinname="uvBuffer" linkstyle="Bezier">
+   <LINKPOINT x="5880" y="2865">
+   </LINKPOINT>
+   <LINKPOINT x="4965" y="2865">
+   </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="109">
+   <BOUNDS type="Box" left="5505" top="2280" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5505" top="2280" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="vertexBuffer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="109" srcpinname="Output Node" dstnodeid="24" dstpinname="vertexBuffer" linkstyle="Bezier">
+   <LINKPOINT x="5490" y="3045">
+   </LINKPOINT>
+   <LINKPOINT x="4815" y="3045">
+   </LINKPOINT>
    </LINK>
    </PATCH>
