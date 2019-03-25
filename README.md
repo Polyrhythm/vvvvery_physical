@@ -31,12 +31,12 @@ all the abilities of vvvv are at your disposal.
  - [x] support for primitives and signed-distance field volumes
  - [x] basic diffuse/specular materials
  - [x] textures
- - [ ] VL-based scene construction
+ - [x] VL-based scene construction
  - [ ] photometric light units
  - [ ] HDRI/IBL support
  - [ ] physical sky
- - [ ] polygonal meshes
- - [ ] accelerated through BVH
+ - [x] polygonal meshes
+ - [x] accelerated through BVH
  - [ ] principled material
  - [ ] volume material
  - [ ] girlpower (tutorial) patches and examples
