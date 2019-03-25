@@ -522,7 +522,7 @@
    </LINK>
    <LINK srcnodeid="34" srcpinname="Y Output Value" dstnodeid="21" dstpinname="ScaleY">
    </LINK>
-   <BOUNDS type="Window" left="8880" top="2880" width="11940" height="10875">
+   <BOUNDS type="Window" left="11730" top="4050" width="11940" height="10875">
    </BOUNDS>
    <PACK Name="VVVV.Packs" Version="0.2.0">
    </PACK>
@@ -658,6 +658,8 @@
    <PIN pinname="uvBuffer" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="vertexBuffer" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="seedTex" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <LINK srcnodeid="24" srcpinname="Layer" dstnodeid="4" dstpinname="Layer In">
@@ -1387,5 +1389,17 @@
    </LINKPOINT>
    <LINKPOINT x="4815" y="3045">
    </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="110">
+   <BOUNDS type="Box" left="3525" top="2340" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3525" top="2340" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="seedTex">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="110" srcpinname="Output Node" dstnodeid="24" dstpinname="seedTex">
    </LINK>
    </PATCH>

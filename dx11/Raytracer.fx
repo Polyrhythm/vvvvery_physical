@@ -4,6 +4,16 @@
 
 float4 TextureSize : TARGETSIZE;
 
+Texture2D seedTex;
+
+SamplerState seedSampler : IMMUTABLE
+{
+    Filter = MIN_MAG_MIP_LINEAR;
+    AddressU = Wrap;
+    AddressV = Wrap;
+	AddressW = Wrap;
+};
+
 struct VS_IN
 {
 	float4 PosO : POSITION;
@@ -26,11 +36,15 @@ float3 render(const float2 uv, const Options options, float4 pos,
 	float2 st = randSampler.SampleFloat2()-0.5;
 	pos.xy += st;
 	
+	uint3 seedColour = asuint(seedTex.Sample(seedSampler, uv).rgb);
+	uint seed = jenkins_hash(seedColour + SampleIndex * 10.0);
+	RandomSampler rtSampler = RandomSampler::New(seed);
+	
 	Ray ray;
 	ray.origin = tVI[3].xyz;
 	ray.dir = UVtoEYE(uv.xy + st/TextureSize.xy);
 	
-	return castRay(ray, pos, randSampler);
+	return castRay(ray, pos, rtSampler);
 }
 
 // ********

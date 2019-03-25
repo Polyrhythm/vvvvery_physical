@@ -127,8 +127,7 @@ void getBoxBounds(const float3 size, const float4x4 transform,
 	bounds[1] = float3(pos + size / 2);
 }
 
-float2 intersectBVH(const Ray ray, const float3 minBounds, const float3 maxBounds,
-	out float t)
+float2 intersectBVH(const Ray ray, const float3 minBounds, const float3 maxBounds)
 {
 	float3 tMin = (minBounds - ray.origin) / ray.dir;
 	float3 tMax = (maxBounds - ray.origin) / ray.dir;
@@ -140,7 +139,6 @@ float2 intersectBVH(const Ray ray, const float3 minBounds, const float3 maxBound
 	float2 res = (float2)-1;
 	
 	if (max(tNear,0) <= tFar) {
-		t = tNear;
 		res = float2(tNear, tFar);
 	}
 		

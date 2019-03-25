@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using OpenCvSharp;
 using SharpDX;
 
 namespace physical
 {
-    public class BVH
+    public unsafe class BVH
     {
         public List<BVHNode> _nodes;
         private BoundingBox _worldBounds;
@@ -36,6 +38,8 @@ namespace physical
             public int IsLeaf;
             public int LeftIndex;
             public int RightIndex;
+            public int SplitAxis;
+            public fixed int Leaves[2]; // _threshold + 1
 
             public BVHNode(BoundingBox aabb, int isLeaf, int leftIndex, int rightIndex)
             {
@@ -44,6 +48,17 @@ namespace physical
                 IsLeaf = isLeaf;
                 LeftIndex = leftIndex;
                 RightIndex = rightIndex;
+
+                fixed (int* arr = Leaves)
+                {
+                    for (int i = 0; i < 1; i++)
+                    {
+                        int* leaf = &arr[i];
+                        *leaf = -1;
+                    }
+                }
+
+                SplitAxis = -1;
             }
 
             public void SetAABB(BoundingBox aabb)
@@ -72,9 +87,12 @@ namespace physical
             {
                 // assign node as leaf node
                 node.IsLeaf = 1;
-                node.LeftIndex = (int)_primitives[leftIdx].OriginalIndex;
-                node.RightIndex = -1;
-                _leaves++;
+
+                for (int i = 0; i <= rightIdx - leftIdx; i++)
+                {
+                    node.Leaves[i] = (int) _primitives[leftIdx + i].OriginalIndex;
+                    _leaves++;
+                }
 
                 _nodes[nodeIdx] = node;
                 return;
@@ -84,6 +102,19 @@ namespace physical
             Vector3 midpoint = Vector3.Lerp(node.MinBounds, node.MaxBounds, 0.5f);
             Vector3 diff = node.MaxBounds - node.MinBounds;
             Vector3 maxDir = BVHBuilder.FindMaxDir(diff);
+
+            if (maxDir.X == 1.0f)
+            {
+                node.SplitAxis = 1;
+            }
+            else if (maxDir.Y == 1.0f)
+            {
+                node.SplitAxis = 2;
+            }
+            else
+            {
+                node.SplitAxis = 3;
+            }
 
             // sort by largest dimension
             _primitives.Skip(leftIdx).Take(rightIdx - leftIdx + 1)
@@ -106,9 +137,16 @@ namespace physical
                 .CopyTo(_primitives, leftIdx);
 
             // find the midpoint index of intersectables in the current node
+            // The midpoint index is inclusive for the lefthand child node
             int midIdx = leftIdx;
 
-            if (rightIdx - leftIdx == 2)
+            if (rightIdx - leftIdx <= _threshold * 2)
+            {
+                midIdx = leftIdx + (int)_threshold;
+            }
+
+            // If there are only three intersectables left, force the split in the middle
+            else if (rightIdx - leftIdx == 2)
             {
                 midIdx++;
             }
@@ -163,8 +201,8 @@ namespace physical
             
             
             // Create left and right nodes, assign them bounds, recursively build their trees
-            BVHNode leftNode = new BVHNode();
-            BVHNode rightNode = new BVHNode();
+            BVHNode leftNode = new BVHNode(new BoundingBox(), 0, -1, -1);
+            BVHNode rightNode = new BVHNode(new BoundingBox(), 0, -1, -1);
 
             leftNode.SetAABB(leftBox);
             rightNode.SetAABB(rightBox);
@@ -188,7 +226,7 @@ namespace physical
                 return;
             }
 
-            BVHNode root = new BVHNode();
+            BVHNode root = new BVHNode(new BoundingBox(), 0, -1, -1);
             root.SetAABB(_worldBounds);
             _nodes.Add(root);
 
@@ -236,7 +274,8 @@ namespace physical
                 return new BVH.BVHNode[0];
             }
 
-            BVH bvh = new BVH(primitives, worldBounds, 0);
+            uint THRESHOLD = 1;
+            BVH bvh = new BVH(primitives, worldBounds, THRESHOLD);
             bvh.BuildBVH();
             return bvh._nodes;
         }

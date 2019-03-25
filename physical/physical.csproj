@@ -53,8 +53,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ObjParser">
-      <HintPath>..\..\ObjParser\ObjParser\bin\Debug\ObjParser.dll</HintPath>
+    <Reference Include="ObjParser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\ObjParser.dll</HintPath>
     </Reference>
     <Reference Include="OpenCvSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
       <HintPath>..\src\packages\OpenCvSharp3-AnyCPU.3.4.4.20181118\lib\net461\OpenCvSharp.dll</HintPath>
