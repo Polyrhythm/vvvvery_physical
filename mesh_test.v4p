@@ -1,9 +1,9 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\mesh_test.v4p" scrollx="0" scrolly="7815" systemname="mesh_test" filename="D:\dev\vvvvery_physical\mesh_test.v4p">
+   <PATCH nodename="D:\dev\vvvvery_physical\mesh_test.v4p" scrollx="45" scrolly="5175" systemname="mesh_test" filename="D:\dev\vvvvery_physical\mesh_test.v4p">
    <BOUNDS type="Window" left="210" top="5400" width="14475" height="10335">
    </BOUNDS>
    <NODE systemname="Raytracer (Renderer)" filename="modules\Renderer\Raytracer (Renderer).v4p" nodename="Raytracer (Renderer)" componentmode="Hidden" id="20" stayontop="0">
-   <BOUNDS type="Node" left="4690" top="14343" width="100" height="100">
+   <BOUNDS type="Node" left="4615" top="13383" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer Out" visible="1">
    </PIN>
@@ -33,7 +33,7 @@
    </PIN>
    <PIN pinname="renderSky" visible="1" slicecount="1" values="0">
    </PIN>
-   <BOUNDS type="Window" left="11730" top="4050" width="11940" height="10875">
+   <BOUNDS type="Window" left="9075" top="3075" width="11940" height="10875">
    </BOUNDS>
    <PIN pinname="envMap" visible="1" slicecount="1" values="||">
    </PIN>
@@ -71,6 +71,10 @@
    </PIN>
    <PIN pinname="seedTex" visible="1">
    </PIN>
+   <PIN pinname="Pointlight Transforms" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Arealight Transforms" visible="1" slicecount="1" values="||">
+   </PIN>
    </NODE>
    <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="19">
    <BOUNDS type="Node" left="6517" top="17197" width="100" height="100">
@@ -87,9 +91,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="19" srcpinname="Actual BackBuffer SizeXY" dstnodeid="20" dstpinname="Texture SizeXY" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="5593" y="18696">
+   <LINKPOINT x="5568" y="18376">
    </LINKPOINT>
-   <LINKPOINT x="2314" y="13669">
+   <LINKPOINT x="2264" y="13029">
    </LINKPOINT>
    </LINK>
    <NODE systemname="AspectRatio (Transform)" nodename="AspectRatio (Transform)" componentmode="Hidden" id="18">
@@ -102,7 +106,7 @@
    <PIN pinname="Aspect Height" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="18" srcpinname="Transform Out" dstnodeid="20" dstpinname="Aspect Ratio">
+   <LINK srcnodeid="18" srcpinname="Transform Out" dstnodeid="20" dstpinname="Aspect Ratio" linkstyle="PolyLine">
    </LINK>
    <NODE systemname="Vector (2d Split)" nodename="Vector (2d Split)" componentmode="Hidden" id="17">
    <BOUNDS type="Node" left="6940" top="9243" width="100" height="100">
@@ -201,9 +205,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="12" srcpinname="Y Output Value" dstnodeid="20" dstpinname="Enable sample debug" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="8449" y="9965">
+   <LINKPOINT x="8424" y="9645">
    </LINKPOINT>
-   <LINKPOINT x="6614" y="11328">
+   <LINKPOINT x="6564" y="10688">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="11" systemname="IOBox (Value Advanced)">
@@ -221,9 +225,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="20" dstpinname="Brightness" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="11078" y="9816">
+   <LINKPOINT x="11053" y="9496">
    </LINKPOINT>
-   <LINKPOINT x="6894" y="11202">
+   <LINKPOINT x="6844" y="10562">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="10" systemname="IOBox (Value Advanced)">
@@ -247,9 +251,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="10" srcpinname="Y Output Value" dstnodeid="20" dstpinname="Enable Pixel Analysis" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="9476" y="9926">
+   <LINKPOINT x="9451" y="9606">
    </LINKPOINT>
-   <LINKPOINT x="5552" y="11345">
+   <LINKPOINT x="5502" y="10705">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
@@ -269,9 +273,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="20" srcpinname="Pixel Colour" dstnodeid="9" dstpinname="Y Input Value" linkstyle="Bezier">
-   <LINKPOINT x="4668" y="16176">
+   <LINKPOINT x="4618" y="15536">
    </LINKPOINT>
-   <LINKPOINT x="3835" y="16491">
+   <LINKPOINT x="3810" y="16171">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="8" systemname="IOBox (Value Advanced)">
@@ -309,9 +313,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="7" srcpinname="Y Output Value" dstnodeid="20" dstpinname="Enable" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="7457" y="10008">
+   <LINKPOINT x="7432" y="9688">
    </LINKPOINT>
-   <LINKPOINT x="5674" y="11333">
+   <LINKPOINT x="5624" y="10693">
    </LINKPOINT>
    </LINK>
    <NODE systemname="BuildTextureArray (DX11.TextureFX)" filename="%VVVV%\packs\InstanceNoodles\nodes\modules\DX11.TextureFX\BuildTextureArray (DX11.TextureFX)\BuildTextureArray (DX11.TextureFX).v4p" nodename="BuildTextureArray (DX11.TextureFX)" componentmode="Hidden" id="6">
@@ -327,9 +331,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="6" srcpinname="Texture Array Out" dstnodeid="20" dstpinname="textures" linkstyle="Bezier">
-   <LINKPOINT x="9721" y="11770">
+   <LINKPOINT x="9696" y="11450">
    </LINKPOINT>
-   <LINKPOINT x="6230" y="12805">
+   <LINKPOINT x="6180" y="12165">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="14" srcpinname="Output" dstnodeid="6" dstpinname="Texture">
@@ -419,9 +423,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="20" srcpinname="Average Luminance" dstnodeid="1" dstpinname="Y Input Value" linkstyle="Bezier">
-   <LINKPOINT x="6665" y="16496">
+   <LINKPOINT x="6615" y="15856">
    </LINKPOINT>
-   <LINKPOINT x="7140" y="16811">
+   <LINKPOINT x="7115" y="16491">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="16" srcpinname="Output" dstnodeid="20" dstpinname="Reset Render">
@@ -459,15 +463,15 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="21" srcpinname="View" dstnodeid="20" dstpinname="View" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="9390" y="8278">
+   <LINKPOINT x="9365" y="7958">
    </LINKPOINT>
-   <LINKPOINT x="7725" y="9603">
+   <LINKPOINT x="7675" y="8963">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="21" srcpinname="Projection" dstnodeid="20" dstpinname="Projection" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="9555" y="8270">
+   <LINKPOINT x="9530" y="7950">
    </LINKPOINT>
-   <LINKPOINT x="8025" y="9595">
+   <LINKPOINT x="7975" y="8955">
    </LINKPOINT>
    </LINK>
    <NODE systemname="GetMatrix (Transform)" nodename="GetMatrix (Transform)" componentmode="Hidden" id="22">
@@ -502,40 +506,16 @@
    </PACK>
    <PACK Name="addonpack" Version="38.1.0">
    </PACK>
-   <NODE systemname="MeshTestScene (physical)" filename="vl\VVVV.physical.MeshTestScene.vl" nodename="MeshTestScene (physical)" componentmode="Hidden" id="24">
-   <BOUNDS type="Node" left="5355" top="3750" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="LightBuffer" visible="1">
-   </PIN>
-   <PIN pinname="MatBuffer" visible="1">
-   </PIN>
-   <PIN pinname="BVHBuffer" visible="1">
-   </PIN>
-   <PIN pinname="Changed" visible="1">
-   </PIN>
-   <PIN pinname="VertexBuffer" visible="1">
-   </PIN>
-   <PIN pinname="UVBuffer" visible="1">
-   </PIN>
-   <PIN pinname="NormalBuffer" visible="1">
-   </PIN>
-   <PIN pinname="PrimitiveBuffer" visible="1">
-   </PIN>
-   <PIN pinname="BVHTransforms" visible="1">
-   </PIN>
-   </NODE>
    <NODE systemname="UploadBuffer (DX11.Buffer)" filename="%VVVV%\lib\packs\VL.VVVV.DirectX11.0.94.50-gf563f1b382\vvvv\nodes\plugins\VL.VVVV.DirectX11.dll" nodename="UploadBuffer (DX11.Buffer)" componentmode="Hidden" id="25">
    <BOUNDS type="Node" left="1905" top="4350" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="1905" top="4350" width="3000" height="3000">
    </BOUNDS>
-   <PIN pinname="Buffer Description" visible="1">
+   <PIN pinname="Buffer Description" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Buffer" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="24" srcpinname="LightBuffer" dstnodeid="25" dstpinname="Buffer Description">
-   </LINK>
    <NODE systemname="UploadBuffer (DX11.Buffer)" filename="%VVVV%\lib\packs\VL.VVVV.DirectX11.0.94.50-gf563f1b382\vvvv\nodes\plugins\VL.VVVV.DirectX11.dll" nodename="UploadBuffer (DX11.Buffer)" componentmode="Hidden" id="47">
    <BOUNDS type="Node" left="2970" top="4335" width="100" height="100">
    </BOUNDS>
@@ -566,18 +546,6 @@
    <PIN pinname="Buffer" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="24" srcpinname="MatBuffer" dstnodeid="47" dstpinname="Buffer Description">
-   </LINK>
-   <LINK srcnodeid="24" srcpinname="BVHBuffer" dstnodeid="48" dstpinname="Buffer Description">
-   </LINK>
-   <LINK srcnodeid="24" srcpinname="Changed" dstnodeid="16" dstpinname="Input 2" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="5880" y="6660">
-   </LINKPOINT>
-   <LINKPOINT x="8355" y="6660">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="24" srcpinname="VertexBuffer" dstnodeid="49" dstpinname="Buffer Description">
-   </LINK>
    <NODE systemname="UploadBuffer (DX11.Buffer)" filename="%VVVV%\lib\packs\VL.VVVV.DirectX11.0.94.50-gf563f1b382\vvvv\nodes\plugins\VL.VVVV.DirectX11.dll" nodename="UploadBuffer (DX11.Buffer)" componentmode="Hidden" id="50">
    <BOUNDS type="Node" left="6045" top="4335" width="100" height="100">
    </BOUNDS>
@@ -588,8 +556,6 @@
    <PIN pinname="Buffer" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="24" srcpinname="UVBuffer" dstnodeid="50" dstpinname="Buffer Description">
-   </LINK>
    <NODE systemname="UploadBuffer (DX11.Buffer)" filename="%VVVV%\lib\packs\VL.VVVV.DirectX11.0.94.50-gf563f1b382\vvvv\nodes\plugins\VL.VVVV.DirectX11.dll" nodename="UploadBuffer (DX11.Buffer)" componentmode="Hidden" id="51">
    <BOUNDS type="Node" left="7080" top="4335" width="100" height="100">
    </BOUNDS>
@@ -600,60 +566,56 @@
    <PIN pinname="Buffer" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="24" srcpinname="NormalBuffer" dstnodeid="51" dstpinname="Buffer Description">
-   </LINK>
    <NODE systemname="UploadBuffer (DX11.Buffer)" filename="%VVVV%\lib\packs\VL.VVVV.DirectX11.0.94.50-gf563f1b382\vvvv\nodes\plugins\VL.VVVV.DirectX11.dll" nodename="UploadBuffer (DX11.Buffer)" componentmode="Hidden" id="52">
    <BOUNDS type="Node" left="8100" top="4335" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="8100" top="4335" width="3000" height="3000">
    </BOUNDS>
-   <PIN pinname="Buffer Description" visible="1">
+   <PIN pinname="Buffer Description" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Buffer" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="24" srcpinname="PrimitiveBuffer" dstnodeid="52" dstpinname="Buffer Description">
-   </LINK>
    <LINK srcnodeid="25" srcpinname="Buffer" dstnodeid="20" dstpinname="lightBuffer" linkstyle="Bezier">
-   <LINKPOINT x="1890" y="8810">
+   <LINKPOINT x="1865" y="8490">
    </LINKPOINT>
-   <LINKPOINT x="6465" y="10135">
+   <LINKPOINT x="6415" y="9495">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="47" srcpinname="Buffer" dstnodeid="20" dstpinname="materialBuffer" linkstyle="Bezier">
-   <LINKPOINT x="2955" y="8810">
+   <LINKPOINT x="2930" y="8490">
    </LINKPOINT>
-   <LINKPOINT x="6000" y="10135">
+   <LINKPOINT x="5950" y="9495">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="48" srcpinname="Buffer" dstnodeid="20" dstpinname="bvhBuffer" linkstyle="Bezier">
-   <LINKPOINT x="3950" y="8805">
+   <LINKPOINT x="3925" y="8485">
    </LINKPOINT>
-   <LINKPOINT x="5110" y="10125">
+   <LINKPOINT x="5060" y="9485">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="49" srcpinname="Buffer" dstnodeid="20" dstpinname="vertexBuffer" linkstyle="Bezier">
-   <LINKPOINT x="4965" y="8810">
+   <LINKPOINT x="4940" y="8490">
    </LINKPOINT>
-   <LINKPOINT x="6330" y="10135">
+   <LINKPOINT x="6280" y="9495">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="50" srcpinname="Buffer" dstnodeid="20" dstpinname="uvBuffer" linkstyle="Bezier">
-   <LINKPOINT x="6000" y="8803">
+   <LINKPOINT x="5975" y="8483">
    </LINKPOINT>
-   <LINKPOINT x="6630" y="10128">
+   <LINKPOINT x="6580" y="9488">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="51" srcpinname="Buffer" dstnodeid="20" dstpinname="normalBuffer" linkstyle="Bezier">
-   <LINKPOINT x="7020" y="8803">
+   <LINKPOINT x="6995" y="8483">
    </LINKPOINT>
-   <LINKPOINT x="6795" y="10128">
+   <LINKPOINT x="6745" y="9488">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="52" srcpinname="Buffer" dstnodeid="20" dstpinname="primitiveBuffer" linkstyle="Bezier">
-   <LINKPOINT x="8025" y="8803">
+   <LINKPOINT x="8000" y="8483">
    </LINKPOINT>
-   <LINKPOINT x="5715" y="10128">
+   <LINKPOINT x="5665" y="9488">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="53">
@@ -705,6 +667,8 @@
    </PIN>
    <PIN pinname="Color" visible="1">
    </PIN>
+   <PIN pinname="Enabled" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="Renderer (DX11 TempTarget)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 TempTarget)" componentmode="Hidden" id="56">
    <BOUNDS type="Node" left="885" top="12960" width="100" height="100">
@@ -716,6 +680,8 @@
    <PIN pinname="Buffers" visible="1">
    </PIN>
    <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Enabled" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="19" srcpinname="Actual BackBuffer SizeXY" dstnodeid="56" dstpinname="Texture SizeXY" linkstyle="Bezier" hiddenwhenlocked="1">
@@ -741,7 +707,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="1950" top="13875" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="-15105" top="4125" width="14820" height="12960">
+   <BOUNDS type="Window" left="-15630" top="4095" width="14820" height="12960">
    </BOUNDS>
    <PIN pinname="Texture In" visible="1">
    </PIN>
@@ -797,13 +763,15 @@
    </BOUNDS>
    <BOUNDS type="Node" left="2355" top="6750" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="8">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="16">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
    </NODE>
    <LINK srcnodeid="72" srcpinname="Y Output Value" dstnodeid="71" dstpinname="Input">
@@ -849,7 +817,7 @@
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
-   <PIN pinname="Input 2" slicecount="1" values="10">
+   <PIN pinname="Input 2" slicecount="1" values="10" visible="1">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -1062,10 +1030,110 @@
    </LINK>
    <LINK srcnodeid="102" srcpinname="Output" dstnodeid="99" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="56" srcpinname="Buffers" dstnodeid="20" dstpinname="seedTex" linkstyle="Bezier">
-   <LINKPOINT x="2265" y="13770">
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="103">
+   <BOUNDS type="Box" left="3420" top="11295" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3420" top="11295" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="103" srcpinname="Y Output Value" dstnodeid="55" dstpinname="Enabled">
+   </LINK>
+   <LINK srcnodeid="103" srcpinname="Y Output Value" dstnodeid="56" dstpinname="Enabled">
+   </LINK>
+   <NODE systemname="S+H (DX11.Texture 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="S+H (DX11.Texture 2d)" componentmode="Hidden" id="104">
+   <BOUNDS type="Node" left="3000" top="13500" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3000" top="13500" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Set" visible="1">
+   </PIN>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="103" srcpinname="Y Output Value" dstnodeid="104" dstpinname="Set">
+   </LINK>
+   <LINK srcnodeid="56" srcpinname="Buffers" dstnodeid="104" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="104" srcpinname="Output" dstnodeid="20" dstpinname="seedTex" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="3035" y="13720">
    </LINKPOINT>
-   <LINKPOINT x="5775" y="13770">
+   <LINKPOINT x="5710" y="13400">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="72" srcpinname="Y Output Value" dstnodeid="77" dstpinname="Input 2">
+   </LINK>
+   <NODE systemname="MeshTestScene (physical)" filename="vl\VVVV.physical.MeshTestScene.vl" nodename="MeshTestScene (physical)" componentmode="Hidden" id="24">
+   <BOUNDS type="Node" left="5355" top="3750" width="2445" height="270">
+   </BOUNDS>
+   <PIN pinname="LightBuffer" visible="1">
+   </PIN>
+   <PIN pinname="MatBuffer" visible="1">
+   </PIN>
+   <PIN pinname="BVHBuffer" visible="1">
+   </PIN>
+   <PIN pinname="Changed" visible="1">
+   </PIN>
+   <PIN pinname="VertexBuffer" visible="1">
+   </PIN>
+   <PIN pinname="UVBuffer" visible="1">
+   </PIN>
+   <PIN pinname="NormalBuffer" visible="1">
+   </PIN>
+   <PIN pinname="PrimitiveBuffer" visible="1">
+   </PIN>
+   <PIN pinname="BVHTransforms" visible="1">
+   </PIN>
+   <PIN pinname="Pointlight Transforms" visible="1">
+   </PIN>
+   <PIN pinname="Arealight Transforms" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="24" srcpinname="LightBuffer" dstnodeid="25" dstpinname="Buffer Description">
+   </LINK>
+   <LINK srcnodeid="24" srcpinname="MatBuffer" dstnodeid="47" dstpinname="Buffer Description">
+   </LINK>
+   <LINK srcnodeid="24" srcpinname="BVHBuffer" dstnodeid="48" dstpinname="Buffer Description">
+   </LINK>
+   <LINK srcnodeid="24" srcpinname="Changed" dstnodeid="16" dstpinname="Input 2" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="5880" y="6660">
+   </LINKPOINT>
+   <LINKPOINT x="8355" y="6660">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="24" srcpinname="VertexBuffer" dstnodeid="49" dstpinname="Buffer Description">
+   </LINK>
+   <LINK srcnodeid="24" srcpinname="UVBuffer" dstnodeid="50" dstpinname="Buffer Description">
+   </LINK>
+   <LINK srcnodeid="24" srcpinname="NormalBuffer" dstnodeid="51" dstpinname="Buffer Description">
+   </LINK>
+   <LINK srcnodeid="24" srcpinname="PrimitiveBuffer" dstnodeid="52" dstpinname="Buffer Description">
+   </LINK>
+   <LINK srcnodeid="24" srcpinname="Pointlight Transforms" dstnodeid="20" dstpinname="Pointlight Transforms" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="5700" y="8693">
+   </LINKPOINT>
+   <LINKPOINT x="8010" y="8693">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="24" srcpinname="Arealight Transforms" dstnodeid="20" dstpinname="Arealight Transforms" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="5400" y="8693">
+   </LINKPOINT>
+   <LINKPOINT x="8775" y="8693">
    </LINKPOINT>
    </LINK>
    </PATCH>

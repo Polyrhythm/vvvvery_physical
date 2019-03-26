@@ -23,7 +23,8 @@ namespace physical
     public enum LightType : int
     {
         Point = 0,
-        Spot = 1
+        Spot = 1,
+        Area = 2
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -160,14 +161,13 @@ namespace physical
         public Matrix Transform;
         public Vector2 Params;
 
-        public Light(LightType lightType, Color4 colour, float intensity, Matrix transform, float penumbra, float umbra)
+        public Light(LightType lightType, Color4 colour, float intensity, Matrix transform, Vector2 lightParams)
         {
             LightType = lightType;
             Colour = colour;
             Intensity = intensity;
             Transform = transform;
-            Params.X = penumbra;
-            Params.Y = umbra;
+            Params = lightParams;
         }
     }
 }

@@ -5,6 +5,7 @@
 
 static const int POINT = 0;
 static const int SPOTLIGHT = 1;
+static const int AREA = 2;
 
 struct Light
 {
@@ -16,12 +17,12 @@ struct Light
 };
 
 interface ILight {
-	float getAttenuation(float3 p);
+	float getAttenuation(float3 p, float2 st);
 };
 
 class AbstractLight : ILight {
 	float4x4 transform;
-	float getAttenuation(float3 p);
+	float getAttenuation(float3 p, float2 st);
 };
 
 class PointLight : AbstractLight {
@@ -40,11 +41,37 @@ class PointLight : AbstractLight {
 		return light;
 	}
 	
-	float getAttenuation(float3 p)
+	float getAttenuation(float3 p, float2 st)
 	{
 		float3 diff = p - pos;
 		float d2 = dot(diff, diff);
 		return 1.0 / d2;
+	}
+};
+
+class AreaLight : AbstractLight
+{
+	float3 pos;
+	float2 size;
+	
+	void init(float4x4 transform, float2 size)
+	{
+		this.pos = transform[3].xyz;
+		this.transform = transform;
+		this.size = size;
+	}
+	
+	static AreaLight New(float4x4 transform, float2 size)
+	{
+		AreaLight light;
+		light.init(transform, size);
+		
+		return light;
+	}
+	
+	float getAttenuation(float3 p, float2 st)
+	{
+		return 0.0;
 	}
 };
 
@@ -70,7 +97,7 @@ class SpotLight : AbstractLight {
 		return light;
 	}
 	
-	float getAttenuation(float3 p)
+	float getAttenuation(float3 p, float2 st)
 	{
 		float3 surfDir = normalize(p - pos);
 		float s = degrees(acos(dot(surfDir, dir)));
@@ -95,18 +122,18 @@ class SpotLight : AbstractLight {
 };
 
 interface ILightModel {
-	float getAtten(Light light, float3 p);
+	float getAtten(Light light, float3 p, float2 st);
 };
 
 class PrimitiveLightModel : ILightModel {
-	float getAtten(Light light, float3 p)
+	float getAtten(Light light, float3 p, float2 st)
 	{
 		float res = 0.0;
 		
 		switch(light.type) {
 			case POINT:
 				PointLight pl = PointLight::New(light.transform[3].xyz);
-				res = pl.getAttenuation(p);
+				res = pl.getAttenuation(p, st);
 				break;
 			
 			case SPOTLIGHT:
@@ -116,7 +143,13 @@ class PrimitiveLightModel : ILightModel {
 				float umbra = light.params.y;
 			
 				SpotLight sl = SpotLight::New(pos, dir, penumbra, umbra);
-				res = sl.getAttenuation(p);
+				res = sl.getAttenuation(p, st);
+				break;
+			
+			case AREA:
+				float2 size = light.params;
+				AreaLight al = AreaLight::New(light.transform, size);
+				res = al.getAttenuation(p, st);
 				break;
 			
 			default:
@@ -126,7 +159,7 @@ class PrimitiveLightModel : ILightModel {
 		return res;
 	}
 	
-	float3 getPos(Light light)
+	float3 getPos(Light light, float2 st)
 	{
 		return light.transform[3].xyz;
 	}
