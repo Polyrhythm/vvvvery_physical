@@ -44,7 +44,7 @@
                 </p:TypeAnnotation>
               </Pin>
               <Pin Id="Rhx15MrfEd1N1I31eCJtuB" Name="Colour" Kind="InputPin" />
-              <Pin Id="LzbXF6GIISmPKsLccbmxt6" Name="Intensity" Kind="InputPin" DefaultValue="100">
+              <Pin Id="LzbXF6GIISmPKsLccbmxt6" Name="Intensity" Kind="InputPin">
                 <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
                   <Choice Kind="TypeFlag" Name="Float32" />
                 </p:TypeAnnotation>
@@ -65,7 +65,11 @@
                 </p:TypeAnnotation>
               </Pin>
               <Pin Id="GLGGhGEnrtsNMbhzlZMRQl" Name="Colour" Kind="InputPin" />
-              <Pin Id="T5vhQJTr46dMlA0WpUOm7t" Name="Intensity" Kind="InputPin" />
+              <Pin Id="T5vhQJTr46dMlA0WpUOm7t" Name="Intensity" Kind="InputPin" DefaultValue="10">
+                <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                  <Choice Kind="TypeFlag" Name="Float32" />
+                </p:TypeAnnotation>
+              </Pin>
               <Pin Id="FDMBGcVuvuGOOeQb8iJm7E" Name="Transform" Kind="InputPin" />
               <Pin Id="AGBlg0UflesL5jQaABKP6w" Name="Light Params" Kind="InputPin" />
               <Pin Id="KkmWSSHNFDqNrT44ZiPgnN" Name="Output" Kind="StateOutputPin" />
@@ -638,17 +642,17 @@
               <Pin Id="SHzyVzFYxhcLq1laGOjKZr" Name="Translation" Kind="InputPin" />
               <Pin Id="FJpSG5XD6PKQCldbwQfDfC" Name="Output" Kind="OutputPin" />
             </Node>
-            <Pad Id="KUw6vDc4qNcQGgEDs7adUq" Comment="Translation" Bounds="405,81,38,57" ShowValueBox="true" isIOBox="true" Value="-0.07, 1.59, 0">
+            <Pad Id="KUw6vDc4qNcQGgEDs7adUq" Comment="Translation" Bounds="405,81,38,57" ShowValueBox="true" isIOBox="true" Value="0.68, 2.12, 0">
               <p:TypeAnnotation LastCategoryFullName="3D" LastSymbolSource="CoreLibBasics.vl">
                 <Choice Kind="TypeFlag" Name="Vector3" />
               </p:TypeAnnotation>
             </Pad>
-            <Pad Id="CwNjXEchJj4MF4SwLclwls" Comment="Rotation" Bounds="351,26,33,57" ShowValueBox="true" isIOBox="true" Value="0.22, 0, 0">
+            <Pad Id="CwNjXEchJj4MF4SwLclwls" Comment="Rotation" Bounds="351,26,33,57" ShowValueBox="true" isIOBox="true" Value="0.35, 0, 0">
               <p:TypeAnnotation LastCategoryFullName="3D" LastSymbolSource="CoreLibBasics.vl">
                 <Choice Kind="TypeFlag" Name="Vector3" />
               </p:TypeAnnotation>
             </Pad>
-            <Pad Id="G2tjM1zhtz2OX9Tg6OPkkV" Comment="Light Params" Bounds="374,160,33,38" ShowValueBox="true" isIOBox="true" Value="1, 1">
+            <Pad Id="G2tjM1zhtz2OX9Tg6OPkkV" Comment="Light Params" Bounds="374,160,33,38" ShowValueBox="true" isIOBox="true" Value="2, 2">
               <p:TypeAnnotation LastCategoryFullName="2D" LastSymbolSource="CoreLibBasics.vl">
                 <Choice Kind="TypeFlag" Name="Vector2" />
               </p:TypeAnnotation>
@@ -1048,11 +1052,6 @@
             <Pin Id="BV6ui1LHXCTP4z65aienY7" Name="Arealight Transforms" Kind="OutputPin" />
             <Pin Id="QaqCokCsNDdOJ7tUbT8sf3" Name="Spotlight Transforms" Kind="OutputPin" />
           </Patch>
-          <!--
-
-    ************************  ************************
-
--->
           <ProcessDefinition Id="FqAJakzQhjUMqZHAUXywXX">
             <Fragment Id="EQvPSqyp74tQMgH1XDHnKj" Patch="UIvTiXflaxULRj8nZ3mA6v" Enabled="true" />
             <Fragment Id="SeX65LJmgfJLJH2DjYZ8WN" Patch="EhKhl43WDkFOcttirwT8Mi" Enabled="true" />

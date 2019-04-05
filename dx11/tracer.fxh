@@ -11,7 +11,7 @@
 #include "textures.fxh"
 
 #define STRATIFIED // use stratified sampling
-//#define USE_BVH // use bvh nodes for scene traversal
+#define USE_BVH // use bvh nodes for scene traversal
 
 Surface intersectShadow(const Primitive hit, const Ray ray)
 {
@@ -495,8 +495,7 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 			PrimitiveLightModel lm;
 			float2 st = rSampler.SampleFloat2();
 			float attenuation = lm.getAtten(light, surf.pos, st);
-			float3 lightPos = lm.getPos(light, st);
-			float3 lightDir = normalize(lightPos - surf.pos);
+			float3 lightDir = lm.getLightDir(light, surf.pos, st);
 			
 			float shadowIntensity = shadow(surf, lightDir);
 			float diffuse = max(0,dot(lightDir,surf.nor));
