@@ -81,6 +81,8 @@ namespace physical
                 triangle.MinBounds = aabb.Minimum;
                 triangle.MaxBounds = aabb.Maximum;
 
+                triangle.MaterialIndex = f.MtlIndex;
+
                 tris.Add(triangle);
             }
 

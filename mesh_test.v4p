@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\mesh_test.v4p" scrollx="45" scrolly="5175" systemname="mesh_test" filename="D:\dev\vvvvery_physical\mesh_test.v4p">
+   <PATCH nodename="D:\dev\vvvvery_physical\mesh_test.v4p" scrollx="225" scrolly="2175" systemname="mesh_test" filename="D:\dev\vvvvery_physical\mesh_test.v4p">
    <BOUNDS type="Window" left="210" top="5400" width="14475" height="10335">
    </BOUNDS>
    <NODE systemname="Raytracer (Renderer)" filename="modules\Renderer\Raytracer (Renderer).v4p" nodename="Raytracer (Renderer)" componentmode="Hidden" id="20" stayontop="0">
@@ -461,6 +461,8 @@
    </PIN>
    <PIN pinname="View Projection" visible="1">
    </PIN>
+   <PIN pinname="Reset" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="21" srcpinname="View" dstnodeid="20" dstpinname="View" linkstyle="Bezier" hiddenwhenlocked="1">
    <LINKPOINT x="9365" y="7958">
@@ -817,7 +819,7 @@
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
-   <PIN pinname="Input 2" slicecount="1" values="10" visible="1">
+   <PIN pinname="Input 2" slicecount="1" visible="1" values="10">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -1135,5 +1137,25 @@
    </LINKPOINT>
    <LINKPOINT x="8775" y="8693">
    </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="105">
+   <BOUNDS type="Box" left="11115" top="2340" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="11115" top="2340" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="105" srcpinname="Y Output Value" dstnodeid="21" dstpinname="Reset">
    </LINK>
    </PATCH>
