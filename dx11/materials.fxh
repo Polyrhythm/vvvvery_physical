@@ -15,7 +15,10 @@ struct Material
 	float roughness;
 	float4 colour;
 	float intensity;
-	int texIdx;
+	int albedoTexIdx;
+	int roughnessTexIdx;
+	int metallicTexIdx;
+	int normalTexIdx;
 	float2 uvScale;
 	float padding;
 };
@@ -134,8 +137,8 @@ class PrimitiveMaterialModel : IMaterialModel {
 		if( !brdfOnly ) Wi = (float3)0;
 
 		switch( mat.type ){
-			case DIELECTRIC:{
-				DiffuseDielectricMaterial brdf = DiffuseDielectricMaterial::New( mat.colour.rgb, mat.roughness );
+			case DIELECTRIC:{			
+				DiffuseDielectricMaterial brdf = DiffuseDielectricMaterial::New(mat.colour.rgb, mat.roughness);
 				//LambertianBRDF brdf = LambertianBRDF::New( mat.colour.rgb );
 				if( brdfOnly ){
 					bsamp = brdf.Evaluate( surf, Wr, Wi );

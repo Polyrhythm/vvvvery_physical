@@ -52,3 +52,16 @@ C:\Users\ryan\Development\creative\vvvvery_physical\physical\obj\x64\Debug\physi
 C:\Users\ryan\Development\creative\vvvvery_physical\physical\obj\x64\Debug\physical.csprojResolveAssemblyReference.cache
 D:\dev\vvvvery_physical\physical\bin\x64\Debug\ObjParser.dll
 D:\dev\vvvvery_physical\physical\bin\x64\Debug\ObjParser.pdb
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\physical.dll.config
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\System.Buffers.dll
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\System.Collections.Immutable.dll
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\System.Interactive.dll
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\System.Memory.dll
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\System.Reactive.dll
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\System.Buffers.xml
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\System.Collections.Immutable.xml
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\System.Interactive.xml
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\System.Memory.xml
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\System.Reactive.xml
+D:\dev\vvvvery_physical\physical\bin\x64\Debug\System.Runtime.CompilerServices.Unsafe.xml

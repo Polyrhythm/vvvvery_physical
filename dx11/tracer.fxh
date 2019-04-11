@@ -10,14 +10,49 @@
 #include "sky.fxh"
 #include "textures.fxh"
 
-#define STRATIFIED // use stratified sampling
-#define USE_BVH // use bvh nodes for scene traversal
+//#define STRATIFIED // use stratified sampling
+//#define USE_BVH // use bvh nodes for scene traversal
+
+Surface lightIntersect(const Light hit, const uint lightIdx, const Ray ray)
+{
+	float t = INFINITY;
+	Surface surf = (Surface)0;
+	surf.matIdx = -1;
+	surf.lightIdx = -1;
+	float tIntersect = -1.0;
+	
+	switch (hit.type)
+	{
+		case AREA:
+			float2 size = hit.params.xy;
+			float unused = 0.0;
+			tIntersect = intersectBox(ray, float3(size.xy, 0.01), 0, unused).x;
+			break;
+		
+		case POINT:
+			float3 pos = hit.transform[2].xyz;
+			float sphereUnused = 0.0;
+			tIntersect = intersectSphere(pos, 0.1, ray, sphereUnused).x;
+			break;
+		
+		default:
+			break;
+	}
+	
+	if (tIntersect != -1.0)
+	{
+		surf.lightIdx = lightIdx;
+	}
+	
+	return surf;
+}
 
 Surface intersectShadow(const Primitive hit, const Ray ray)
 {
 	float t = INFINITY;
 	Surface surf = (Surface)0;
 	surf.matIdx = -1;
+	surf.lightIdx = -1;
 	float2 tIntersect = float2(-1,-1);
 	switch (hit.type) {
 		case SPHERE:
@@ -59,6 +94,7 @@ Surface intersect(const Primitive hit, const Ray ray, out float t)
 	t = INFINITY;
 	Surface surf = (Surface)0;
 	surf.matIdx = -1;
+	surf.lightIdx = -1;
 	float2 tIntersect = float2(-1,-1);
 	switch (hit.type) {
 		case SPHERE:
@@ -124,6 +160,7 @@ Surface traceShadow(const Ray ray, float tMax)
 {
 	Surface surf = (Surface)0;
 	surf.matIdx = -1;
+	surf.lightIdx = -1;
 	float tNear = INFINITY;
 	int hitId = -1;
 	Primitive hit;
@@ -238,6 +275,7 @@ Surface trace(const Ray ray, float tMax )
 {
 	Surface surf = (Surface)0;
 	surf.matIdx = -1;
+	surf.lightIdx = -1;
 	float tNear = INFINITY;
 	int hitId = -1;
 	Primitive hit;
@@ -368,7 +406,33 @@ Surface trace(const Ray ray, float tMax )
 	if( hitId != -1 )
 	{
 		surf.pos = ray.origin + ray.dir * tNear;
+		return surf;
 	}
+	
+	// Check for hits on lights
+	uint lightCount, lightStride;
+	lightBuffer.GetDimensions(lightCount, lightStride);
+	Light lightHit;
+	
+	[fastopt]
+	for (uint il = 0; il < lightCount; il++) {
+		Ray nray = (Ray)0;
+		lightHit = fetchLightData(il);
+		
+		nray.origin = mul(float4(ray.origin,1), lightHit.inverseTransform).xyz;
+		nray.dir = mul(float4(ray.dir,0), lightHit.inverseTransform).xyz;
+		float rscale = 1.0/length(nray.dir);
+		nray.dir *= rscale;
+		
+		Surface nsurf = lightIntersect(lightHit, il, nray);
+		
+		if (nsurf.lightIdx != -1)
+		{
+			surf = nsurf;
+			break;
+		}
+	}
+	
 	return surf;
 }
 
@@ -441,9 +505,22 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 		newRay.origin = origin;
 		newRay.dir = dir;
 		
-		
 		float t;
 		Surface surf = trace(newRay, INFINITY);
+		
+		// Check to see if we hit a light
+		if (surf.lightIdx != -1 && i > 0)
+		{
+			Light light = fetchLightData(surf.lightIdx);
+			PrimitiveLightModel lm;
+			
+			float power = lm.getPower(light);
+			float2 st = rSampler.SampleFloat2();
+			float attenuation = lm.getAtten(light, surf.pos, st);
+			accumColour += colourMask * light.colour.xyz * power * attenuation;
+			break;
+		}
+		
 		if (surf.matIdx == -1) {
 			// Hit nothing...
 			switch (renderSky) {
@@ -465,12 +542,29 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 		float3 nDir = (float3)0;
 		Material mat = fetchMaterialData(surf.matIdx);
 		
-		// Check to see if we should use a texture for albedo
-		if (mat.texIdx != -1) {
+		// Checks for textures to set the material parameters
+		if (mat.albedoTexIdx != -1) {
 			mat.colour = textures.SampleLevel(linearSampler,
-				float3(surf.uv * mat.uvScale, mat.texIdx), 0);
+				float3(surf.uv * mat.uvScale, mat.albedoTexIdx), 0);
 		}
-		
+		if (mat.roughnessTexIdx != -1) {
+			mat.roughness = textures.SampleLevel(linearSampler,
+				float3(surf.uv * mat.uvScale, mat.roughnessTexIdx), 0).r;
+		}
+		if (mat.normalTexIdx != -1) {
+			float3 normal = textures.SampleLevel(linearSampler,
+				float3(surf.uv * mat.uvScale, mat.normalTexIdx), 0).xyz;
+			normal = normalize(normal * 2.0 - 1.0);
+			
+			// orthonormal basis
+			
+			float3 upVec = abs(surf.nor.z) < 0.999 ? float3(0,0,1) : float3(1,0,0);
+			float3 tangentX = normalize(cross(upVec, surf.nor));
+			float3 tangentY = cross(surf.nor, tangentX);
+			
+			normal = tangentX * normal.x + tangentY * normal.y * normal.z;
+			//surf.nor = normalize(normal);
+		}
 		if( mat.type == EMISSIVE ){
 			// only use mat.intensity for emissives
 			accumColour += colourMask * mat.colour.xyz * mat.intensity;
@@ -490,9 +584,10 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 			Light light = fetchLightData(j);
 			
 			// Roughly approximate total light intensity
-			light.intensity *= count;
-			
 			PrimitiveLightModel lm;
+			float power = lm.getPower(light);
+			power *= count;
+			
 			float2 st = rSampler.SampleFloat2();
 			float attenuation = lm.getAtten(light, surf.pos, st);
 			float3 lightDir = lm.getLightDir(light, surf.pos, st);
@@ -503,7 +598,7 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 			BSDFSample lsamp = matModel.Evaluate( mat, surf, -dir, lightDir );
 			if( lsamp.type != NULL_BSDF_TYPE ){
 				accumColour += colourMask * clamp(lsamp.value, 0, 4)
-							* (light.colour.xyz * light.intensity * (1.0 - shadowIntensity)
+							* (light.colour.xyz * power * (1.0 - shadowIntensity)
 			                        * attenuation);
 			}
 		}

@@ -13,31 +13,41 @@ struct Light
 	float4 colour;
 	float intensity;
 	row_major float4x4 transform;
+	row_major float4x4 inverseTransform;
 	float2 params;
 };
 
 interface ILight {
 	float getAttenuation(float3 p, float2 st);
+	float getPower();
 };
 
 class AbstractLight : ILight {
 	float4x4 transform;
+	float intensity;
 	float getAttenuation(float3 p, float2 st);
 	float3 getLightDir(float3 p, float2 st);
+	float getPower();
 };
 
 class PointLight : AbstractLight {
 	float3 pos;
 	
-	void init(float3 pos)
+	void init(float3 pos, float intensity)
 	{
 		this.pos = pos;
+		this.intensity = intensity;
 	}
 	
-	static PointLight New(float3 pos)
+	float getPower()
+	{
+		return this.intensity;
+	}
+	
+	static PointLight New(float3 pos, float intensity)
 	{
 		PointLight light;
-		light.init(pos);
+		light.init(pos, intensity);
 		
 		return light;
 	}
@@ -53,6 +63,7 @@ class PointLight : AbstractLight {
 		float d2 = dot(diff, diff);
 		return 1.0 / d2;
 	}
+	
 };
 
 class AreaLight : AbstractLight
@@ -62,13 +73,19 @@ class AreaLight : AbstractLight
 	float3 normal;
 	float3 samplePoint;
 	
-	void init(float4x4 transform, float2 size)
+	void init(float4x4 transform, float2 size, float intensity)
 	{
 		this.pos = transform[3].xyz;
 		this.transform = transform;
 		this.size = size;
 		this.normal = normalize(mul(float4(0.0, 0.0, 1.0, 0.0), this.transform)).xyz;
 		this.samplePoint = float3(-1, -1, -1);
+		this.intensity = intensity;
+	}
+	
+	float getPower()
+	{
+		return this.intensity;
 	}
 	
 	float3 getLightDir(float3 p, float2 st)
@@ -97,10 +114,10 @@ class AreaLight : AbstractLight
 		this.samplePoint = this.pos + u * r.x + v * r.y;
 	}
 	
-	static AreaLight New(float4x4 transform, float2 size)
+	static AreaLight New(float4x4 transform, float2 size, float intensity)
 	{
 		AreaLight light;
-		light.init(transform, size);
+		light.init(transform, size, intensity);
 		
 		return light;
 	}
@@ -124,18 +141,19 @@ class SpotLight : AbstractLight {
 	float penumbra;
 	float umbra;
 	
-	void init(float3 pos, float3 dir, float penumbra, float umbra)
+	void init(float3 pos, float3 dir, float penumbra, float umbra, float intensity)
 	{
 		this.pos = pos;
 		this.dir = dir;
 		this.penumbra = penumbra;
 		this.umbra = umbra;
+		this.intensity = intensity;
 	}
 	
-	static SpotLight New(float3 pos, float3 dir, float penumbra, float umbra)
+	static SpotLight New(float3 pos, float3 dir, float penumbra, float umbra, float intensity)
 	{
 		SpotLight light;
-		light.init(pos, dir, penumbra, umbra);
+		light.init(pos, dir, penumbra, umbra, intensity);
 		
 		return light;
 	}
@@ -143,6 +161,11 @@ class SpotLight : AbstractLight {
 	float3 getLightDir(float3 p, float2 st)
 	{
 		return normalize(this.pos - p);
+	}
+	
+	float getPower()
+	{
+		return this.intensity;
 	}
 	
 	float getAttenuation(float3 p, float2 st)
@@ -180,7 +203,7 @@ class PrimitiveLightModel : ILightModel {
 		
 		switch(light.type) {
 			case POINT:
-				PointLight pl = PointLight::New(light.transform[3].xyz);
+				PointLight pl = PointLight::New(light.transform[3].xyz, light.intensity);
 				res = pl.getAttenuation(p, st);
 				break;
 			
@@ -190,14 +213,47 @@ class PrimitiveLightModel : ILightModel {
 				float penumbra = light.params.x;
 				float umbra = light.params.y;
 			
-				SpotLight sl = SpotLight::New(pos, dir, penumbra, umbra);
+				SpotLight sl = SpotLight::New(pos, dir, penumbra, umbra, light.intensity);
 				res = sl.getAttenuation(p, st);
 				break;
 			
 			case AREA:
 				float2 size = light.params;
-				AreaLight al = AreaLight::New(light.transform, size);
+				AreaLight al = AreaLight::New(light.transform, size, light.intensity);
 				res = al.getAttenuation(p, st);
+				break;
+			
+			default:
+				break;
+		}
+		
+		return res;
+	}
+	
+	float getPower(Light light)
+	{
+		float res = 0.0;
+		
+		switch(light.type) {
+			case POINT:
+				PointLight pl = PointLight::New(light.transform[3].xyz, light.intensity);
+				res = pl.getPower();
+				break;
+			
+			case SPOTLIGHT:
+				float3 pos = light.transform[3].xyz;
+				float3 dir = normalize(light.transform[2].xyz);
+				float penumbra = light.params.x;
+				float umbra = light.params.y;
+			
+				SpotLight sl = SpotLight::New(pos, dir, penumbra, umbra, light.intensity);
+				res = sl.getPower();
+				break;
+			
+			case AREA:
+				float2 size = light.params;
+				AreaLight al = AreaLight::New(light.transform, size, light.intensity);
+				res = al.getPower();
 				break;
 			
 			default:
@@ -213,7 +269,7 @@ class PrimitiveLightModel : ILightModel {
 		
 		switch(light.type) {
 			case POINT:
-				PointLight pl = PointLight::New(light.transform[3].xyz);
+				PointLight pl = PointLight::New(light.transform[3].xyz, light.intensity);
 				res = pl.getLightDir(p, st);
 				break;
 			
@@ -223,13 +279,13 @@ class PrimitiveLightModel : ILightModel {
 				float penumbra = light.params.x;
 				float umbra = light.params.y;
 			
-				SpotLight sl = SpotLight::New(pos, dir, penumbra, umbra);
+				SpotLight sl = SpotLight::New(pos, dir, penumbra, umbra, light.intensity);
 				res = sl.getLightDir(p, st);
 				break;
 			
 			case AREA:
 				float2 size = light.params;
-				AreaLight al = AreaLight::New(light.transform, size);
+				AreaLight al = AreaLight::New(light.transform, size, light.intensity);
 				res = al.getLightDir(p, st);
 				break;
 			

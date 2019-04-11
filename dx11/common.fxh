@@ -14,6 +14,7 @@ struct Ray
 
 struct Surface {
 	int matIdx;
+	int lightIdx;
 	int texIdx;
 	float3 pos;
 	float3 nor;

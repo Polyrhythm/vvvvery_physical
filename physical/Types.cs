@@ -134,19 +134,25 @@ namespace physical
         public float Roughness;
         public Color4 Colour;
         public float Intensity;
-        public int TextureIndex;
+        public int AlbedoTexIndex;
+        public int RoughnessTexIndex;
+        public int MetallicTexIndex;
+        public int NormalTexIndex;
         public Vector2 UVScale;
         public float Padding;
 
-        public Material(MaterialType materialType, float ior, float roughness, Color4 colour, float intensity,
-            int textureIndex, Vector2 uvScale)
+        public Material(MaterialType materialType, float ior, float roughness, Color4 colour, float intensity, Vector2 uvScale,
+            int albedoTexIndex = -1, int roughnessTexIndex = -1, int metallicTexIndex = -1, int normalTexIndex = -1)
         {
             MaterialType = materialType;
             IOR = ior;
             Roughness = roughness;
             Colour = colour;
             Intensity = intensity;
-            TextureIndex = textureIndex;
+            AlbedoTexIndex = albedoTexIndex;
+            RoughnessTexIndex = roughnessTexIndex;
+            MetallicTexIndex = metallicTexIndex;
+            NormalTexIndex = normalTexIndex;
             UVScale = uvScale;
             Padding = 0;
         }
@@ -159,6 +165,7 @@ namespace physical
         public Color4 Colour;
         public float Intensity;
         public Matrix Transform;
+        public Matrix InverseTransform;
         public Vector2 Params;
 
         public Light(LightType lightType, Color4 colour, float intensity, Matrix transform, Vector2 lightParams)
@@ -167,6 +174,8 @@ namespace physical
             Colour = colour;
             Intensity = intensity;
             Transform = transform;
+            transform.Invert();
+            InverseTransform = transform;
             Params = lightParams;
         }
     }
