@@ -67,6 +67,8 @@
    </PIN>
    <PIN pinname="Arealight Transforms" visible="1" slicecount="1" values="||">
    </PIN>
+   <PIN pinname="&cr;&lf;Show light transforms" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="19">
    <BOUNDS type="Node" left="8022" top="11449" width="100" height="100">
@@ -121,7 +123,7 @@
    <LINK srcnodeid="17" srcpinname="Y" dstnodeid="18" dstpinname="Aspect Height">
    </LINK>
    <NODE systemname="PerfMeter (DX11.Debug)" filename="%VVVV%\packs\dx11\nodes\modules\PerfMeter (DX11.Debug).v4p" nodename="PerfMeter (DX11.Debug)" componentmode="Hidden" id="16">
-   <BOUNDS type="Node" left="9285" top="10590" width="100" height="100">
+   <BOUNDS type="Node" left="9795" top="10815" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
    </PIN>
@@ -147,11 +149,11 @@
    <LINK srcnodeid="15" srcpinname="Layer Out" dstnodeid="19" dstpinname="Layers">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="14">
-   <BOUNDS type="Box" left="10380" top="10035" width="480" height="480">
+   <BOUNDS type="Box" left="11190" top="10035" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="10380" top="10035" width="0" height="0">
+   <BOUNDS type="Node" left="11190" top="10035" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -161,7 +163,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="14" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Enabled">
@@ -575,5 +577,25 @@
    <LINK srcnodeid="71" srcpinname="Texture Out" dstnodeid="58" dstpinname="Input 3">
    </LINK>
    <LINK srcnodeid="71" srcpinname="SizeXY" dstnodeid="61" dstpinname="Input 3XY">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="72">
+   <BOUNDS type="Box" left="10875" top="9210" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="10875" top="9210" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|&cr;&lf;Show light transforms|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="72" srcpinname="Y Output Value" dstnodeid="20" dstpinname="&cr;&lf;Show light transforms">
    </LINK>
    </PATCH>

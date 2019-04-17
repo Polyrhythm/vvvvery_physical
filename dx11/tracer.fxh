@@ -10,8 +10,8 @@
 #include "sky.fxh"
 #include "textures.fxh"
 
-//#define STRATIFIED // use stratified sampling
-//#define USE_BVH // use bvh nodes for scene traversal
+#define STRATIFIED // use stratified sampling
+#define USE_BVH // use bvh nodes for scene traversal
 
 Surface lightIntersect(const Light hit, const uint lightIdx, const Ray ray)
 {
