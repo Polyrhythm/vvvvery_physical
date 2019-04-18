@@ -10,7 +10,7 @@
 #include "sky.fxh"
 #include "textures.fxh"
 
-#define STRATIFIED // use stratified sampling
+//#define STRATIFIED // use stratified sampling
 #define USE_BVH // use bvh nodes for scene traversal
 
 Surface lightIntersect(const Light hit, const uint lightIdx, const Ray ray)
@@ -335,6 +335,7 @@ Surface trace(const Ray ray, float tMax )
 					surf = nsurf;
 					// Object space normals into world space using transpose inverse transform.
 					surf.nor = normalize(mul(float4(surf.nor,0),transpose(hit.inverseTransform)).xyz);
+					surf.primIdx = leaf;
 				}
 			}
 
@@ -399,6 +400,7 @@ Surface trace(const Ray ray, float tMax )
 			surf = nsurf;
 			// Object space normals into world space using transpose inverse transform.
 			surf.nor = normalize(mul(float4(surf.nor,0),transpose(hit.inverseTransform)).xyz);
+			surf.primIdx = (int)i;
 		}
 	}
 #endif
@@ -552,25 +554,49 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 				float3(surf.uv * mat.uvScale, mat.roughnessTexIdx), 0).r;
 		}
 		if (mat.normalTexIdx != -1) {
+			Primitive prim = fetchPrimitiveData(surf.primIdx);
+			float2 uv1 = uvBuffer[prim.UVa];
+			float2 uv2 = uvBuffer[prim.UVb];
+			float2 uv3 = uvBuffer[prim.UVc];
+			float3 v1 = vertexBuffer[prim.Va];
+			float3 v2 = vertexBuffer[prim.Vb];
+			float3 v3 = vertexBuffer[prim.Vc];
+			
+			float2 edge1UV = uv2 - uv1;
+			float2 edge2UV = uv3 - uv1;
+			
+			float3 edge1 = v2 - v1;
+			float3 edge2 = v3 - v1;
+			
+			float cp = edge1UV.y * edge2UV.x - edge1UV.x * edge2UV.y;
+			float mult = 1.f/cp;
+			float3 tangent, bitangent;
+			tangent = (edge2 * edge1UV.y - edge1 * edge2UV.y) * mult;
+			bitangent = (edge2 * edge1UV.x - edge1 * edge2UV.x) * mult;
+			tangent -= surf.nor * dot(tangent, surf.nor);
+			tangent = normalize(tangent);
+			bitangent -= surf.nor * dot(bitangent, surf.nor);
+			bitangent -= tangent*dot(bitangent, tangent);
+			bitangent = normalize(bitangent);
+			
 			float3 normal = textures.SampleLevel(linearSampler,
 				float3(surf.uv * mat.uvScale, mat.normalTexIdx), 0).xyz;
 			normal = normalize(normal * 2.0 - 1.0);
-			
-			// orthonormal basis
-			
-			float3 upVec = abs(surf.nor.z) < 0.999 ? float3(0,0,1) : float3(1,0,0);
-			float3 tangentX = normalize(cross(upVec, surf.nor));
-			float3 tangentY = cross(surf.nor, tangentX);
-			
-			normal = tangentX * normal.x + tangentY * normal.y * normal.z;
-			//surf.nor = normalize(normal);
+
+			surf.nor = normal.z * surf.nor +
+						normal.x * tangent -
+						normal.y * bitangent; 
 		}
+		
 		if( mat.type == EMISSIVE ){
 			// only use mat.intensity for emissives
 			accumColour += colourMask * mat.colour.xyz * mat.intensity;
 			break;
 		}
-
+		/*
+		accumColour = surf.nor;
+		break;
+		*/
 		// step back slightly to avoid self intersection.
 		surf.pos -= dir * 0.0001;
 
