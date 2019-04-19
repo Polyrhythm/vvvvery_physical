@@ -11,7 +11,7 @@
 #include "textures.fxh"
 
 //#define STRATIFIED // use stratified sampling
-#define USE_BVH // use bvh nodes for scene traversal
+//#define USE_BVH // use bvh nodes for scene traversal
 
 Surface lightIntersect(const Light hit, const uint lightIdx, const Ray ray)
 {
@@ -593,10 +593,7 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 			accumColour += colourMask * mat.colour.xyz * mat.intensity;
 			break;
 		}
-		/*
-		accumColour = surf.nor;
-		break;
-		*/
+
 		// step back slightly to avoid self intersection.
 		surf.pos -= dir * 0.0001;
 

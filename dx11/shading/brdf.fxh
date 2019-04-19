@@ -53,21 +53,19 @@ class AbstractBSDF : IBSDF {
 class OrenNayarBRDF : AbstractBSDF
 {
 	float3 albedo;
-	float rho;
 	float sigma;
 	
-	void Init(float3 albedo, float rho, float sigma)
+	void Init(float3 albedo, float sigma)
 	{
 		this.albedo = albedo;
-		this.rho = rho;
 		this.sigma = sigma;
 	}
 	
-	static OrenNayarBRDF New(float3 albedo, float rho, float sigma)
+	static OrenNayarBRDF New(float3 albedo, float sigma)
 	{
 		OrenNayarBRDF brdf;
 		
-		brdf.Init(albedo, rho, sigma);
+		brdf.Init(albedo, sigma);
 		return brdf;
 	}
 	
@@ -78,7 +76,7 @@ class OrenNayarBRDF : AbstractBSDF
 		float VdotN = saturate(dot(surf.nor, Wi));
 		float LdotN = saturate(dot(surf.nor, Wr));
 		float thetaR = acos(VdotN);
-		float sigma2 = (sigma * PI / 180.0) * (sigma * PI / 180.0);
+		float sigma2 = (this.sigma * PIOVER180) * (this.sigma * PIOVER180);
 		
 		float cosPhiDiff = dot(normalize(Wi - surf.nor * VdotN), normalize(Wr - surf.nor * LdotN));
 		float thetaI = acos(LdotN);
@@ -103,6 +101,12 @@ class OrenNayarBRDF : AbstractBSDF
 		}
 		float denom = (4 * alpha * beta) / (PI * PI);
 		float C3 = 0.125 * sigma2 / (sigma2 + 0.09) * denom * denom;
+	}
+	BSDFSample Sample(Surface surf, ISampler samp, float3 Wr, out float3 Wi)
+	{
+		float unused;
+		Wi = sampleCosineWeightedHemisphere(surf.nor, samp.SampleFloat2(), unused);
+		return Evaluate(surf, Wr, Wi);
 	}
 };
 
@@ -147,10 +151,12 @@ interface IMicrofacetBSDF {
 class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 	float  roughness;
 	float3 ior;
+	bool isTransmission;
 
-	void Init( float roughness, float3 ior ){
+	void Init(float roughness, float3 ior, bool isTransmission){
 		this.roughness = max(roughness,1e-4); // keep roughness above zero
 		this.ior = ior;
+		this.isTransmission = isTransmission;
 	}
 
 	float3 Fresnel( float3 H, float3 W );
@@ -168,7 +174,18 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 				res.pdf = 0;
 			} else {
 				float pm;
-				float3 H = normalize( Wi + Wr );
+				float3 H = 0;
+
+				if (this.isTransmission)
+				{
+					float eta = dot(surf.nor, Wr) > 0 ? this.ior.x : (1.0 / this.ior.x);
+					H = normalize(Wr + Wi * eta);
+				}
+				else
+				{
+					H = normalize( Wi + Wr );
+				}
+
 				float D = NDF( surf.nor, H, pm );
 				float G = GS( surf.nor, Wr, Wi );
 
@@ -209,15 +226,30 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 		         + (cos(theta) * surf.nor);
 
 		// is microfacet visible?
-		float IoM = dot(m, Wr);
-		if(IoM > 0 ){
-			// eq. 39 - get incident ray for m
-			Wi = 2.0 * IoM * m - Wr;
+		float IoM = max(0, dot(m, Wr));
+		if (IoM > 0)
+		{
+			float f = this.Fresnel(surf.nor, Wr).x;
 
+			if (this.isTransmission && samp.SampleFloat() >= f)
+			{
+				float eta = 1.0 / this.ior.x; // assuming air for incident side
+				float c2 = IoM * IoM;
+
+				//eq. 40 - calculate transmitted ray direction
+				float IoMSign = IoM < 0.0 ? -1.0 : 1.0;
+				float a = IoM * eta - IoMSign * sqrt(1.0 + eta * (c2 - 1.0));
+				Wi = a * m - this.ior.x;
+			}
+			else
+			{
+				// eq. 39 - get incident ray for m
+				Wi = 2.0 * IoM * m - Wr;
+			}
 
 			float NWi = max(0,dot( surf.nor, Wi ));
-			// is reflected direction within hemisphere?
-			if( NWi > 0 ){
+			// is incident direction within hemisphere?
+			if(NWi > 0){
 				if( roughness <= 1e-4 ){
 					res.value = (float3)1e6;
 					res.pdf = 1e6;
@@ -237,7 +269,7 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 					res.pdf = (pm * 0.25) / (max(0, dot(m, Wi)) * IoM);
 					res.pdf *= NWi;
 				}
-				res.type = BRDF_TYPE;
+				res.type = this.isTransmission ? MULTI_TYPE : BRDF_TYPE;
 			}
 		}
 

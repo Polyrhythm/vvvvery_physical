@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\brdf_eval.v4p" systemname="brdf_eval" filename="D:\dev\vvvvery_physical\brdf_eval.v4p" scrollx="5145" scrolly="1875">
-   <BOUNDS type="Window" left="3780" top="2925" width="10605" height="13290">
+   <PATCH nodename="D:\dev\vvvvery_physical\brdf_eval.v4p" systemname="brdf_eval" filename="D:\dev\vvvvery_physical\brdf_eval.v4p" scrollx="4965" scrolly="1710">
+   <BOUNDS type="Window" left="1710" top="1605" width="10605" height="13290">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
@@ -173,7 +173,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="6165" top="5235" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="3">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="8">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -551,7 +551,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="10980" top="8505" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-0.83">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="-0.63">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -597,5 +597,15 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="72" srcpinname="Y Output Value" dstnodeid="20" dstpinname="&cr;&lf;Show light transforms">
+   </LINK>
+   <NODE nodename="IOBox (Color)" componentmode="InABox" id="73">
+   <BOUNDS type="Box" left="6915" top="7665" width="2250" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6915" top="7665" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Color Input" slicecount="1" visible="1" values="|0.00000,0.00000,0.00000,1.00000|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="73" srcpinname="Color Output" dstnodeid="20" dstpinname="World Colour">
    </LINK>
    </PATCH>

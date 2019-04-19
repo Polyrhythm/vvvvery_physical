@@ -1,9 +1,10 @@
 #ifndef __MATERIALS_FXH__
 #define __MATERIALS_FXH__
 
-static const int DIELECTRIC = 0;
+static const int DIFFUSEDIELECTRIC = 0;
 static const int METALLIC = 1;
 static const int EMISSIVE = 2;
+static const int DIELECTRIC = 3;
 
 #include "shading/fresnel.fxh"
 #include "shading/ggx.fxh"
@@ -27,14 +28,14 @@ class DiffuseDielectricMaterial : AbstractBSDF {
 	LambertianBRDF  Fd;
 	GGXSpecularBRDF Fs;
 
-	void Init( float3 albedo, float roughness ){
-		Fd.Init( albedo );
-		Fs.Init( roughness, 1.3294 );
+	void Init(float3 albedo, float roughness){
+		Fd.Init(albedo);
+		Fs.Init(roughness, 1.3294, false);
 	}
 
-	static DiffuseDielectricMaterial New( float3 albedo, float roughness ){
+	static DiffuseDielectricMaterial New(float3 albedo, float roughness){
 		DiffuseDielectricMaterial brdf;
-		brdf.Init( albedo, roughness );
+		brdf.Init(albedo, roughness);
 		return brdf;
 	}
 
@@ -42,7 +43,7 @@ class DiffuseDielectricMaterial : AbstractBSDF {
 		BSDFSample res = (BSDFSample)0;
 
 		if( dot(surf.nor, Wi) > 0 ){
-			res.type = MULTI_TYPE;
+			res.type = BRDF_TYPE;
 
 			float3 H = normalize( Wr + Wi );
 			float f = Fs.Fresnel( H, Wi ).x;
@@ -83,7 +84,7 @@ class MetallicMaterial : AbstractBSDF {
 	void Init( float3 f0, float roughness ){
 		f0 = sqrt(clamp(f0,0.0,0.9999));
 		float3 ior = (1.0+f0) / (1.0-f0);
-		Fs.Init( roughness, ior );
+		Fs.Init(roughness, ior, false);
 	}
 
 	static MetallicMaterial New( float3 f0, float roughness ){
@@ -118,28 +119,76 @@ class MetallicMaterial : AbstractBSDF {
 	}
 };
 
+class DielectricMaterial : AbstractBSDF {
+	GGXSpecularBRDF Fs;
+
+	void Init(float roughness, float ior)
+	{
+		Fs.Init(roughness, float3(ior, ior, ior), true);
+	}
+	
+	static DielectricMaterial New(float roughness, float ior){
+		DielectricMaterial bsdf;
+		bsdf.Init(roughness, ior);
+		return bsdf;
+	}
+
+	BSDFSample Evaluate(Surface surf, float3 Wr, float3 Wi)
+	{
+		BSDFSample res = (BSDFSample)0;
+
+		if (dot(surf.nor, Wi) > 0)
+		{
+			res.type = MULTI_TYPE;
+
+			float3 H = normalize(Wr + Wi);
+			float f = Fs.Fresnel(H, Wi).x;
+
+			BSDFSample s = Fs.Evaluate(surf, Wr, Wi);
+
+			res.value = s.value;
+			res.pdf = s.pdf * (1.0 - f);
+		}
+
+		return res;
+	}
+
+	BSDFSample Sample(Surface surf, ISampler samp, float3 Wr, out float3 Wi)
+	{
+		BSDFSample res;
+		res = Fs.Sample(surf, samp, Wr, Wi);
+
+		if( res.pdf != 0 ){
+			BSDFSample eval = Evaluate( surf, Wr, Wi );
+			res.value = eval.value;
+			res.pdf = eval.pdf;
+		}
+
+		return res;
+	}
+};
+
 interface IMaterialModel {
-	BSDFSample Evaluate( Material mat, Surface surf, float3 Wr, float3 Wi );
-	BSDFSample Sample( Material mat, Surface surf, ISampler samp, float3 Wr, out float3 Wi );
+	BSDFSample Evaluate(Material mat, Surface surf, float3 Wr, float3 Wi);
+	BSDFSample Sample(Material mat, Surface surf, ISampler samp, float3 Wr, out float3 Wi);
 };
 
 class PrimitiveMaterialModel : IMaterialModel {
-	BSDFSample Evaluate( Material mat, Surface surf, float3 Wr, float3 Wi ){
+	BSDFSample Evaluate(Material mat, Surface surf, float3 Wr, float3 Wi){
 		return Eval( mat, surf, NullSampler, Wr, Wi, true );
 	}
-	BSDFSample Sample( Material mat, Surface surf, ISampler samp, float3 Wr, out float3 Wi ){
-		return Eval( mat, surf, samp, Wr, Wi, false );
+	BSDFSample Sample(Material mat, Surface surf, ISampler samp, float3 Wr, out float3 Wi){
+		return Eval(mat, surf, samp, Wr, Wi, false);
 	}
 
-	BSDFSample Eval( Material mat, Surface surf, ISampler samp, float3 Wr, inout float3 Wi, bool brdfOnly ){
+	BSDFSample Eval(Material mat, Surface surf, ISampler samp, float3 Wr, inout float3 Wi, bool brdfOnly){
 		BSDFSample bsamp = (BSDFSample)0;
 		bsamp.type = NULL_BSDF_TYPE;
 		if( !brdfOnly ) Wi = (float3)0;
 
 		switch( mat.type ){
-			case DIELECTRIC:{			
+			case DIFFUSEDIELECTRIC:{			
 				DiffuseDielectricMaterial brdf = DiffuseDielectricMaterial::New(mat.colour.rgb, mat.roughness);
-				//LambertianBRDF brdf = LambertianBRDF::New( mat.colour.rgb );
 				if( brdfOnly ){
 					bsamp = brdf.Evaluate( surf, Wr, Wi );
 				} else {
@@ -155,6 +204,17 @@ class PrimitiveMaterialModel : IMaterialModel {
 				}
 				break;}
 			case EMISSIVE:
+				break;
+			case DIELECTRIC:
+				DielectricMaterial brdf = DielectricMaterial::New(mat.roughness, mat.ior);
+				if (brdfOnly)
+				{
+					bsamp = brdf.Evaluate(surf, Wr, Wi);
+				}
+				else
+				{
+					bsamp = brdf.Sample(surf, samp, Wr, Wi);
+				}
 				break;
 			default:
 				break;
