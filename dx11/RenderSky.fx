@@ -32,13 +32,6 @@ float mie_phase(const float mu)
 	return firstTerm * (numerator / denom);
 }
 
-// height in meters
-float mie_scatter(const float height)
-{
-	const float MolecularDensity = 210e-5; // m-1
-	return MolecularDensity * exp(-1.0 * (height / SCALE_HEIGHT_MIE));
-}
-
 float rayleigh_phase(float mu)
 {
 	float mu2 = mu * mu;
