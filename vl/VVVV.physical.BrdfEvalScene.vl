@@ -41,7 +41,7 @@
               <Pin Id="KEMl4CeIH2xLIWvYLHzxwq" Name="Transform" Kind="InputPin" />
               <Pin Id="THp4Yuuo7KVOwfLflDrwZO" Name="Output" Kind="StateOutputPin" />
             </Node>
-            <Pad Id="BvwTooZ1uuDLX4jKl3KYpw" Comment="" Bounds="366,259,39,76" ShowValueBox="true" isIOBox="true" Value="10, 0.1, 10, 0">
+            <Pad Id="BvwTooZ1uuDLX4jKl3KYpw" Comment="" Bounds="366,259,39,76" ShowValueBox="true" isIOBox="true" Value="10, 0.09999999, 10, 0">
               <p:TypeAnnotation LastCategoryFullName="3D" LastSymbolSource="CoreLibBasics.vl">
                 <Choice Kind="TypeFlag" Name="Vector4" />
               </p:TypeAnnotation>
@@ -105,7 +105,7 @@
               <Pin Id="RddUrlA331pL1bXX39rZMl" Name="Translation" Kind="InputPin" />
               <Pin Id="Qybu8XN14ZROhuxzu5Ib43" Name="Output" Kind="OutputPin" />
             </Node>
-            <Pad Id="FA9LzS0e9QcMXdfH59Jg0V" Comment="Translation" Bounds="272,196,38,57" ShowValueBox="true" isIOBox="true" Value="0, -0.32, 0">
+            <Pad Id="FA9LzS0e9QcMXdfH59Jg0V" Comment="Translation" Bounds="272,196,38,57" ShowValueBox="true" isIOBox="true" Value="0, -0.33, 0">
               <p:TypeAnnotation LastCategoryFullName="3D" LastSymbolSource="CoreLibBasics.vl">
                 <Choice Kind="TypeFlag" Name="Vector3" />
               </p:TypeAnnotation>
@@ -122,7 +122,7 @@
                 </p:TypeAnnotation>
               </Pin>
               <Pin Id="QG8bMXaFsCFMW8DyQZjOwL" Name="Colour" Kind="InputPin" />
-              <Pin Id="VIRviGad0e1N3DZWw3BTTb" Name="Intensity" Kind="InputPin" DefaultValue="20">
+              <Pin Id="VIRviGad0e1N3DZWw3BTTb" Name="Intensity" Kind="InputPin" DefaultValue="15">
                 <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
                   <Choice Kind="TypeFlag" Name="Float32" />
                 </p:TypeAnnotation>
@@ -187,7 +187,7 @@
                 </p:TypeAnnotation>
               </Pin>
               <Pin Id="IjQ5IPGJvHnL9LLzociTpG" Name="Metallic Tex Index" Kind="InputPin" />
-              <Pin Id="LteH86vDxOILpjG6gwNQBA" Name="Normal Tex Index" Kind="InputPin" DefaultValue="2">
+              <Pin Id="LteH86vDxOILpjG6gwNQBA" Name="Normal Tex Index" Kind="InputPin">
                 <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
                   <Choice Kind="TypeFlag" Name="Integer32" />
                 </p:TypeAnnotation>
@@ -308,7 +308,7 @@
                 </p:TypeAnnotation>
               </Pin>
               <Pin Id="DuwTWIlwOJNOK5TRggfZGz" Name="Colour" Kind="InputPin" />
-              <Pin Id="SYh5MGPGoVRMTDSiy8gDRi" Name="Intensity" Kind="InputPin" DefaultValue="10">
+              <Pin Id="SYh5MGPGoVRMTDSiy8gDRi" Name="Intensity" Kind="InputPin">
                 <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
                   <Choice Kind="TypeFlag" Name="Float32" />
                 </p:TypeAnnotation>
@@ -434,7 +434,6 @@
           <Link Id="JEGoTwjR3UsMCflOTBVQRK" Ids="BvwTooZ1uuDLX4jKl3KYpw,S6NPgg1OMPYNFcKwORWwiV" />
           <Link Id="LnsmLKdpnCrPc1yT8rtVZM" Ids="SlTzqXy3n6UQFS1ZxneWYq,QAWg1jIPAeWO0YRmCRt7lc" IsHidden="true" />
           <Link Id="NBMoXy6bA9zMxM0Lbdz9JP" Ids="THp4Yuuo7KVOwfLflDrwZO,NQ1nEVnW5X3NJiikj7QpJO" />
-          <Link Id="KRBxg1j0QCVMT45GjntCUq" Ids="G3f3NkQVEbXLhl2nXqoR9h,Nb9GxdUlDfIOkRAACiULd3" />
           <Link Id="JMQkAkDhg6UOGq8Zf4J631" Ids="LY4yzBPk6cmNi8zbmqQD2N,C2uJggvnwNpQVbTQQVtadG" />
           <Link Id="VNf1NIZSTueMdI69YQRQpk" Ids="S5oJc11fZ8cQFxF3VG7la2,BvpAO1lEmbXMTqvNClzELe" />
           <Link Id="L3Eo44rJgODL1SfjI4hiz7" Ids="Qybu8XN14ZROhuxzu5Ib43,KEMl4CeIH2xLIWvYLHzxwq" />
@@ -473,6 +472,7 @@
           <Link Id="QB6m8R9tdGaPMtPKxMx03L" Ids="GzF5G68T4WuPzJzSa2QFgN,Itqzm2YcQ2YM9fdjZDPhXs" />
           <Link Id="E1XsYtpJ3LWMH839RkeJnB" Ids="QuD7n4Tc4cOLYHMbQDPimu,K66OTEnPj75NCiKJN2F0fB" />
           <Link Id="TGxZ7mzY1rdOQUll7tcKQ3" Ids="QyVjXvgLsGaOdOooVzDSai,QG8bMXaFsCFMW8DyQZjOwL" />
+          <Link Id="I4ZNH2pBOlUOeWuMPvHxeq" Ids="G3f3NkQVEbXLhl2nXqoR9h,Nb9GxdUlDfIOkRAACiULd3" />
         </Patch>
       </Node>
     </Canvas>

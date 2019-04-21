@@ -16,6 +16,7 @@ struct Surface {
 	int matIdx;
 	int lightIdx;
 	int texIdx;
+	int primIdx;
 	float3 pos;
 	float3 nor;
 	float2 uv;

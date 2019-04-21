@@ -15,9 +15,10 @@ namespace physical
 
     public enum MaterialType : int
     {
-        Dielectric = 0,
+        DiffuseDielectric = 0,
         Metallic = 1,
-        Emissive = 2
+        Emissive = 2,
+        Dielectric = 3
     }
 
     public enum LightType : int
