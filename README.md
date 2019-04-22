@@ -1,4 +1,4 @@
-![](http://i.imgur.com/JOLB62m.png)
+![](https://i.imgur.com/spL6gFQ.png)
 
 # vvvvery_physical
 ## A node-based pathtracer on the GPU integrated into [vvvv](https://vvvv.org/)
