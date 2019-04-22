@@ -127,7 +127,7 @@ float3 computeIncidentLight(Ray ray, float tMin, float tMax)
 }
 
 [numthreads(ThreadsX,ThreadsY,1)]
-void CS(uint3 tid : SV_DispatchThreadID, uint3 id : SV_GroupThreadID, uint3 gid: SV_GroupID)
+void CS_Polar(uint3 tid : SV_DispatchThreadID, uint3 id : SV_GroupThreadID, uint3 gid: SV_GroupID)
 {
 	const uint idx = tid.x + tid.y * WIDTH;
 	uint2 q = uint2(
@@ -156,10 +156,45 @@ void CS(uint3 tid : SV_DispatchThreadID, uint3 id : SV_GroupThreadID, uint3 gid:
 	Buf[idx] = float4(output, 1.0);
 }
 
-technique11 Apply
+[numthreads(ThreadsX,ThreadsY,1)]
+void CS_Equirect(uint3 tid : SV_DispatchThreadID, uint3 id : SV_GroupThreadID, uint3 gid: SV_GroupID)
+{
+	const uint idx = tid.x + tid.y * WIDTH;
+	uint2 q = uint2(
+		gid.x * ThreadsX + id.x,
+		gid.y * ThreadsY + id.y
+	);
+
+	float3 output = 0.0;
+	
+	// radians
+	const float xInterval = float(PI2) / float(WIDTH);
+	const float yInterval = float(PI) / float(WIDTH);
+	
+	const float phi = xInterval * q.x;
+	const float theta = yInterval * q.y;
+	
+	Ray ray;
+	ray.origin = float3(0.0, EARTH_RADIUS + 1.0, 0.0);
+	ray.dir = float3(sin(theta) * cos(phi), cos(theta), sin(theta) * sin(phi));
+	
+	output = computeIncidentLight(ray, 0.0, 9e9);
+	
+	Buf[idx] = float4(output, 1.0);
+}
+
+technique11 Polar
 {
 	pass P0
 	{
-		SetComputeShader( CompileShader( cs_5_0, CS() ) );
+		SetComputeShader( CompileShader( cs_5_0, CS_Polar() ) );
+	}
+}
+
+technique11 Equirect
+{
+	pass P0
+	{
+		SetComputeShader( CompileShader( cs_5_0, CS_Equirect() ) );
 	}
 }

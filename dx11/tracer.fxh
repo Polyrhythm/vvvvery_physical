@@ -31,8 +31,13 @@ Surface lightIntersect(const Light hit, const uint lightIdx, const Ray ray)
 		
 		case POINT:
 			float3 pos = hit.transform[2].xyz;
-			float sphereUnused = 0.0;
-			tIntersect = intersectSphere(pos, 0.1, ray, sphereUnused).x;
+			float t0, t1;
+			bool sphereHit = intersectSphere(pos, 0.1, ray, t0, t1);
+		
+			if (false) // figure out why point light intersects don't work??
+			{
+				tIntersect = t0;
+			}
 			break;
 		
 		default:
@@ -56,7 +61,12 @@ Surface intersectShadow(const Primitive hit, const Ray ray)
 	float2 tIntersect = float2(-1,-1);
 	switch (hit.type) {
 		case SPHERE:
-			tIntersect = intersectSphere(0, hit.args[0], ray, t);
+			float t0, t1;
+			bool sphereHit = intersectSphere(0, hit.args[0], ray, t0, t1);
+			if (sphereHit)
+			{
+				tIntersect = float2(t0, t1);
+			}
 			break;
 		
 		case BOX:
@@ -98,9 +108,12 @@ Surface intersect(const Primitive hit, const Ray ray, out float t)
 	float2 tIntersect = float2(-1,-1);
 	switch (hit.type) {
 		case SPHERE:
-			tIntersect = intersectSphere(0, hit.args[0], ray, t);
-			surf.pos = ray.origin + ray.dir * t;
-			if( tIntersect.x != -1 ) {
+			float t0, t1;
+			bool sphereHit = intersectSphere(0, hit.args[0], ray, t0, t1);
+			t = t0;
+			surf.pos = ray.origin + ray.dir * t0;
+			if (sphereHit) {
+				tIntersect = float2(t0, t1);
 				getSphereNormal(0, surf.pos, surf.nor);
 				getSphereUV(surf.nor, surf.uv);
 			}
@@ -507,7 +520,6 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 		newRay.origin = origin;
 		newRay.dir = dir;
 		
-		float t;
 		Surface surf = trace(newRay, INFINITY);
 		
 		// Check to see if we hit a light
@@ -600,7 +612,7 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 		uint count, stride;
 		lightBuffer.GetDimensions(count, stride);
 
-		if( count > 0 ){
+		if(count > 0 ){
 			// Randomly pick one of our lights
 			float r = randSampler.SampleFloat();
 			int j = floor(r*count);

@@ -1,30 +1,17 @@
-RWTexture2D<float2> conditionalTex : BACKBUFFER;
+#include "math.fxh"
 
-StructuredBuffer<float4> data;
+RWStructuredBuffer<float3> outBuf : BACKBUFFER;
 
-#define ThreadsX 32
-#define ThreadsY 32
+StructuredBuffer<float4> colorBuf;
 
-#define Width 4096
-#define Height 2048
+#define ThreadsX 1
+#define ThreadsY 64
 
-int LowerBound(uint lower, uint upper, const float value)
+#define Width 256
+
+float getLuminance(const float3 color)
 {
-	while (lower < upper)
-	{
-		uint mid = lower + (upper - lower) / 2;
-		
-		if (data[mid].y < value)
-		{
-			lower = mid + 1;
-		}
-		else
-		{
-			upper = mid;
-		}
-	}
-	
-	return lower;
+	return 0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b; 
 }
 
 [numthreads(ThreadsX, ThreadsY, 1)]
@@ -34,22 +21,27 @@ void CS(uint3 tid : SV_DispatchThreadID, uint3 groupTid : SV_GroupThreadID)
 		groupTid.x * ThreadsX + tid.x,
 		groupTid.y * ThreadsY + tid.y
 	);
-	const uint idx = q.y * Width + q.x;
+	const uint idx = tid.x + tid.y * Width;
 	
-	const float invWidth = (float)q.x / Width;
-	int col = LowerBound(q.y * Width, (q.y + 1) * Width, invWidth) - q.y * Width;
+	float rowWeightSum = 0.0;
+	const float sinTheta = sin(PI * float(q.y + 0.5) / float(Width));
+	for (uint i = 0; i < Width; i++)
+	{
+		float luminance = getLuminance(colorBuf[idx + i].rgb);
+		rowWeightSum += luminance;
+		float rowWeight = rowWeightSum;
+		
+		outBuf[idx + i] = float3(luminance, rowWeight, 0.0);
+	}
 	
-	conditionalTex[q] = float2(col / (float)Width, data[idx].x);
-}
-
-[numthreads(ThreadsX, ThreadsY, 1)]
-void Test(uint3 tid : SV_DispatchThreadID, uint3 groupTid : SV_GroupThreadID)
-{
-	const float2 q = float2(
-		groupTid.x * ThreadsX + tid.x,
-		groupTid.y * ThreadsY + tid.y
-	);
-	conditionalTex[q] = float2(q.x / (float)Width, q.y / (float)Height);
+	for (uint j = 0; j < Width; j++)
+	{
+		outBuf[idx + j] = float3(
+			outBuf[idx + j].x,
+			outBuf[idx + j].y / rowWeightSum,
+			(j == Width - 1) ? rowWeightSum : 0.0
+		);
+	}
 }
 
 technique11 Process
@@ -57,14 +49,6 @@ technique11 Process
 	pass P0
 	{
 		SetComputeShader( CompileShader( cs_5_0, CS() ) );
-	}
-}
-
-technique11 Testing
-{
-	pass P0
-	{
-		SetComputeShader(CompileShader(cs_5_0, Test()));
 	}
 }
 

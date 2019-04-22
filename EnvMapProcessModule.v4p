@@ -1,0 +1,189 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
+   <PATCH nodename="D:\dev\vvvvery_physical\EnvMapProcessModule.v4p" systemname="EnvMapProcessModule" filename="D:\dev\vvvvery_physical\EnvMapProcessModule.v4p" scrollx="675" scrolly="1590">
+   <BOUNDS type="Window" left="-14325" top="4755" width="9000" height="10335">
+   </BOUNDS>
+   <PACK Name="dx11" Version="1.3.1.1">
+   </PACK>
+   <PACK Name="VVVV.Packs.Image" Version="0.2.0">
+   </PACK>
+   <PACK Name="addonpack" Version="38.1.0">
+   </PACK>
+   <NODE systemname="CS_GenerateConditionalTex (DX11.Effect)" filename="dx11\CS_GenerateConditionalTex.fx" nodename="CS_GenerateConditionalTex (DX11.Effect)" componentmode="Hidden" id="0">
+   <BOUNDS type="Node" left="2820" top="5160" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Geometry" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="colorBuf" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="1">
+   <BOUNDS type="Node" left="3375" top="4230" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3375" top="4230" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Thread Y" visible="1">
+   </PIN>
+   <PIN pinname="Thread X" visible="1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Geometry Out" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="3">
+   <BOUNDS type="Box" left="3915" top="2100" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3915" top="2100" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="256">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Width">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="4">
+   <BOUNDS type="Node" left="4230" top="3375" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Input 2" slicecount="1" values="64">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="3" srcpinname="Y Output Value" dstnodeid="4" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="4" srcpinname="Output" dstnodeid="1" dstpinname="Thread Y">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Geometry Out" dstnodeid="0" dstpinname="Geometry">
+   </LINK>
+   <NODE systemname="Renderer (DX11 Buffer)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 Buffer)" componentmode="Hidden" id="5">
+   <BOUNDS type="Node" left="3720" top="6240" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3720" top="6240" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Element Count" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Buffers" visible="1">
+   </PIN>
+   <PIN pinname="Stride" slicecount="1" values="16">
+   </PIN>
+   </NODE>
+   <NODE systemname="Multiply (Value)" nodename="Multiply (Value)" componentmode="Hidden" id="6">
+   <BOUNDS type="Node" left="5235" top="5430" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="3" srcpinname="Y Output Value" dstnodeid="6" dstpinname="Input 1" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="3960" y="3878">
+   </LINKPOINT>
+   <LINKPOINT x="5250" y="3878">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Y Output Value" dstnodeid="6" dstpinname="Input 2" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="3975" y="3885">
+   </LINKPOINT>
+   <LINKPOINT x="5505" y="3885">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="6" srcpinname="Output" dstnodeid="5" dstpinname="Element Count" linkstyle="VHV">
+   <LINKPOINT x="5235" y="5955">
+   </LINKPOINT>
+   <LINKPOINT x="4260" y="5955">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Layer" dstnodeid="5" dstpinname="Layer" linkstyle="VHV">
+   <LINKPOINT x="2880" y="5820">
+   </LINKPOINT>
+   <LINKPOINT x="4020" y="5820">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="ReadBack (DX11.Buffer 4d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="ReadBack (DX11.Buffer 4d)" componentmode="Hidden" id="7">
+   <BOUNDS type="Node" left="3690" top="6810" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3690" top="6810" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="OutputXYZW" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="5" srcpinname="Buffers" dstnodeid="7" dstpinname="Input">
+   </LINK>
+   <NODE systemname="DynamicTexture (DX11.Texture 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="DynamicTexture (DX11.Texture 2d)" componentmode="Hidden" id="8">
+   <BOUNDS type="Node" left="3930" top="7650" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3930" top="7650" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Data" visible="1">
+   </PIN>
+   <PIN pinname="Channel Count" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Height" visible="1">
+   </PIN>
+   <PIN pinname="Width" visible="1">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="7" srcpinname="OutputXYZW" dstnodeid="8" dstpinname="Data">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Y Output Value" dstnodeid="8" dstpinname="Height" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="3945" y="4995">
+   </LINKPOINT>
+   <LINKPOINT x="4215" y="4995">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Y Output Value" dstnodeid="8" dstpinname="Width" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="3945" y="4980">
+   </LINKPOINT>
+   <LINKPOINT x="3945" y="4980">
+   </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="10">
+   <BOUNDS type="Box" left="3960" top="8925" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3960" top="8925" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Conditional2D">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="8" srcpinname="Texture Out" dstnodeid="10" dstpinname="Input Node">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="11">
+   <BOUNDS type="Box" left="5970" top="1935" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5970" top="1935" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="colorBuf">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Output Node" dstnodeid="0" dstpinname="colorBuf" linkstyle="Bezier">
+   <LINKPOINT x="5970" y="3668">
+   </LINKPOINT>
+   <LINKPOINT x="4245" y="3668">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="CS_GenerateCDF1D (DX11.Effect)" filename="dx11\CS_GenerateCDF1D.fx" nodename="CS_GenerateCDF1D (DX11.Effect)" componentmode="Hidden" id="12">
+   <BOUNDS type="Node" left="6165" top="4200" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="CS_GenerateCDF2D (DX11.Effect)" filename="dx11\CS_GenerateCDF2D.fx" nodename="CS_GenerateCDF2D (DX11.Effect)" componentmode="Hidden" id="13">
+   <BOUNDS type="Node" left="6630" top="5625" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   </PATCH>
