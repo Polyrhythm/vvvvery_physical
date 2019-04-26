@@ -49,8 +49,8 @@ class DiffuseDielectricMaterial : AbstractBSDF {
 		if( dot(surf.nor, Wi) > 0 ){
 			res.type = BRDF_TYPE;
 
-			float3 H = normalize( Wr + Wi );
-			float f = Fs.Fresnel( H, Wi ).x;
+			float3 H = normalize(Wr + Wi);
+			float f = Fs.Fresnel(H, Wi).x;
 
 			BSDFSample d = Fd.Evaluate(surf, Wr, Wi);
 			BSDFSample s = Fs.Evaluate(surf, Wr, Wi);
@@ -66,16 +66,19 @@ class DiffuseDielectricMaterial : AbstractBSDF {
 		float f = Fs.Fresnel( surf.nor, Wr ).x;
 
 		BSDFSample res;
-		if(this.randXYZ.z < f ){
+		if (this.randXYZ.z < f)
+		{
 			res = Fs.Sample(surf, Wr, Wi);
 		} else {
 			res = Fd.Sample(surf, Wr, Wi);
 		}
 
-		if( res.pdf != 0 ){
+		if (res.pdf != 0)
+		{
 			BSDFSample eval = Evaluate(surf, Wr, Wi);
 			res.value = eval.value;
 			res.pdf = eval.pdf;
+			res.type = eval.type;
 		}
 
 		return res;
@@ -120,8 +123,9 @@ class MetallicMaterial : AbstractBSDF {
 			eval.value *= f;
 
 			res.value = eval.value;
+			res.type = eval.type;
 		}
-		
+
 		return res;
 	}
 };
@@ -158,8 +162,6 @@ class DielectricMaterial : AbstractBSDF {
 
 			res.value *= multiplier;
 			res.pdf *= multiplier;
-			res.pdf *= F.x;
-			res.pdf += (1.0 - F) * max(0, dot(surf.nor, Wi)) * INV_PI;
 		}
 
 		return res;

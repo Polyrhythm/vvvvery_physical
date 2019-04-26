@@ -194,8 +194,8 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 	BSDFSample Evaluate(Surface surf, float3 Wr, float3 Wi){
 		BSDFSample res = (BSDFSample)0;
 		res.type = NULL_BSDF_TYPE;
-		float NWi = max(0,dot( surf.nor, Wi ));
-		if( NWi > 0.0 ){
+		float NWi = max(0,dot(surf.nor, Wi));
+		if(NWi > 0.0 ){
 			if(roughness <= 1e-4){
 				res.value = (float3)0;
 				res.pdf = 0;
@@ -204,10 +204,10 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 				float3 H = 0;
 
 				float eta = 0.0;
-				if (this.isTransmission && false)
+				if (this.isTransmission)
 				{
 					eta = dot(surf.nor, Wr) > 0 ? this.ior.x : (1.0 / this.ior.x);
-					H = normalize(Wr * this.ior + Wi * AIR_IOR);
+					H = -1.0 * normalize(Wr * eta + Wi * AIR_IOR);
 					H *= signum(dot(surf.nor, H));
 				}
 				else
@@ -216,13 +216,18 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 				}
 
 				float F = this.Fresnel(H, Wr).x;
-				float D = NDF( surf.nor, H, pm );
-				float G = GS( surf.nor, Wr, Wi );
+				float D = NDF(surf.nor, H, pm);
+				float G = GS(H, Wr, Wi);
 
 				if (this.isTransmission && this.randXYZ.z > F)
 				{
-					float sqrtDenom = dot(Wi, H) + eta * dot(Wr, H);
-					res.value = (D * G * eta * eta * dot(Wi, H) * dot(Wr, H)) / (NWi * sqrtDenom * sqrtDenom);
+					float VoH = max(0, dot(Wr, H));
+					float LoH = max(0, dot(Wi, H));
+					float a = (VoH * LoH) / (max(0, dot(Wr, surf.nor)) * max(0, dot(Wi, surf.nor)));
+					float b1 = eta * eta * (1.0 - F) * G * D;
+					float b2 = AIR_IOR * LoH + eta * VoH;
+
+					res.value = a * (b1 / b2);
 					res.value *= NWi;
 
 					res.type = BTDF_TYPE;
@@ -230,7 +235,7 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 				else
 				{
 					// Exclude fresnel term here, gets factored in later.
-					res.value = (D * G * 0.25) / (NWi * max(0, dot(surf.nor, Wr)));
+					res.value = (D * G) / (4.0 * NWi * max(0, dot(surf.nor, Wr)));
 					res.value *= NWi;	
 
 					res.type = BRDF_TYPE;
@@ -269,8 +274,7 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 
 				//eq. 40 - calculate transmitted ray direction
 				float a = eta * IoM - signum(dot(Wr, surf.nor)) * sqrt(1.0 + eta * (c2 - 1.0));
-				//Wi = a * m - eta * Wr;
-				Wi = 2.0 * IoM * m - Wr;
+				Wi = a * m - eta * Wr;
 			}
 			else
 			{
@@ -281,14 +285,14 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 			float NWi = max(0,dot( surf.nor, Wi ));
 			// is incident direction within hemisphere?
 			if(NWi > 0){
-				if( roughness <= 1e-4 ){
+				if(roughness <= 1e-4){
 					res.value = (float3)1e6;
 					res.pdf = 1e6;
 				}
 				else
 				{
 					float pm;
-					float D = NDF( surf.nor, m, pm );
+					float D = NDF(surf.nor, m, pm);
 
 					// eq. 38 - but see also:
 					// eq. 17 in http://www.graphics.cornell.edu/~bjw/wardnotes.pdf
