@@ -33,6 +33,7 @@ StructuredBuffer<float3> normalBuffer;
 Texture3D sdfTexture;
 Texture2DArray textures;
 Texture2D envMap;
+Texture2D envMapPDF;
 
 BVHNode fetchBVHNodeData(const uint index)
 {

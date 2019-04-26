@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\brdf_eval.v4p" systemname="brdf_eval" filename="D:\dev\vvvvery_physical\brdf_eval.v4p" scrollx="2865" scrolly="2400">
-   <BOUNDS type="Window" left="5070" top="3120" width="10605" height="13290">
+   <PATCH nodename="D:\dev\vvvvery_physical\brdf_eval.v4p" systemname="brdf_eval" filename="D:\dev\vvvvery_physical\brdf_eval.v4p" scrollx="2265" scrolly="3330">
+   <BOUNDS type="Window" left="795" top="2505" width="10605" height="13290">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
@@ -37,7 +37,7 @@
    </PIN>
    <PIN pinname="textures" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="renderSky" visible="1" slicecount="1" values="1">
+   <PIN pinname="renderSky" visible="1" slicecount="1" values="2">
    </PIN>
    <BOUNDS type="Window" left="8130" top="1050" width="11940" height="10875">
    </BOUNDS>
@@ -68,6 +68,8 @@
    <PIN pinname="Arealight Transforms" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="&cr;&lf;Show light transforms" visible="1">
+   </PIN>
+   <PIN pinname="envMapPDF" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="19">
@@ -175,7 +177,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="6165" top="5235" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="3">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="2">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -479,7 +481,7 @@
    <LINK srcnodeid="72" srcpinname="Y Output Value" dstnodeid="20" dstpinname="&cr;&lf;Show light transforms">
    </LINK>
    <NODE systemname="SkyModule" filename="SkyModule.v4p" nodename="SkyModule.v4p" componentmode="Hidden" id="74">
-   <BOUNDS type="Node" left="3945" top="8370" width="100" height="100">
+   <BOUNDS type="Node" left="4035" top="7080" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Texture Out" visible="1">
    </PIN>
@@ -493,7 +495,7 @@
    <LINK srcnodeid="74" srcpinname="Texture Out" dstnodeid="20" dstpinname="envMap">
    </LINK>
    <NODE systemname="Normalize (3d Vector)" nodename="Normalize (3d Vector)" componentmode="Hidden" id="75">
-   <BOUNDS type="Node" left="4725" top="7065" width="100" height="100">
+   <BOUNDS type="Node" left="4815" top="5775" width="100" height="100">
    </BOUNDS>
    <PIN pinname="XYZ" visible="1">
    </PIN>
@@ -501,13 +503,13 @@
    </PIN>
    </NODE>
    <NODE systemname="Vector (3d Join)" nodename="Vector (3d Join)" componentmode="Hidden" id="76">
-   <BOUNDS type="Node" left="4845" top="6270" width="100" height="100">
+   <BOUNDS type="Node" left="4935" top="4980" width="100" height="100">
    </BOUNDS>
    <PIN pinname="XYZ" visible="1">
    </PIN>
-   <PIN pinname="Y" slicecount="1" values="0.26" visible="1">
+   <PIN pinname="Y" slicecount="1" visible="1" values="0.88">
    </PIN>
-   <PIN pinname="X" slicecount="1" values="1.21">
+   <PIN pinname="X" slicecount="1" values="0.04">
    </PIN>
    <PIN pinname="Z" slicecount="1" values="1.93">
    </PIN>
@@ -517,7 +519,7 @@
    <LINK srcnodeid="75" srcpinname="NormalizedXYZ" dstnodeid="74" dstpinname="SunDirXYZ">
    </LINK>
    <NODE systemname="Change (Animation)" nodename="Change (Animation)" componentmode="Hidden" id="78">
-   <BOUNDS type="Node" left="5070" top="7695" width="100" height="100">
+   <BOUNDS type="Node" left="5160" top="6405" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -528,28 +530,42 @@
    </LINK>
    <LINK srcnodeid="78" srcpinname="OnChange" dstnodeid="46" dstpinname="Input 4">
    </LINK>
-   <NODE systemname="EnvMapProcessModule" filename="EnvMapProcessModule.v4p" nodename="EnvMapProcessModule.v4p" componentmode="InAWindow" id="86">
-   <BOUNDS type="Node" left="3195" top="10290" width="100" height="100">
+   <NODE systemname="EnvMapProcessModule" filename="EnvMapProcessModule.v4p" nodename="EnvMapProcessModule.v4p" componentmode="Hidden" id="86" debug="0">
+   <BOUNDS type="Node" left="3285" top="9000" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Window" left="-14325" top="4755" width="9000" height="10335">
+   <BOUNDS type="Window" left="-20760" top="2190" width="9000" height="10335">
    </BOUNDS>
    <PIN pinname="Texture Out" visible="1">
    </PIN>
    <PIN pinname="colorBuf" visible="1">
    </PIN>
+   <PIN pinname="1DBuf" visible="1">
+   </PIN>
+   <PIN pinname="1DTex" visible="1">
+   </PIN>
+   <PIN pinname="Conditional2D" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="Preview (DX11.Texture)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Preview (DX11.Texture)" componentmode="InAWindow" id="87">
-   <BOUNDS type="Node" left="3405" top="11610" width="100" height="100">
+   <BOUNDS type="Node" left="3495" top="10320" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="3405" top="11610" width="6000" height="4500">
+   <BOUNDS type="Box" left="3495" top="10320" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="-9195" top="6690" width="6240" height="5085">
+   <BOUNDS type="Window" left="-9840" top="6855" width="5670" height="5085">
    </BOUNDS>
    <PIN pinname="Texture In" visible="1">
+   </PIN>
+   <PIN pinname="Show Alpha" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="86" srcpinname="Conditional2D" dstnodeid="87" dstpinname="Texture In">
    </LINK>
    <LINK srcnodeid="74" srcpinname="BufferOut" dstnodeid="86" dstpinname="colorBuf">
+   </LINK>
+   <LINK srcnodeid="86" srcpinname="Conditional2D" dstnodeid="20" dstpinname="envMapPDF" linkstyle="Bezier">
+   <LINKPOINT x="3345" y="9690">
+   </LINKPOINT>
+   <LINKPOINT x="7290" y="9690">
+   </LINKPOINT>
    </LINK>
    </PATCH>

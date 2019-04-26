@@ -22,12 +22,6 @@ float getGDF(const float NoV, const float a2)
 }
 
 class GGXSpecularBRDF : AbstractMicrofacetBRDF {
-	static GGXSpecularBRDF New(float roughness, float3 ior, bool isTransmission){
-		GGXSpecularBRDF brdf;
-		brdf.Init(roughness, ior, isTransmission);
-		return brdf;
-	}
-
 	float3 Fresnel( float3 H, float3 W ){
 		float HW = saturate(dot( H, W ));
 		float3 f0 = (ior - 1.0) / (ior + 1.0);
@@ -38,17 +32,17 @@ class GGXSpecularBRDF : AbstractMicrofacetBRDF {
 
 	float GS1( float3 H ,float3 W ){
 		float HW = saturate(dot( H, W ));
-		return getGDF( HW, pow(roughness,2) );
+		return getGDF(HW, roughness * roughness);
 	}
 
 	float GS( float3 H, float3 Wi, float3 Wr ){
-		return GS1( H, Wi ) * GS1( H, Wr );
+		return GS1(H, Wi) * GS1(H, Wr);
 	}
 
 	float NDF( float3 N, float3 H, out float pm ){
-		float NH = saturate(dot( N, H ));
-		float D = getNDF( NH, pow(roughness,2) );
-		pm = D * NH;
+		float NoH = saturate(dot(N, H));
+		float D = getNDF(NoH, roughness * roughness);
+		pm = D * NoH;
 		return D;
 
 	}

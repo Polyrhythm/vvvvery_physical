@@ -553,7 +553,6 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 			break;
 		}
 
-		float3 nDir = (float3)0;
 		Material mat = fetchMaterialData(surf.matIdx);
 		
 		// Checks for textures to set the material parameters
@@ -630,7 +629,7 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 			float shadowIntensity = shadow(surf, lightDir);
 			float diffuse = max(0,dot(lightDir,surf.nor));
 
-			BSDFSample lsamp = matModel.Evaluate( mat, surf, -dir, lightDir );
+			BSDFSample lsamp = matModel.Evaluate(mat, surf, randSampler, -dir, lightDir);
 			if( lsamp.type != NULL_BSDF_TYPE ){
 				accumColour += colourMask * clamp(lsamp.value, 0, 4)
 							* (light.colour.xyz * power * (1.0 - shadowIntensity)
@@ -638,7 +637,8 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 			}
 		}
 
-		BSDFSample bsamp = matModel.Sample( mat, surf, randSampler, -dir, nDir );
+		float3 nDir = 0;
+		BSDFSample bsamp = matModel.Sample(mat, surf, randSampler, -dir, nDir);
 		if( bsamp.type == NULL_BSDF_TYPE ) break;
 		
 		float3 F = bsamp.value;

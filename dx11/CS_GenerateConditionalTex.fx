@@ -1,6 +1,6 @@
 #include "math.fxh"
 
-RWStructuredBuffer<float3> outBuf : BACKBUFFER;
+RWStructuredBuffer<float4> outBuf : BACKBUFFER;
 
 StructuredBuffer<float4> colorBuf;
 
@@ -29,17 +29,17 @@ void CS(uint3 tid : SV_DispatchThreadID, uint3 groupTid : SV_GroupThreadID)
 	{
 		float luminance = getLuminance(colorBuf[idx + i].rgb);
 		rowWeightSum += luminance;
-		float rowWeight = rowWeightSum;
 		
-		outBuf[idx + i] = float3(luminance, rowWeight, 0.0);
+		outBuf[idx + i] = float4(luminance, rowWeightSum, 0.0, 0.0);
 	}
 	
 	for (uint j = 0; j < Width; j++)
 	{
-		outBuf[idx + j] = float3(
+		outBuf[idx + j] = float4(
 			outBuf[idx + j].x,
 			outBuf[idx + j].y / rowWeightSum,
-			(j == Width - 1) ? rowWeightSum : 0.0
+			(j == Width - 1) ? rowWeightSum : 0.0, // store sum at end of row
+			0.0
 		);
 	}
 }
