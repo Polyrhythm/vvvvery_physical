@@ -296,7 +296,7 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 
 					// eq. 38 - but see also:
 					// eq. 17 in http://www.graphics.cornell.edu/~bjw/wardnotes.pdf
-					res.pdf = (pm * 0.25) / ((max(0, dot(m, Wi)) * IoM));
+					res.pdf = pm / (4.0 * IoM);
 					res.pdf *= NWi;
 				}
 			}

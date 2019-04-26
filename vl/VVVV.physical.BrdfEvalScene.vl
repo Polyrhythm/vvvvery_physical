@@ -200,13 +200,17 @@
                 <CategoryReference Kind="AssemblyCategory" Name="Material" />
                 <Choice Kind="OperationCallFlag" Name="Create" />
               </p:NodeReference>
-              <Pin Id="UbMVmN9ygM5NdpGkeB8kFD" Name="Material Type" Kind="InputPin" />
+              <Pin Id="UbMVmN9ygM5NdpGkeB8kFD" Name="Material Type" Kind="InputPin">
+                <p:TypeAnnotation LastCategoryFullName="physical" LastSymbolSource="physical.dll">
+                  <Choice Kind="TypeFlag" Name="MaterialType" />
+                </p:TypeAnnotation>
+              </Pin>
               <Pin Id="HZKE8gpQh4ePXiNIZ2l1fy" Name="Ior" Kind="InputPin" DefaultValue="1.3">
                 <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
                   <Choice Kind="TypeFlag" Name="Float32" />
                 </p:TypeAnnotation>
               </Pin>
-              <Pin Id="FC8pSsjKJPbPKr0a8Elo6W" Name="Roughness" Kind="InputPin" DefaultValue="0.58">
+              <Pin Id="FC8pSsjKJPbPKr0a8Elo6W" Name="Roughness" Kind="InputPin" DefaultValue="0.01">
                 <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
                   <Choice Kind="TypeFlag" Name="Float32" />
                 </p:TypeAnnotation>
@@ -425,6 +429,11 @@
                 <Choice Kind="TypeFlag" Name="RGBA" />
               </p:TypeAnnotation>
             </Pad>
+            <Pad Id="V7ImIejnmF8OCn8B4EiyHO" Comment="Colour" Bounds="240,386,143,20" ShowValueBox="true" isIOBox="true" Value="0.3, 0, 0, 1">
+              <p:TypeAnnotation LastCategoryFullName="Color" LastSymbolSource="CoreLibBasics.vl">
+                <Choice Kind="TypeFlag" Name="RGBA" />
+              </p:TypeAnnotation>
+            </Pad>
           </Canvas>
           <ProcessDefinition Id="FHNLl8GWgcVOJzRkkPI83E">
             <Fragment Id="MRFnVwHDf0WOO7H3jKbCxI" Patch="ESJZDDS0I02LAWDOx9RJVV" Enabled="true" />
@@ -473,6 +482,7 @@
           <Link Id="E1XsYtpJ3LWMH839RkeJnB" Ids="QuD7n4Tc4cOLYHMbQDPimu,K66OTEnPj75NCiKJN2F0fB" />
           <Link Id="TGxZ7mzY1rdOQUll7tcKQ3" Ids="QyVjXvgLsGaOdOooVzDSai,QG8bMXaFsCFMW8DyQZjOwL" />
           <Link Id="I4ZNH2pBOlUOeWuMPvHxeq" Ids="G3f3NkQVEbXLhl2nXqoR9h,Nb9GxdUlDfIOkRAACiULd3" />
+          <Link Id="T4FDmgh7VLSM6jkQIk2upS" Ids="V7ImIejnmF8OCn8B4EiyHO,MlJXXA6TEH8MOakDiuCUaj" />
         </Patch>
       </Node>
     </Canvas>
