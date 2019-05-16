@@ -501,7 +501,7 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 	RandomSampler randSampler = rSampler;
 #else
 	uint seed = jenkins_hash(uint3(pos.xy,SampleIndex));
-	RandomSampler randSampler = RandomSampler::New( seed );
+	RandomSampler randSampler = RandomSampler::New(seed);
 #endif
 
 	float3 accumColour = 0.0;
@@ -521,7 +521,7 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 		newRay.dir = dir;
 		
 		Surface surf = trace(newRay, INFINITY);
-		
+
 		// Check to see if we hit a light
 		if (surf.lightIdx != -1 && i > 0)
 		{

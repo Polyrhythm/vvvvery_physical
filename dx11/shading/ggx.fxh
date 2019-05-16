@@ -5,47 +5,83 @@
 #include "shading/brdf.fxh"
 #include "shading/fresnel.fxh"
 
-// GGX (Trowbridge-Reitz
-float getNDF(const float NoH, float a2)
+// relatively unoptimized
+float getNDF(const float NoH, float linearRoughness)
 {
-	float denom = NoH * NoH * (a2 - 1) + 1;
-	
-	return a2 / (PI * denom * denom);
+	float a2 = linearRoughness * linearRoughness;
+	float b = NoH * NoH * (a2 - 1.0) + 1.0;
+
+	return a2 / (PI * (b * b));
 }
 
-// GGX as seen in http://graphicrants.blogspot.com/2013/08/specular-brdf-reference.html
-float getGDF(const float NoV, const float a2)
+float getGDF(const float NoV, const float NoL, const float linearRoughness)
 {
-	float denom = NoV + sqrt(a2 + (1.0 - a2) * NoV * NoV);
-	
-	return (2 * NoV) / denom;
+	float a2 = linearRoughness * linearRoughness;
+	float G_V = NoV * sqrt(a2 + NoL * (NoL - a2 * NoL));
+	float G_L = NoL * sqrt(a2 + NoV * (NoV - a2 * NoV));
+	return 0.5 / (G_V + G_L);
 }
 
 class GGXSpecularBRDF : AbstractMicrofacetBRDF {
-	float3 Fresnel( float3 H, float3 W ){
+	float3 Fresnel(float3 H, float3 W)
+	{
 		float HW = saturate(dot( H, W ));
 		float3 f0 = (ior - 1.0) / (ior + 1.0);
 		f0 *= f0;
 
-		return fresnel_schlick( HW, f0 );
-	}
-
-	float GS1( float3 H ,float3 W ){
-		float HW = saturate(dot( H, W ));
-		return getGDF(HW, roughness * roughness);
+		return fresnel_schlick(HW, f0);
 	}
 
 	float GS( float3 H, float3 Wi, float3 Wr ){
-		return GS1(H, Wi) * GS1(H, Wr);
+		float NoV = saturate(dot(H, Wr));
+		float NoL = saturate(dot(H, Wi));
+
+		return getGDF(NoV, NoL, this.roughness);
 	}
 
-	float NDF( float3 N, float3 H, out float pm ){
+	float NDF(float3 N, float3 H, out float pm)
+	{
 		float NoH = saturate(dot(N, H));
-		float D = getNDF(NoH, roughness * roughness);
+		float D = getNDF(NoH, this.roughness);
 		pm = D * NoH;
-		return D;
 
+		return D;
 	}
+
+	float eNDF(const float NoH, float linearRoughness)
+	{
+		return getNDF(NoH, linearRoughness);
+	}
+
+	float eGS(const float NoV, const float NoL, const float linearRoughness)
+	{
+		return getGDF(NoV, NoL, linearRoughness);
+	}
+
+	float3 MicrofacetNormal(float3 macroNormal, float roughness, float2 rand)
+	{
+		float a2 = roughness * roughness;
+
+		// eq. 35,36 - sample random microfacet normal
+		float theta = atan((a2 * sqrt(rand.x)) / sqrt(1.0 - rand.x));
+		float phi = PI2 * rand.y;
+
+		float3 T, B;
+		makeOrthonormalBasis(macroNormal, T, B);
+
+		// microfacet normal
+		float3 m = (sin(theta) * cos(phi) * T)
+		         + (sin(theta) * sin(phi) * B)
+		         + (cos(theta) * macroNormal);
+
+
+		return m;
+	}
+};
+
+class GGXSpecularBTDF : GGXSpecularBRDF
+{
+
 };
 
 #endif
