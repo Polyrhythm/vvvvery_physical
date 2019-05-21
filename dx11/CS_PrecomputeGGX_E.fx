@@ -47,7 +47,8 @@ void CS(uint3 tid : SV_DispatchThreadID)
 		}	
 	}
 
-	outBuf[idx] = evalSum * phi_i * theta_i;
+	float sum = evalSum * phi_i * theta_i;
+	outBuf[idx] = sum > 1.0 ? float3(sum,0,0) : sum;
 }
 
 technique11 Apply

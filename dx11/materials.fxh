@@ -5,6 +5,7 @@ static const int DIFFUSEDIELECTRIC = 0;
 static const int METALLIC = 1;
 static const int EMISSIVE = 2;
 static const int DIELECTRIC = 3;
+static const int PARTICIPATINGMEDIA = 4;
 
 #include "shading/fresnel.fxh"
 #include "shading/ggx.fxh"
@@ -192,23 +193,55 @@ class DielectricMaterial : AbstractBSDF {
 	}
 };
 
+class ParticipatingMediaMaterial : AbstractBSDF
+{
+	ParticipatingMediaBTDF Ft;
+
+	void Init(float2 bounds, float density)
+	{
+		Ft.Init(density, bounds);
+	}
+
+	static ParticipatingMediaMaterial New(float density, float2 bounds)
+	{
+		ParticipatingMediaMaterial bsdf;
+		bsdf.Init(bounds, density);
+
+		return bsdf;
+	}
+
+	BSDFSample Evaluate(Surface surf, float3 Wo, float3 Wi)
+	{
+		BSDFSample res = Ft.Evaluate(surf, Wo, Wi);
+
+		return res;
+	}
+
+	BSDFSample Sample(Surface surf, float3 Wo, out float3 Wi)
+	{
+		BSDFSample res = Ft.Sample(surf, Wo, Wi);
+
+		return res;
+	}
+};
+
 interface IMaterialModel {
-	BSDFSample Evaluate(Material mat, Surface surf, ISampler samp, float3 Wo, float3 Wi);
-	BSDFSample Sample(Material mat, Surface surf, ISampler samp, float3 Wo, out float3 Wi);
+	BSDFSample Evaluate(Material mat, Surface surf, float2 bounds, ISampler samp, float3 Wo, float3 Wi);
+	BSDFSample Sample(Material mat, Surface surf, float2 bounds, ISampler samp, float3 Wo, out float3 Wi);
 };
 
 class PrimitiveMaterialModel : IMaterialModel {
-	BSDFSample Evaluate(Material mat, Surface surf, ISampler samp, float3 Wo, float3 Wi)
+	BSDFSample Evaluate(Material mat, Surface surf, float2 bounds, ISampler samp, float3 Wo, float3 Wi)
 	{
-		return Eval(mat, surf, Wo, Wi, true, samp);
+		return Eval(mat, surf, bounds, Wo, Wi, true, samp);
 	}
 
-	BSDFSample Sample(Material mat, Surface surf, ISampler samp, float3 Wo, out float3 Wi)
+	BSDFSample Sample(Material mat, Surface surf, float2 bounds, ISampler samp, float3 Wo, out float3 Wi)
 	{
-		return Eval(mat, surf, Wo, Wi, false, samp);
+		return Eval(mat, surf, bounds, Wo, Wi, false, samp);
 	}
 
-	BSDFSample Eval(Material mat, Surface surf, float3 Wo, inout float3 Wi, bool brdfOnly, ISampler samp){
+	BSDFSample Eval(Material mat, Surface surf, float2 bounds, float3 Wo, inout float3 Wi, bool brdfOnly, ISampler samp){
 		BSDFSample bsamp = (BSDFSample)0;
 		bsamp.type = NULL_BSDF_TYPE;
 		if (!brdfOnly) Wi = (float3)0;
@@ -239,6 +272,14 @@ class PrimitiveMaterialModel : IMaterialModel {
 					bsamp = brdf.Evaluate(surf, Wo, Wi);
 				} else {
 					bsamp = brdf.Sample(surf, Wo, Wi);
+				}
+				break;}
+			case PARTICIPATINGMEDIA:{
+				ParticipatingMediaMaterial bsdf = ParticipatingMediaMaterial::New(mat.roughness, bounds);
+				if (brdfOnly) {
+					bsamp = bsdf.Evaluate(surf, Wo, Wi);
+				} else {
+					bsamp = bsdf.Sample(surf, Wo, Wi);
 				}
 				break;}
 			default:

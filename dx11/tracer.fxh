@@ -32,7 +32,7 @@ Surface lightIntersect(const Light hit, const uint lightIdx, const Ray ray)
 		case POINT:
 			float3 pos = hit.transform[2].xyz;
 			float t0, t1;
-			bool sphereHit = intersectSphere(pos, 0.1, ray, t0, t1);
+			bool sphereHit = intersectSphere(false, pos, 0.1, ray, t0, t1);
 		
 			if (false) // figure out why point light intersects don't work??
 			{
@@ -62,7 +62,7 @@ Surface intersectShadow(const Primitive hit, const Ray ray)
 	switch (hit.type) {
 		case SPHERE:
 			float t0, t1;
-			bool sphereHit = intersectSphere(0, hit.args[0], ray, t0, t1);
+			bool sphereHit = intersectSphere(false, 0, hit.args[0], ray, t0, t1);
 			if (sphereHit)
 			{
 				tIntersect = float2(t0, t1);
@@ -99,20 +99,20 @@ Surface intersectShadow(const Primitive hit, const Ray ray)
 	return surf;
 }
 
-Surface intersect(const Primitive hit, const Ray ray, out float t)
+Surface intersect(const Primitive hit, const Ray ray, out float t, out float2 tIntersect)
 {
 	t = INFINITY;
 	Surface surf = (Surface)0;
 	surf.matIdx = -1;
 	surf.lightIdx = -1;
-	float2 tIntersect = float2(-1,-1);
+	tIntersect = float2(-1,-1);
 	switch (hit.type) {
 		case SPHERE:
 			float t0, t1;
-			bool sphereHit = intersectSphere(0, hit.args[0], ray, t0, t1);
-			t = t0;
+			bool sphereHit = intersectSphere(false, 0, hit.args[0], ray, t0, t1);
 			surf.pos = ray.origin + ray.dir * t0;
 			if (sphereHit) {
+				t = t0;
 				tIntersect = float2(t0, t1);
 				getSphereNormal(0, surf.pos, surf.nor);
 				getSphereUV(surf.nor, surf.uv);
@@ -217,11 +217,9 @@ Surface traceShadow(const Ray ray, float tMax)
 				float rscale = 1.0/length(nray.dir);
 				nray.dir *= rscale;
 
-				Surface nsurf = intersect(hit, nray, t);
-				// t is currently in object space, so we scale it into world space.
-				t *= rscale;
+				Surface nsurf = intersectShadow(hit, nray);
 
-				if (nsurf.matIdx != -1 && t < tMax && t < tNear ) {			
+				if (nsurf.matIdx != -1) {			
 					hitId = i;
 					tNear = t;
 					surf = nsurf;
@@ -267,11 +265,9 @@ Surface traceShadow(const Ray ray, float tMax)
 		float rscale = 1.0/length(nray.dir);
 		nray.dir *= rscale;
 
-		Surface nsurf = intersect(hit, nray, t);
-		// t is currently in object space, so we scale it into world space.
-		t *= rscale;
+		Surface nsurf = intersectShadow(hit, nray);
 
-		if (nsurf.matIdx != -1 && t < tMax) {			
+		if (nsurf.matIdx != -1) {			
 			hitId = i;
 			surf = nsurf;
 			// Object space normals into world space using transpose inverse transform.
@@ -284,7 +280,7 @@ Surface traceShadow(const Ray ray, float tMax)
 	return surf;
 }
 
-Surface trace(const Ray ray, float tMax )
+Surface trace(const Ray ray, float tMax, out float2 bounds)
 {
 	Surface surf = (Surface)0;
 	surf.matIdx = -1;
@@ -292,6 +288,7 @@ Surface trace(const Ray ray, float tMax )
 	float tNear = INFINITY;
 	int hitId = -1;
 	Primitive hit;
+	bounds = -1.0;
 
 #ifdef USE_BVH
 	uint count, stride;
@@ -338,7 +335,7 @@ Surface trace(const Ray ray, float tMax )
 				float rscale = 1.0/length(nray.dir);
 				nray.dir *= rscale;
 
-				Surface nsurf = intersect(hit, nray, t);
+				Surface nsurf = intersect(hit, nray, t, bounds);
 				// t is currently in object space, so we scale it into world space.
 				t *= rscale;
 
@@ -403,7 +400,7 @@ Surface trace(const Ray ray, float tMax )
 		float rscale = 1.0/length(nray.dir);
 		nray.dir *= rscale;
 
-		Surface nsurf = intersect(hit, nray, t);
+		Surface nsurf = intersect(hit, nray, t, bounds);
 		// t is currently in object space, so we scale it into world space.
 		t *= rscale;
 
@@ -519,8 +516,9 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 		Ray newRay;
 		newRay.origin = origin;
 		newRay.dir = dir;
+		float2 bounds;
 		
-		Surface surf = trace(newRay, INFINITY);
+		Surface surf = trace(newRay, INFINITY, bounds);
 
 		// Check to see if we hit a light
 		if (surf.lightIdx != -1 && i > 0)
@@ -611,7 +609,8 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 		uint count, stride;
 		lightBuffer.GetDimensions(count, stride);
 
-		if(count > 0 ){
+		if (count > 0)
+		{
 			// Randomly pick one of our lights
 			float r = randSampler.SampleFloat();
 			int j = floor(r*count);
@@ -629,8 +628,9 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 			float shadowIntensity = shadow(surf, lightDir);
 			float diffuse = max(0,dot(lightDir,surf.nor));
 
-			BSDFSample lsamp = matModel.Evaluate(mat, surf, randSampler, -dir, lightDir);
-			if( lsamp.type != NULL_BSDF_TYPE ){
+			BSDFSample lsamp = matModel.Evaluate(mat, surf, bounds, randSampler, -dir, lightDir);
+			if (lsamp.type != NULL_BSDF_TYPE)
+			{
 				accumColour += colourMask * clamp(lsamp.value, 0, 4)
 							* (light.colour.xyz * power * (1.0 - shadowIntensity)
 			                        * attenuation);
@@ -638,17 +638,17 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 		}
 
 		float3 nDir = 0;
-		BSDFSample bsamp = matModel.Sample(mat, surf, randSampler, -dir, nDir);
+		BSDFSample bsamp = matModel.Sample(mat, surf, bounds, randSampler, -dir, nDir);
 		if( bsamp.type == NULL_BSDF_TYPE ) break;
 		
 		float3 F = bsamp.value;
 		if( bsamp.pdf > 0.0 && (F.x + F.y + F.z) > 0.0 ){
-			colourMask *= clamp(F / bsamp.pdf,0,4);
+			colourMask *= clamp(F / bsamp.pdf, 0, 4);
 		} else {
 			break;
 		}
 
-		origin = surf.pos;
+		origin = surf.pos + nDir * 0.001;
 		dir = nDir;
 	}
 

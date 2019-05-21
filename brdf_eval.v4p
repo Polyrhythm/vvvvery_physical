@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\brdf_eval.v4p" systemname="brdf_eval" filename="D:\dev\vvvvery_physical\brdf_eval.v4p" scrollx="1545" scrolly="2880">
-   <BOUNDS type="Window" left="1515" top="1035" width="10605" height="13290">
+   <PATCH nodename="D:\dev\vvvvery_physical\brdf_eval.v4p" systemname="brdf_eval" filename="D:\dev\vvvvery_physical\brdf_eval.v4p" scrollx="2970" scrolly="2580">
+   <BOUNDS type="Window" left="900" top="1320" width="10605" height="13290">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
@@ -505,7 +505,7 @@
    </BOUNDS>
    <PIN pinname="XYZ" visible="1">
    </PIN>
-   <PIN pinname="Y" slicecount="1" visible="1" values="0.88">
+   <PIN pinname="Y" slicecount="1" visible="1" values="0.73">
    </PIN>
    <PIN pinname="X" slicecount="1" values="0.04">
    </PIN>
@@ -646,6 +646,6 @@
    <PIN pinname="Buffer" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="96" srcpinname="Buffer" dstnodeid="20" dstpinname="lightBuffer">
+   <LINK srcnodeid="68" srcpinname="Buffer" dstnodeid="20" dstpinname="lightBuffer">
    </LINK>
    </PATCH>

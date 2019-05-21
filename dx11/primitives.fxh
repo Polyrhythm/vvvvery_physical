@@ -82,12 +82,18 @@ void getSDFNormal(Texture3D sdfVolume, const float3 pos, out float3 n)
 	n = normalize(n);
 }
 
-bool intersectSphere(const float3 center, const float radius, const Ray ray,
+bool intersectSphere(bool allowInnerIntersect, const float3 center, const float radius, const Ray ray,
 	out float t0, out float t1)
 {
-	t0 = 0.0;
-	t1 = 0.0;
+	t0 = -1.0;
+	t1 = -1.0;
 	float3 L = ray.origin - center;
+
+	if (length(L) < radius && !allowInnerIntersect)
+	{
+		return false;
+	}
+
 	float a = dot(ray.dir, ray.dir);
 	float b = 2 * dot(ray.dir, L);
 	float c = dot(L, L) - radius * radius;
@@ -110,7 +116,7 @@ bool intersectSphere(const float3 center, const float radius, const Ray ray,
 		t0 = q / a;
 		t1 = c / q;
 	}
-	
+
 	if (t0 > t1)
 	{
 		float tmp = t0;

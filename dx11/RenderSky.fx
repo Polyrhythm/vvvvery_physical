@@ -47,7 +47,7 @@ float3 computeIncidentLight(Ray ray, float tMin, float tMax)
 	const float3 BetaM = 21e-6;
 	
 	float t0, t1;
-	if (!intersectSphere(0.0, ATMO_RADIUS, ray, t0, t1) || t1 < 0.0)
+	if (!intersectSphere(true, 0.0, ATMO_RADIUS, ray, t0, t1) || t1 < 0.0)
 	{
 		return 0.0;
 	}
@@ -91,7 +91,7 @@ float3 computeIncidentLight(Ray ray, float tMin, float tMax)
 		Ray lightRay;
 		lightRay.origin = samplePos;
 		lightRay.dir = SunDir;
-		intersectSphere(0.0, ATMO_RADIUS, lightRay, t0Light, t1Light);
+		intersectSphere(true, 0.0, ATMO_RADIUS, lightRay, t0Light, t1Light);
 		float segmentLengthLight = t1Light / (float)numSamplesLight;
 		float tCurrentLight = 0.0;
 		

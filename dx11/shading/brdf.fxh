@@ -146,6 +146,52 @@ class LambertianBRDF : AbstractBSDF {
 	}
 };
 
+class ParticipatingMediaBTDF : AbstractBSDF
+{
+	float density;
+	float2 bounds;
+
+	void Init(float density, float2 bounds)
+	{
+		this.density = density;
+		this.bounds = bounds;
+	}
+
+	static ParticipatingMediaBTDF New(float density, float dist)
+	{
+		ParticipatingMediaBTDF btdf;
+		btdf.Init(density, dist);
+
+		return btdf;
+	}
+
+	BSDFSample Evaluate(Surface surf, float3 Wo, float3 Wi)
+	{
+		BSDFSample res = (BSDFSample)0;
+		res.type = NULL_BSDF_TYPE;
+
+		if (dot(surf.nor, Wo) < 0.0)
+		{
+			return res;
+		}
+
+		res.pdf = 0.01;
+		res.pdf = exp(-1.0 * this.density * length(abs(this.bounds.y - this.bounds.x)));
+		res.value = 0.01;
+
+		res.type = BTDF_TYPE;
+
+		return res;
+	}
+
+	BSDFSample Sample(Surface surf, float3 Wo, out float3 Wi)
+	{
+		Wi = -Wo;
+
+		return Evaluate(surf, Wo, Wi);
+	}
+};
+
 interface IMicrofacetBSDF {
 	float3 Fresnel(float3 Wh, float3 W);
 	float GS(float3 Wh, float3 Wo, float3 Wi);
@@ -175,23 +221,21 @@ class AbstractMicrofacetBTDF : IMicrofacetBSDF, AbstractBSDF
 	{
 		BSDFSample res = (BSDFSample)0;
 
-		// Calculate Wh
-		float eta = dot(surf.nor, Wo) > 0 ? this.ior.x : (1.0 / this.ior.x);
+		float eta = this.ior.x;
 		float3 Wh = -1.0 * normalize(Wo * AIR_IOR + Wi * this.ior.x);
 		Wh *= signum(dot(surf.nor, Wh));	
 
 		float pm = 0.0;
-		float F = this.Fresnel(Wh, Wo).x;
 		float D = NDF(surf.nor, Wh, pm);
-		float G = GS(surf.nor, Wo, Wi);
+		float G = GS(Wh, Wo, Wi);
 
-		float VoH = max(0, dot(Wo, Wh));
-		float LoH = max(0, dot(Wi, Wh));
-		float a = (VoH * LoH) / (max(0, dot(Wo, surf.nor)) * max(0, dot(Wi, surf.nor)));
-		float b1 = eta * eta * (1.0 - F) * G * D;
-		float b2 = AIR_IOR * LoH + eta * VoH;
+		float HoV = abs(dot(Wo, Wh));
+		float HoL = abs(dot(Wi, Wh));
+		float a = (HoV * HoL) / (abs(dot(Wo, surf.nor)) * abs(dot(Wi, surf.nor)));
+		float b1 = eta * eta * G * D;
+		float b2 = AIR_IOR * max(0, dot(Wh, Wo)) + eta * max(0, dot(Wh, Wi));
 
-		res.value = a * (b1 / b2);
+		res.value = a * (b1 / (b2 * b2));
 		//res.value *= NWi; ?? needed?
 
 		res.pdf = pm / (4.0 * abs(dot(Wh, Wo)));
@@ -208,22 +252,19 @@ class AbstractMicrofacetBTDF : IMicrofacetBSDF, AbstractBSDF
 		float3 m = MicrofacetNormal(surf.nor, roughness, this.randXYZ.xy);
 		float IoM = max(0.0, dot(Wo, m));
 
-		if (IoM == 0.0)
+		if (IoM < 0.0)
 		{
 			// Light is not incident on microsurface normal
 			return res;
 		}
 
 		// Calculate Wi
-		float3 Wo_i = -1.0 * Wo;
 		float eta = AIR_IOR / this.ior.x; // assuming air for incident side
-		float c = dot(Wo_i, m);
+		float c = dot(Wo, m);
 
 		//eq. 40 - calculate transmitted ray direction
-		float a = eta * c - signum(dot(Wo_i, surf.nor)) * sqrt(1.0 + eta * (c * c - 1.0));
-		Wi = a * m - eta * Wo_i;
-		Wi = Wo_i;
-		Wi = Wo;
+		float a = eta * c - signum(dot(Wo, surf.nor)) * sqrt(1.0 + eta * (c * c - 1.0));
+		Wi = a * m - eta * Wo;
 
 		float pm;
 		NDF(surf.nor, m, pm);
@@ -266,20 +307,17 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 				res.value = (float3)0;
 				res.pdf = 0;
 			} else {
-				float3 Wh = normalize(Wi + Wo);
+				float3 Wh = signum(dot(surf.nor, Wi)) * normalize(Wi + Wo);
 
-				float F = this.Fresnel(Wh, Wo).x;
 				float pm;
 				float D = NDF(surf.nor, Wh, pm);
-				float G = GS(surf.nor, Wo, Wi);
+				float G = GS(Wh, Wo, Wi);
 
 				// Exclude fresnel term here, gets factored in later.
-				res.value = D * G;
+				res.value = D * G / (4.0 * NWi * max(0, dot(surf.nor, Wo)));
 				res.value *= NWi;
 
-				//res.pdf = pm / (4.0 * abs(dot(Wh, Wo)));
-				res.pdf = (pm * 0.25) / max(0, dot(Wh, Wi)) * max(0, dot(Wh, Wo));
-				res.pdf *= NWi;
+				res.pdf = pm / (4.0 * abs(dot(Wh, Wo)));
 
 				res.type = BRDF_TYPE;
 			}
@@ -306,7 +344,7 @@ class AbstractMicrofacetBRDF : IMicrofacetBSDF, AbstractBSDF {
 
 			float NWi = max(0, dot(surf.nor, Wi));
 			// is incident direction within hemisphere?
-			if (NWi > 0 || false)
+			if (NWi > 0)
 			{
 				if (roughness <= 1e-4){
 					res.value = (float3)1e6;
