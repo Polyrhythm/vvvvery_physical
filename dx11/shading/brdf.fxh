@@ -131,6 +131,7 @@ class LambertianBRDF : AbstractBSDF {
 		BSDFSample res;
 
 		float NWi_PI = max( 0, dot( surf.nor, Wi )) * INV_PI;
+		float3 Wh = normalize(Wo + Wi);
 		res.value = this.albedo * NWi_PI;
 		res.pdf = NWi_PI;
 		res.type = BRDF_TYPE;
@@ -221,11 +222,11 @@ class AbstractMicrofacetBTDF : IMicrofacetBSDF, AbstractBSDF
 	{
 		BSDFSample res = (BSDFSample)0;
 
-		float eta = this.ior.x;
+		float eta = this.ior.x / AIR_IOR;
 		float3 Wh = -1.0 * normalize(Wo * AIR_IOR + Wi * this.ior.x);
 		Wh *= signum(dot(surf.nor, Wh));	
 
-		float pm = 0.0;
+		float pm;
 		float D = NDF(surf.nor, Wh, pm);
 		float G = GS(Wh, Wo, Wi);
 
@@ -236,7 +237,7 @@ class AbstractMicrofacetBTDF : IMicrofacetBSDF, AbstractBSDF
 		float b2 = AIR_IOR * max(0, dot(Wh, Wo)) + eta * max(0, dot(Wh, Wi));
 
 		res.value = a * (b1 / (b2 * b2));
-		//res.value *= NWi; ?? needed?
+		res.value *= saturate(dot(surf.nor, Wi));
 
 		res.pdf = pm / (4.0 * abs(dot(Wh, Wo)));
 
@@ -259,7 +260,7 @@ class AbstractMicrofacetBTDF : IMicrofacetBSDF, AbstractBSDF
 		}
 
 		// Calculate Wi
-		float eta = AIR_IOR / this.ior.x; // assuming air for incident side
+		float eta = this.ior.x / AIR_IOR; // assuming air for incident side
 		float c = dot(Wo, m);
 
 		//eq. 40 - calculate transmitted ray direction

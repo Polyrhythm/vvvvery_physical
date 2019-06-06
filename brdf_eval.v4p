@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\brdf_eval.v4p" systemname="brdf_eval" filename="D:\dev\vvvvery_physical\brdf_eval.v4p" scrollx="2970" scrolly="2580">
-   <BOUNDS type="Window" left="900" top="1320" width="10605" height="13290">
+   <PATCH nodename="D:\dev\vvvvery_physical\brdf_eval.v4p" systemname="brdf_eval" filename="D:\dev\vvvvery_physical\brdf_eval.v4p" scrollx="3720" scrolly="3240">
+   <BOUNDS type="Window" left="4680" top="360" width="10605" height="13290">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>

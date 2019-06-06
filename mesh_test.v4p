@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\mesh_test.v4p" scrollx="15" scrolly="1680" systemname="mesh_test" filename="D:\dev\vvvvery_physical\mesh_test.v4p">
+   <PATCH nodename="D:\dev\vvvvery_physical\mesh_test.v4p" scrollx="1170" scrolly="5070" systemname="mesh_test" filename="D:\dev\vvvvery_physical\mesh_test.v4p">
    <BOUNDS type="Window" left="1125" top="4050" width="14475" height="10335">
    </BOUNDS>
    <NODE systemname="Raytracer (Renderer)" filename="modules\Renderer\Raytracer (Renderer).v4p" nodename="Raytracer (Renderer)" componentmode="Hidden" id="20" stayontop="0">
@@ -31,7 +31,7 @@
    </PIN>
    <PIN pinname="textures" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="renderSky" visible="1" slicecount="1" values="2">
+   <PIN pinname="renderSky" visible="1" slicecount="1" values="1">
    </PIN>
    <BOUNDS type="Window" left="5745" top="3480" width="11940" height="10875">
    </BOUNDS>
@@ -1147,5 +1147,19 @@
    <LINK srcnodeid="105" srcpinname="Y Output Value" dstnodeid="21" dstpinname="Reset">
    </LINK>
    <LINK srcnodeid="24" srcpinname="BVHTransforms" dstnodeid="20" dstpinname="BVH Transforms">
+   </LINK>
+   <NODE systemname="SkyModule" filename="SkyModule.v4p" nodename="SkyModule.v4p" componentmode="Hidden" id="106">
+   <BOUNDS type="Node" left="9885" top="11250" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Window" left="17415" top="6255" width="9345" height="8940">
+   </BOUNDS>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="106" srcpinname="Texture Out" dstnodeid="20" dstpinname="envMap" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="10875" y="12435">
+   </LINKPOINT>
+   <LINKPOINT x="4680" y="12435">
+   </LINKPOINT>
    </LINK>
    </PATCH>

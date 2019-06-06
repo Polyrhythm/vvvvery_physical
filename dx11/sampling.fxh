@@ -8,6 +8,7 @@ interface ISampler {
 	uint   SampleInt( uint p );
 	float  SampleFloat();
 	float2 SampleFloat2();
+	float3 SampleFloat3();
 };
 
 static class NullSamplerClass : ISampler {
@@ -18,6 +19,9 @@ static class NullSamplerClass : ISampler {
 		return 0;
 	}
 	float2 SampleFloat2(){
+		return 0;
+	}
+	float3 SampleFloat3(){
 		return 0;
 	}
 } NullSampler;
@@ -43,6 +47,9 @@ class RandomSampler : ISampler{
 	}
 	float2 SampleFloat2(){
 		return lcg.GetFloat2();
+	}
+	float3 SampleFloat3(){
+		return lcg.GetFloat3();
 	}
 };
 

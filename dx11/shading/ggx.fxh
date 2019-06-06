@@ -26,7 +26,7 @@ float getGDF(const float NoV, const float NoL, const float linearRoughness)
 class GGXSpecularBRDF : AbstractMicrofacetBRDF {
 	float3 Fresnel(float3 H, float3 W)
 	{
-		float HW = saturate(dot( H, W ));
+		float HW = saturate(dot(H, W));
 		float3 f0 = (ior - 1.0) / (ior + 1.0);
 		f0 *= f0;
 
@@ -42,7 +42,7 @@ class GGXSpecularBRDF : AbstractMicrofacetBRDF {
 
 	float NDF(float3 N, float3 H, out float pm)
 	{
-		float NoH = saturate(dot(N, H));
+		float NoH = abs(dot(N, H));
 		float D = getNDF(NoH, this.roughness);
 		pm = D * NoH;
 

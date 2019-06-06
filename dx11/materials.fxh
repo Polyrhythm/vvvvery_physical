@@ -47,7 +47,8 @@ class DiffuseDielectricMaterial : AbstractBSDF {
 	BSDFSample Evaluate(Surface surf, float3 Wo, float3 Wi){
 		BSDFSample res = (BSDFSample)0;
 
-		if( dot(surf.nor, Wi) > 0 ){
+		if(dot(surf.nor, Wi) > 0)
+		{
 			res.type = BRDF_TYPE;
 
 			float3 Wh = normalize(Wo + Wi);
@@ -56,8 +57,8 @@ class DiffuseDielectricMaterial : AbstractBSDF {
 			BSDFSample d = Fd.Evaluate(surf, Wo, Wi);
 			BSDFSample s = Fs.Evaluate(surf, Wo, Wi);
 
-			res.value = d.value * (1.0-f) + s.value * f;
-			res.pdf   = d.pdf * (1.0-f) + s.pdf * f;
+			res.value = d.value * (1.0 - f) + s.value * f;
+			res.pdf   = d.pdf * (1.0 - f) + s.pdf * f;
 		}
 
 		return res;
@@ -152,14 +153,14 @@ class DielectricMaterial : AbstractBSDF {
 	{
 		BSDFSample res = (BSDFSample)0;
 
-		float3 m = Ft.MicrofacetNormal(surf.nor, this.roughness, randXYZ.xy);
-		float f = Fr.Fresnel(m, Wi).x;
+		float3 Wh = normalize(Wo + Wi);
+		float f = Fr.Fresnel(Wh, Wi).x;
 
 		BSDFSample r = Fr.Evaluate(surf, Wo, Wi);
 		BSDFSample t = Ft.Evaluate(surf, Wo, Wi);
 
-		res.value = t.value * (1.0 - f) + r.value * f;
-		res.pdf = t.pdf * (1.0 - f) + r.pdf * f;
+		res.value = t.value * (1.0 - f) + r.value * f + 1.0;
+		res.pdf = t.pdf * (1.0 - f) + r.pdf * f + 1.0;
 
 		return res;
 	}

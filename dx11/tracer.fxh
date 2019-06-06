@@ -153,11 +153,19 @@ Surface intersect(const Primitive hit, const Ray ray, out float t, out float2 tI
 			float3 Nb = normalBuffer[hit.Nb];
 			float3 Nc = normalBuffer[hit.Nc];
 		
-			t = intersect.T;
+			float3 nor = normalize(getBarycentric(Na, Nb, Nc, float2(intersect.U, intersect.V)));
+
+			if (dot(-ray.dir, nor) < 0.0)
+			{
+				// backface culling for triangles
+				break;
+			}
+
 			tIntersect.x = 0; // successful intersection
+			t = intersect.T;
 			surf.pos = ray.origin + ray.dir * t;
 			surf.uv = getTriangleUV(UVa, UVb, UVc, intersect);
-			surf.nor = normalize(getBarycentric(Na, Nb, Nc, float2(intersect.U, intersect.V)));
+			surf.nor = nor;
 			
 			break;
 	}
@@ -534,6 +542,10 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 		}
 		
 		if (surf.matIdx == -1) {
+			float t = INFINITY;
+			float3 offset = rSampler.SampleFloat3() - 0.5;
+			ray.origin += offset * apertureSize;
+
 			// Hit nothing...
 			switch (renderSky) {
 				case 1:
@@ -642,6 +654,10 @@ float3 castRay(Ray ray, float4 pos, RandomSampler rSampler)
 		if( bsamp.type == NULL_BSDF_TYPE ) break;
 		
 		float3 F = bsamp.value;
+		/*
+		F += 1.0;
+		bsamp.pdf += 1.0;
+		*/
 		if( bsamp.pdf > 0.0 && (F.x + F.y + F.z) > 0.0 ){
 			colourMask *= clamp(F / bsamp.pdf, 0, 4);
 		} else {
