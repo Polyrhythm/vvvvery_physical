@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\SkyModule.v4p" systemname="SkyModule" filename="D:\dev\vvvvery_physical\SkyModule.v4p" scrollx="0" scrolly="0">
-   <BOUNDS type="Window" left="7749" top="2289" width="9345" height="8953">
+   <PATCH nodename="D:\dev\vvvvery_physical\SkyModule.v4p" systemname="SkyModule" filename="D:\dev\vvvvery_physical\SkyModule.v4p" scrollx="1275" scrolly="4980">
+   <BOUNDS type="Window" left="13755" top="3330" width="9345" height="8940">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
@@ -203,15 +203,15 @@
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="42" systemname="IOBox (Node)">
-   <BOUNDS type="Box" left="2985" top="7290" width="795" height="240">
+   <BOUNDS type="Box" left="3090" top="10965" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="2985" top="7290" width="0" height="0">
+   <BOUNDS type="Node" left="3090" top="10965" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Texture Out|">
    </PIN>
+   <PIN pinname="Input Node" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="30" srcpinname="Texture Out" dstnodeid="42" dstpinname="Input Node">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="43" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="7515" top="720" width="795" height="720">
    </BOUNDS>
@@ -281,13 +281,189 @@
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="46">
-   <BOUNDS type="Box" left="1470" top="7485" width="795" height="240">
+   <BOUNDS type="Box" left="1545" top="11145" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="1470" top="7485" width="0" height="0">
+   <BOUNDS type="Node" left="1545" top="11145" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Descriptive Name" slicecount="1" values="BufferOut">
    </PIN>
    </NODE>
    <LINK srcnodeid="11" srcpinname="Buffers" dstnodeid="46" dstpinname="Input Node">
+   </LINK>
+   <NODE systemname="ConvolveEnvMap (DX11.Effect)" filename="dx11\ConvolveEnvMap.fx" nodename="ConvolveEnvMap (DX11.Effect)" componentmode="Hidden" id="53">
+   <BOUNDS type="Node" left="5070" top="10230" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Technique" slicecount="1" values="Diffuse">
+   </PIN>
+   <PIN pinname="envMap" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Geometry" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Enabled" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="52">
+   <BOUNDS type="Node" left="5550" top="8430" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5550" top="8430" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Thread X" visible="1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Thread Y" visible="1" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Geometry Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="52" srcpinname="Geometry Out" dstnodeid="53" dstpinname="Geometry">
+   </LINK>
+   <NODE systemname="Vector (2d Join)" nodename="Vector (2d Join)" componentmode="Hidden" id="50">
+   <BOUNDS type="Node" left="6675" top="10155" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="X" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Y" visible="1" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="XY" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Renderer (DX11 TempTarget)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 TempTarget)" componentmode="Hidden" id="49">
+   <BOUNDS type="Node" left="5250" top="10875" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5250" top="10875" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Layer" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Buffers" visible="1">
+   </PIN>
+   <PIN pinname="Texture SizeXY" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="50" srcpinname="XY" dstnodeid="49" dstpinname="Texture SizeXY">
+   </LINK>
+   <LINK srcnodeid="53" srcpinname="Layer" dstnodeid="49" dstpinname="Layer">
+   </LINK>
+   <NODE systemname="S+H (DX11.Texture 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="S+H (DX11.Texture 2d)" componentmode="Hidden" id="48">
+   <BOUNDS type="Node" left="7455" top="11655" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="7455" top="11655" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Set" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="49" srcpinname="Buffers" dstnodeid="48" dstpinname="Input">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="47">
+   <BOUNDS type="Box" left="8370" top="8220" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8370" top="8220" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="47" srcpinname="Y Output Value" dstnodeid="53" dstpinname="Enabled" linkstyle="Bezier">
+   <LINKPOINT x="8370" y="9450">
+   </LINKPOINT>
+   <LINKPOINT x="6555" y="9450">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="47" srcpinname="Y Output Value" dstnodeid="48" dstpinname="Set" linkstyle="Bezier">
+   <LINKPOINT x="8280" y="10170">
+   </LINKPOINT>
+   <LINKPOINT x="7935" y="10185">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="44" srcpinname="Y Output Value" dstnodeid="47" dstpinname="Y Input Value" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="1185" y="4538">
+   </LINKPOINT>
+   <LINKPOINT x="8370" y="4538">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="54">
+   <BOUNDS type="Node" left="5550" top="7020" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 2" slicecount="1" values="32">
+   </PIN>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="36" srcpinname="Y Output Value" dstnodeid="54" dstpinname="Input" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="3300" y="3968">
+   </LINKPOINT>
+   <LINKPOINT x="5565" y="3968">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="54" srcpinname="Output" dstnodeid="52" dstpinname="Thread X">
+   </LINK>
+   <LINK srcnodeid="54" srcpinname="Output" dstnodeid="52" dstpinname="Thread Y">
+   </LINK>
+   <NODE systemname="S+H (DX11.Texture 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="S+H (DX11.Texture 2d)" componentmode="Hidden" id="55">
+   <BOUNDS type="Node" left="3825" top="8895" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3825" top="8895" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Set" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="30" srcpinname="Texture Out" dstnodeid="55" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="55" srcpinname="Output" dstnodeid="42" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="47" srcpinname="Y Output Value" dstnodeid="55" dstpinname="Set" linkstyle="Bezier">
+   <LINKPOINT x="8305" y="8805">
+   </LINKPOINT>
+   <LINKPOINT x="4295" y="8760">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="36" srcpinname="Y Output Value" dstnodeid="50" dstpinname="X" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="3160" y="5115">
+   </LINKPOINT>
+   <LINKPOINT x="6830" y="5940">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="36" srcpinname="Y Output Value" dstnodeid="50" dstpinname="Y" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="3160" y="5123">
+   </LINKPOINT>
+   <LINKPOINT x="7340" y="5948">
+   </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="56">
+   <BOUNDS type="Box" left="7215" top="12540" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7215" top="12540" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" slicecount="1" values="DiffuseConvolution">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="48" srcpinname="Output" dstnodeid="56" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="55" srcpinname="Output" dstnodeid="53" dstpinname="envMap" linkstyle="Bezier">
+   <LINKPOINT x="3885" y="9683">
+   </LINKPOINT>
+   <LINKPOINT x="6015" y="9683">
+   </LINKPOINT>
    </LINK>
    </PATCH>

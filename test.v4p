@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\test.v4p" systemname="test" filename="C:\Users\ryan\Development\creative\vvvvery_physical\test.v4p" scrollx="2760" scrolly="555">
+   <PATCH nodename="D:\dev\vvvvery_physical\test.v4p" systemname="test" filename="C:\Users\ryan\Development\creative\vvvvery_physical\test.v4p" scrollx="780" scrolly="120">
    <BOUNDS type="Window" left="5475" top="6255" width="9345" height="8940">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
@@ -78,26 +78,6 @@
    </LINK>
    <LINK srcnodeid="57" srcpinname="Geometry Out" dstnodeid="54" dstpinname="Geometry">
    </LINK>
-   <NODE systemname="Multiply (Value)" nodename="Multiply (Value)" componentmode="Hidden" id="61">
-   <BOUNDS type="Node" left="5295" top="3330" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input Count" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Input 1" visible="1">
-   </PIN>
-   <PIN pinname="Input 2" visible="1">
-   </PIN>
-   <PIN pinname="Input 3" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="59" srcpinname="Y Output Value" dstnodeid="61" dstpinname="Input 1" hiddenwhenlocked="1">
-   </LINK>
-   <LINK srcnodeid="59" srcpinname="Y Output Value" dstnodeid="61" dstpinname="Input 2" hiddenwhenlocked="1">
-   </LINK>
-   <LINK srcnodeid="59" srcpinname="Y Output Value" dstnodeid="61" dstpinname="Input 3" hiddenwhenlocked="1">
-   </LINK>
    <NODE systemname="Renderer (DX11 Volume)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 Volume)" componentmode="Hidden" id="66">
    <BOUNDS type="Node" left="3720" top="4980" width="100" height="100">
    </BOUNDS>
@@ -161,11 +141,11 @@
    </PIN>
    <PIN pinname="SDF Volume" visible="1">
    </PIN>
-   <PIN pinname="Sky Texture" visible="1">
+   <PIN pinname="Sky Texture" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Technique" slicecount="1" values="RenderVolume">
    </PIN>
-   <PIN pinname="Sky Diffuse Convolution" visible="1">
+   <PIN pinname="Sky Diffuse Convolution" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Density noise texture" visible="1">
    </PIN>
@@ -255,13 +235,15 @@
    </PIN>
    <PIN pinname="Enabled" visible="1">
    </PIN>
+   <PIN pinname="DiffuseConvolution" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="87">
    <BOUNDS type="Box" left="6105" top="2295" width="795" height="720">
    </BOUNDS>
    <BOUNDS type="Node" left="6105" top="2295" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="3" visible="1" values="1.32,0.6,0.91">
+   <PIN pinname="Y Input Value" slicecount="3" visible="1" values="-0.55,0.57,0.91">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -333,7 +315,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="5280" top="9420" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="-11115" top="2055" width="8910" height="8625">
+   <BOUNDS type="Window" left="-10140" top="3270" width="8910" height="8625">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -390,34 +372,6 @@
    </NODE>
    <LINK srcnodeid="99" srcpinname="Y Output Value" dstnodeid="98" dstpinname="Brightness">
    </LINK>
-   <NODE systemname="ConvolveEnvMap (DX11.Effect)" filename="dx11\ConvolveEnvMap.fx" nodename="ConvolveEnvMap (DX11.Effect)" componentmode="Hidden" id="101">
-   <BOUNDS type="Node" left="9015" top="3870" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Technique" slicecount="1" values="Diffuse">
-   </PIN>
-   <PIN pinname="envMap" visible="1">
-   </PIN>
-   <PIN pinname="Geometry" visible="1">
-   </PIN>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <PIN pinname="Enabled" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="86" srcpinname="Texture Out" dstnodeid="101" dstpinname="envMap">
-   </LINK>
-   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="102">
-   <BOUNDS type="Node" left="9495" top="2070" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="9495" top="2070" width="3000" height="3000">
-   </BOUNDS>
-   <PIN pinname="Thread X" visible="1">
-   </PIN>
-   <PIN pinname="Thread Y" visible="1">
-   </PIN>
-   <PIN pinname="Geometry Out" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="103">
    <BOUNDS type="Box" left="6060" top="1170" width="795" height="240">
    </BOUNDS>
@@ -440,138 +394,10 @@
    <LINKPOINT x="5730" y="2640">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="104">
-   <BOUNDS type="Node" left="9450" top="810" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input 2" slicecount="1" values="32">
-   </PIN>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="103" srcpinname="Y Output Value" dstnodeid="104" dstpinname="Input" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="6055" y="1323">
-   </LINKPOINT>
-   <LINKPOINT x="9515" y="868">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="104" srcpinname="Output" dstnodeid="102" dstpinname="Thread X">
-   </LINK>
-   <LINK srcnodeid="104" srcpinname="Output" dstnodeid="102" dstpinname="Thread Y">
-   </LINK>
-   <LINK srcnodeid="102" srcpinname="Geometry Out" dstnodeid="101" dstpinname="Geometry">
-   </LINK>
-   <NODE systemname="Preview (DX11.Texture)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Preview (DX11.Texture)" componentmode="InAWindow" id="106">
-   <BOUNDS type="Node" left="10245" top="6285" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="10245" top="6285" width="6000" height="4500">
-   </BOUNDS>
-   <BOUNDS type="Window" left="-8715" top="10995" width="6240" height="5085">
-   </BOUNDS>
-   <PIN pinname="Texture In" visible="1" slicecount="1" values="||">
-   </PIN>
-   </NODE>
-   <NODE systemname="Vector (2d Join)" nodename="Vector (2d Join)" componentmode="Hidden" id="107">
-   <BOUNDS type="Node" left="10710" top="3810" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="X" visible="1">
-   </PIN>
-   <PIN pinname="Y" visible="1">
-   </PIN>
-   <PIN pinname="XY" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="103" srcpinname="Y Output Value" dstnodeid="107" dstpinname="X" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="6215" y="2690">
-   </LINKPOINT>
-   <LINKPOINT x="10600" y="2500">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="103" srcpinname="Y Output Value" dstnodeid="107" dstpinname="Y" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="6215" y="2690">
-   </LINKPOINT>
-   <LINKPOINT x="11125" y="2500">
-   </LINKPOINT>
-   </LINK>
-   <NODE systemname="Renderer (DX11 TempTarget)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 TempTarget)" componentmode="Hidden" id="111">
-   <BOUNDS type="Node" left="9195" top="4515" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="9195" top="4515" width="3000" height="3000">
-   </BOUNDS>
-   <PIN pinname="Layer" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Buffers" visible="1">
-   </PIN>
-   <PIN pinname="Texture SizeXY" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="107" srcpinname="XY" dstnodeid="111" dstpinname="Texture SizeXY">
-   </LINK>
-   <LINK srcnodeid="101" srcpinname="Layer" dstnodeid="111" dstpinname="Layer">
-   </LINK>
-   <NODE systemname="S+H (DX11.Texture 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="S+H (DX11.Texture 2d)" componentmode="Hidden" id="112">
-   <BOUNDS type="Node" left="11655" top="5175" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="11655" top="5175" width="3000" height="3000">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Set" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="111" srcpinname="Buffers" dstnodeid="112" dstpinname="Input">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="113">
-   <BOUNDS type="Box" left="12315" top="1860" width="480" height="480">
-   </BOUNDS>
-   <BOUNDS type="Node" left="12315" top="1860" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Boolean">
-   </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Bang">
-   </PIN>
-   <PIN pinname="Y Output Value" visible="1">
-   </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="113" srcpinname="Y Output Value" dstnodeid="101" dstpinname="Enabled">
-   </LINK>
-   <LINK srcnodeid="113" srcpinname="Y Output Value" dstnodeid="112" dstpinname="Set">
-   </LINK>
-   <LINK srcnodeid="112" srcpinname="Output" dstnodeid="78" dstpinname="Sky Diffuse Convolution">
-   </LINK>
-   <LINK srcnodeid="112" srcpinname="Output" dstnodeid="106" dstpinname="Texture In">
-   </LINK>
-   <NODE systemname="S+H (DX11.Texture 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="S+H (DX11.Texture 2d)" componentmode="Hidden" id="114">
-   <BOUNDS type="Node" left="6225" top="4455" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="6225" top="4455" width="3000" height="3000">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Set" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="86" srcpinname="Texture Out" dstnodeid="114" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="114" srcpinname="Output" dstnodeid="78" dstpinname="Sky Texture">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="115">
-   <BOUNDS type="Box" left="5580" top="2040" width="480" height="480">
+   <BOUNDS type="Box" left="5070" top="2010" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="5580" top="2040" width="0" height="0">
+   <BOUNDS type="Node" left="5070" top="2010" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -581,7 +407,7 @@
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Boolean">
    </PIN>
-   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
@@ -590,8 +416,42 @@
    </NODE>
    <LINK srcnodeid="115" srcpinname="Y Output Value" dstnodeid="86" dstpinname="Enabled">
    </LINK>
-   <LINK srcnodeid="115" srcpinname="Y Output Value" dstnodeid="114" dstpinname="Set">
-   </LINK>
    <LINK srcnodeid="66" srcpinname="Buffers" dstnodeid="78" dstpinname="Density noise texture">
+   </LINK>
+   <NODE systemname="Preview (DX11.Texture)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Preview (DX11.Texture)" componentmode="InAWindow" id="116">
+   <BOUNDS type="Node" left="8355" top="5880" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8355" top="5880" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="-7815" top="10050" width="6240" height="5085">
+   </BOUNDS>
+   <PIN pinname="Texture In" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="86" srcpinname="Texture Out" dstnodeid="116" dstpinname="Texture In">
+   </LINK>
+   <NODE systemname="Preview (DX11.Texture)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Preview (DX11.Texture)" componentmode="InAWindow" id="117">
+   <BOUNDS type="Node" left="8625" top="5145" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8625" top="5145" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="-14370" top="10110" width="6240" height="5085">
+   </BOUNDS>
+   <PIN pinname="Texture In" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="86" srcpinname="DiffuseConvolution" dstnodeid="117" dstpinname="Texture In">
+   </LINK>
+   <LINK srcnodeid="86" srcpinname="Texture Out" dstnodeid="78" dstpinname="Sky Texture" linkstyle="Bezier">
+   <LINKPOINT x="5895" y="5183">
+   </LINKPOINT>
+   <LINKPOINT x="5985" y="5183">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="86" srcpinname="DiffuseConvolution" dstnodeid="78" dstpinname="Sky Diffuse Convolution" linkstyle="Bezier">
+   <LINKPOINT x="6375" y="5183">
+   </LINKPOINT>
+   <LINKPOINT x="6150" y="5183">
+   </LINKPOINT>
    </LINK>
    </PATCH>
