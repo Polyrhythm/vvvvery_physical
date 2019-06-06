@@ -15,6 +15,8 @@ cbuffer cbPerDraw : register( b0 )
 	uint bounces = 1;
 	uint SampleIndex = 0;
 	uint renderSky = 0;
+	float focusDistance = 0.0;
+	float apertureSize = 1.8;
 	float4 worldColour <bool color=true;String uiname="World Colour";> = { 0.0f, 0.0f, 0.0f, 1.0f };
 };
 
@@ -33,6 +35,7 @@ StructuredBuffer<float3> normalBuffer;
 Texture3D sdfTexture;
 Texture2DArray textures;
 Texture2D envMap;
+Texture2D envMapPDF;
 
 BVHNode fetchBVHNodeData(const uint index)
 {

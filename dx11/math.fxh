@@ -5,7 +5,9 @@
 #define PI2 (6.283185307179586476925286766559)
 #define PI4 (12.566370614359172953850573533118)
 #define INV_PI (0.31830988618379067153776752674503)
+#define PIOVER2 (1.57079632679)
 #define PIOVER180 (0.01745329251)
+#define RAD_PI (57.2957795131)
 
 #define COS45 (0.70710678118654752440084436210485)
 
@@ -25,6 +27,11 @@ void makeOrthonormalBasis( float3 N, out float3 T, out float3 B ){
 
 	T = normalize(cross(h,N));
 	B = normalize(cross(T,N));
+}
+
+float signum(float a)
+{
+	return a < 0.0 ? -1.0 : 1.0;
 }
 
 #endif

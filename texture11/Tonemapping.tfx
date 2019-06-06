@@ -1,0 +1,70 @@
+Texture2D texture2d : PREVIOUS;
+
+SamplerState linearSampler : IMMUTABLE
+{
+    Filter = MIN_MAG_MIP_LINEAR;
+    AddressU = Clamp;
+    AddressV = Clamp;
+};
+
+struct psInput
+{
+	float4 p : SV_Position;
+	float2 uv : TEXCOORD0;
+};
+
+float4 applyGamma(float3 c)
+{
+	return float4(pow(abs(c), 1.0 / 2.2), 1.0);
+}
+
+
+float4 PS_Linear(psInput input) : SV_Target
+{
+	return applyGamma(texture2d.Sample(linearSampler,input.uv).rgb);
+}
+
+float4 PS_Reinhard(psInput input) : SV_Target
+{
+	float3 c = texture2d.Sample(linearSampler,input.uv).rgb;
+	
+	c = c / (1.0 + c);
+	
+	return applyGamma(c);
+}
+
+float4 PS_Hejl(psInput input) : SV_Target
+{
+	float3 c = texture2d.Sample(linearSampler,input.uv).rgb;
+	float3 x = max(0.0, c - 0.004);
+	
+	// no applyGamma necessary
+	return float4((x * (6.2 * x + 0.5)) / (x * (6.2 * x + 1.7) + 0.06), 1.0);
+}
+
+technique10 Linear
+{
+	pass P0
+	{
+		SetPixelShader(CompileShader(ps_4_0, PS_Linear()));
+	}
+}
+
+technique10 Reinhard
+{
+	pass P0
+	{
+		SetPixelShader(CompileShader(ps_4_0, PS_Reinhard()));
+	}
+}
+
+technique10 Hejl
+{
+	pass P0
+	{
+		SetPixelShader(CompileShader(ps_4_0, PS_Hejl()));
+	}
+}
+
+
+

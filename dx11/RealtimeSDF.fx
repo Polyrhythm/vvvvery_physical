@@ -1,4 +1,15 @@
+/**
+ * Testbed for raymarching shenanigans.
+ */
+
+#include "textures.fxh"
+
 Texture3D sdfVolume <string uiname="SDF Volume";>;
+Texture2D skyTexture <string uiname="Sky Texture";>;
+Texture2D skyConvolution <string uiname="Sky Diffuse Convolution";>;
+Texture3D densityNoise <string uiname="Density noise texture";>;
+
+#define EPS 0.002
 
 SamplerState volumeSampler : IMMUTABLE
 {
@@ -46,7 +57,6 @@ float trace(float3 ro, float3 rd, out float3 pos, out int steps)
 {
 	float t = 0.1;
 	const float MAX_DIST = 100.0;
-	const float EPS = 0.002;
 	const int MAX_STEPS = 128;
 	
 	for (steps = 0; steps < MAX_STEPS; steps++) {
@@ -80,6 +90,18 @@ float3 getNormal(float3 pos)
 		- sdfVolume.SampleLevel(volumeSampler, pos - eps.xxy, 0).r;
 	
 	return normalize(n);
+}
+
+bool checkInside(const float3 pos)
+{
+	float h = sdfVolume.SampleLevel(volumeSampler, pos, 0).r;
+	
+	if (h < EPS)
+	{
+		return true;
+	}
+	
+	return false;
 }
 
 float3 render(float3 ro, float3 rd) {
@@ -123,6 +145,52 @@ float3 render(float3 ro, float3 rd) {
 	return colour + amb * 0.01;
 }
 
+float3 renderVolume(float3 ro, float3 rd)
+{
+	float3 pos = 0.0;
+	int steps = 0;
+	float t = trace(ro, rd, pos, steps);
+	
+	float2 eyeUV = getEquirectUV(rd);
+	float3 sky = skyTexture.Sample(volumeSampler, eyeUV).rgb;
+	
+	if (t == -1.0)
+	{
+		return sky;
+	}
+	
+	float3 n = getNormal(pos);
+	float2 indirectUV = getEquirectUV(n);
+	
+	float3 indirectDiffuse = skyConvolution.Sample(volumeSampler, indirectUV).rgb;
+	
+	float vT = 0.01;
+	float transmittance = 1.0;
+	float3 scatteredLight = 0.0;
+	const int MAX_STEPS = 256;
+	const float STEP_SIZE = 1.0 / (float)MAX_STEPS;
+	
+	float3 volumePos = pos + rd * vT;
+	for (int volumeSteps = 0; volumeSteps < MAX_STEPS; volumeSteps++)
+	{
+		if (!checkInside(volumePos))
+		{
+			break;
+		}
+		
+		float density = densityNoise.SampleLevel(volumeSampler, volumePos, 0).r;
+		float dTrans = exp(-density * STEP_SIZE);
+		float3 Sint = (sky - sky * dTrans) * (1.0 / density);
+		scatteredLight += transmittance * Sint;
+		transmittance *= dTrans;
+		
+		vT += STEP_SIZE;
+		volumePos += rd * vT;
+	}
+	
+	return lerp(sky, float3(1.,1.,1.), transmittance * 0.5);
+}
+
 float3 UVtoEYE(float2 UV)
 {
     return normalize(
@@ -150,12 +218,31 @@ float4 PS(vs2ps In): SV_Target
     return float4(colour, 1.0);
 }
 
+float4 PS_Volume(vs2ps In): SV_Target
+{
+	float3 ro = tVI[3].xyz;
+	float3 rd = UVtoEYE(In.TexCd.xy);
+	
+	float3 colour = renderVolume(ro, rd);
+	
+    return float4(colour, 1.0);
+}
+
 technique10 Render
 {
 	pass P0
 	{
 		SetVertexShader( CompileShader( vs_4_0, VS() ) );
 		SetPixelShader( CompileShader( ps_4_0, PS() ) );
+	}
+}
+
+technique10 RenderVolume
+{
+	pass P0
+	{
+		SetVertexShader( CompileShader( vs_4_0, VS() ) );
+		SetPixelShader( CompileShader( ps_4_0, PS_Volume() ) );
 	}
 }
 

@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\brdf_eval.v4p" systemname="brdf_eval" filename="D:\dev\vvvvery_physical\brdf_eval.v4p" scrollx="2865" scrolly="2400">
-   <BOUNDS type="Window" left="5070" top="3120" width="10605" height="13290">
+   <PATCH nodename="D:\dev\vvvvery_physical\brdf_eval.v4p" systemname="brdf_eval" filename="D:\dev\vvvvery_physical\brdf_eval.v4p" scrollx="3720" scrolly="3240">
+   <BOUNDS type="Window" left="4680" top="360" width="10605" height="13290">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
    </PACK>
@@ -69,13 +69,15 @@
    </PIN>
    <PIN pinname="&cr;&lf;Show light transforms" visible="1">
    </PIN>
+   <PIN pinname="envMapPDF" visible="1" slicecount="1" values="||">
+   </PIN>
    </NODE>
    <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="19">
    <BOUNDS type="Node" left="8022" top="11449" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="8022" top="11449" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="11355" top="585" width="16425" height="13545">
+   <BOUNDS type="Window" left="12375" top="705" width="16425" height="13545">
    </BOUNDS>
    <PIN pinname="Layers" visible="1">
    </PIN>
@@ -408,8 +410,6 @@
    </NODE>
    <LINK srcnodeid="66" srcpinname="light" dstnodeid="68" dstpinname="Buffer Description">
    </LINK>
-   <LINK srcnodeid="68" srcpinname="Buffer" dstnodeid="20" dstpinname="lightBuffer">
-   </LINK>
    <NODE systemname="UploadBuffer (DX11.Buffer)" filename="%VVVV%\lib\packs\VL.VVVV.DirectX11.0.94.50-gf563f1b382\vvvv\nodes\plugins\VL.VVVV.DirectX11.dll" nodename="UploadBuffer (DX11.Buffer)" componentmode="Hidden" id="69">
    <BOUNDS type="Node" left="12240" top="5715" width="100" height="100">
    </BOUNDS>
@@ -479,7 +479,7 @@
    <LINK srcnodeid="72" srcpinname="Y Output Value" dstnodeid="20" dstpinname="&cr;&lf;Show light transforms">
    </LINK>
    <NODE systemname="SkyModule" filename="SkyModule.v4p" nodename="SkyModule.v4p" componentmode="Hidden" id="74">
-   <BOUNDS type="Node" left="3945" top="8370" width="100" height="100">
+   <BOUNDS type="Node" left="4035" top="7080" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Texture Out" visible="1">
    </PIN>
@@ -493,7 +493,7 @@
    <LINK srcnodeid="74" srcpinname="Texture Out" dstnodeid="20" dstpinname="envMap">
    </LINK>
    <NODE systemname="Normalize (3d Vector)" nodename="Normalize (3d Vector)" componentmode="Hidden" id="75">
-   <BOUNDS type="Node" left="4725" top="7065" width="100" height="100">
+   <BOUNDS type="Node" left="4815" top="5775" width="100" height="100">
    </BOUNDS>
    <PIN pinname="XYZ" visible="1">
    </PIN>
@@ -501,13 +501,13 @@
    </PIN>
    </NODE>
    <NODE systemname="Vector (3d Join)" nodename="Vector (3d Join)" componentmode="Hidden" id="76">
-   <BOUNDS type="Node" left="4845" top="6270" width="100" height="100">
+   <BOUNDS type="Node" left="4935" top="4980" width="100" height="100">
    </BOUNDS>
    <PIN pinname="XYZ" visible="1">
    </PIN>
-   <PIN pinname="Y" slicecount="1" values="0.26" visible="1">
+   <PIN pinname="Y" slicecount="1" visible="1" values="0.73">
    </PIN>
-   <PIN pinname="X" slicecount="1" values="1.21">
+   <PIN pinname="X" slicecount="1" values="0.04">
    </PIN>
    <PIN pinname="Z" slicecount="1" values="1.93">
    </PIN>
@@ -517,7 +517,7 @@
    <LINK srcnodeid="75" srcpinname="NormalizedXYZ" dstnodeid="74" dstpinname="SunDirXYZ">
    </LINK>
    <NODE systemname="Change (Animation)" nodename="Change (Animation)" componentmode="Hidden" id="78">
-   <BOUNDS type="Node" left="5070" top="7695" width="100" height="100">
+   <BOUNDS type="Node" left="5160" top="6405" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -528,28 +528,124 @@
    </LINK>
    <LINK srcnodeid="78" srcpinname="OnChange" dstnodeid="46" dstpinname="Input 4">
    </LINK>
-   <NODE systemname="EnvMapProcessModule" filename="EnvMapProcessModule.v4p" nodename="EnvMapProcessModule.v4p" componentmode="InAWindow" id="86">
-   <BOUNDS type="Node" left="3195" top="10290" width="100" height="100">
+   <NODE systemname="CS_PrecomputeGGX_E (DX11.Effect)" filename="dx11\CS_PrecomputeGGX_E.fx" nodename="CS_PrecomputeGGX_E (DX11.Effect)" componentmode="Hidden" id="88">
+   <BOUNDS type="Node" left="2595" top="10995" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Window" left="-14325" top="4755" width="9000" height="10335">
-   </BOUNDS>
-   <PIN pinname="Texture Out" visible="1">
+   <PIN pinname="Layer" visible="1">
    </PIN>
-   <PIN pinname="colorBuf" visible="1">
+   <PIN pinname="Geometry" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Preview (DX11.Texture)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Preview (DX11.Texture)" componentmode="InAWindow" id="87">
-   <BOUNDS type="Node" left="3405" top="11610" width="100" height="100">
+   <NODE systemname="Renderer (DX11 Buffer)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11 Buffer)" componentmode="Hidden" id="89">
+   <BOUNDS type="Node" left="2685" top="11880" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="3405" top="11610" width="6000" height="4500">
+   <BOUNDS type="Box" left="2685" top="11880" width="3000" height="3000">
    </BOUNDS>
-   <BOUNDS type="Window" left="-9195" top="6690" width="6240" height="5085">
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Buffers" visible="1">
+   </PIN>
+   <PIN pinname="Element Count" visible="1">
+   </PIN>
+   <PIN pinname="Stride" slicecount="1" values="12">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="88" srcpinname="Layer" dstnodeid="89" dstpinname="Layer">
+   </LINK>
+   <NODE systemname="ReadBack (DX11.Buffer 3d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="ReadBack (DX11.Buffer 3d)" componentmode="Hidden" id="90">
+   <BOUNDS type="Node" left="2790" top="12555" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2790" top="12555" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="OutputXYZ" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="89" srcpinname="Buffers" dstnodeid="90" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Dispatcher (DX11.Drawer)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Dispatcher (DX11.Drawer)" componentmode="Hidden" id="91">
+   <BOUNDS type="Node" left="2625" top="9990" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2625" top="9990" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Geometry Out" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Multiply (Value)" nodename="Multiply (Value)" componentmode="Hidden" id="92">
+   <BOUNDS type="Node" left="4710" top="10980" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="93">
+   <BOUNDS type="Box" left="4665" top="10050" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4665" top="10050" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="32">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="93" srcpinname="Y Output Value" dstnodeid="92" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="93" srcpinname="Y Output Value" dstnodeid="92" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="92" srcpinname="Output" dstnodeid="89" dstpinname="Element Count">
+   </LINK>
+   <NODE systemname="DynamicTexture (DX11.Texture 2d)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="DynamicTexture (DX11.Texture 2d)" componentmode="Hidden" id="94">
+   <BOUNDS type="Node" left="3090" top="13290" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3090" top="13290" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Data" visible="1">
+   </PIN>
+   <PIN pinname="Width" visible="1">
+   </PIN>
+   <PIN pinname="Height" visible="1">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <PIN pinname="Channel Count" slicecount="1" values="3">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="90" srcpinname="OutputXYZ" dstnodeid="94" dstpinname="Data">
+   </LINK>
+   <LINK srcnodeid="93" srcpinname="Y Output Value" dstnodeid="94" dstpinname="Width">
+   </LINK>
+   <LINK srcnodeid="93" srcpinname="Y Output Value" dstnodeid="94" dstpinname="Height">
+   </LINK>
+   <LINK srcnodeid="91" srcpinname="Geometry Out" dstnodeid="88" dstpinname="Geometry">
+   </LINK>
+   <NODE systemname="Preview (DX11.Texture)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Preview (DX11.Texture)" componentmode="InAWindow" id="95">
+   <BOUNDS type="Node" left="3120" top="13920" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3120" top="13920" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="-6705" top="5745" width="6240" height="5085">
    </BOUNDS>
    <PIN pinname="Texture In" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="86" srcpinname="Conditional2D" dstnodeid="87" dstpinname="Texture In">
+   <LINK srcnodeid="94" srcpinname="Texture Out" dstnodeid="95" dstpinname="Texture In">
    </LINK>
-   <LINK srcnodeid="74" srcpinname="BufferOut" dstnodeid="86" dstpinname="colorBuf">
+   <NODE systemname="DynamicBuffer (DX11.Buffer Value)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="DynamicBuffer (DX11.Buffer Value)" componentmode="Hidden" id="96">
+   <BOUNDS type="Node" left="8310" top="6285" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8310" top="6285" width="3000" height="3000">
+   </BOUNDS>
+   <PIN pinname="Buffer" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="68" srcpinname="Buffer" dstnodeid="20" dstpinname="lightBuffer">
    </LINK>
    </PATCH>

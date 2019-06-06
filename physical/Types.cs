@@ -18,7 +18,8 @@ namespace physical
         DiffuseDielectric = 0,
         Metallic = 1,
         Emissive = 2,
-        Dielectric = 3
+        Dielectric = 3,
+        ParticipatingMedia = 4
     }
 
     public enum LightType : int

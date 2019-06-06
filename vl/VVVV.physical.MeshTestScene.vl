@@ -172,7 +172,7 @@
               <Pin Id="HQNmWHhuSTlQElREd3SjpY" Name="Input" Kind="StateInputPin" />
               <Pin Id="TlAmIf9wBcTNYAzbyCxPdi" Name="Result" Kind="OutputPin" />
             </Node>
-            <Pad Id="QTqJ6LDbOEiLgUvWjAmcWk" Comment="" Bounds="804,47,150,19" ShowValueBox="true" isIOBox="true" Value="..\..\..\assets\mesh\obj\ball.obj">
+            <Pad Id="QTqJ6LDbOEiLgUvWjAmcWk" Comment="" Bounds="804,47,150,19" ShowValueBox="true" isIOBox="true" Value="..\..\..\assets\mesh\box\monkey.obj">
               <p:TypeAnnotation LastCategoryFullName="IO" LastSymbolSource="CoreLibBasics.vl">
                 <Choice Kind="TypeFlag" Name="Path" />
               </p:TypeAnnotation>
@@ -687,6 +687,56 @@
                 <Choice Kind="TypeFlag" Name="RGBA" />
               </p:TypeAnnotation>
             </Pad>
+            <Node Bounds="1239,265,65,22" Id="SSGc5qcYfsqLJy9ohIuc8N">
+              <p:NodeReference LastCategoryFullName="physical.Primitive" LastSymbolSource="physical.dll">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="AssemblyCategory" Name="Primitive" />
+                <Choice Kind="OperationCallFlag" Name="Create" />
+              </p:NodeReference>
+              <Pin Id="FvBnY9Fc7ZALBRwm2YBOTb" Name="Primitive Type" Kind="InputPin" DefaultValue="Box">
+                <p:TypeAnnotation LastCategoryFullName="physical" LastSymbolSource="physical.dll">
+                  <Choice Kind="TypeFlag" Name="PrimitiveType" />
+                </p:TypeAnnotation>
+              </Pin>
+              <Pin Id="MKnU2nvhMvoMV0z0wNTky9" Name="Material Index" Kind="InputPin" />
+              <Pin Id="LzHu6t0laUSM5I0wOYlxJ9" Name="Primitive Params" Kind="InputPin" />
+              <Pin Id="LRifBG53i1SN0Z1mGzH2Tl" Name="Transform" Kind="InputPin" />
+              <Pin Id="G6y0vK9xo1ON4Vo5Le1uNR" Name="Output" Kind="StateOutputPin" />
+            </Node>
+            <Node Bounds="1165,369,33,22" Id="Gpf6tVeNOg8NJN3BCzCmHU">
+              <p:NodeReference LastCategoryFullName="Collections.Spread" LastSymbolSource="VL.Collections.vl">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="RecordType" Name="Spread" />
+                <Choice Kind="OperationCallFlag" Name="Add" />
+              </p:NodeReference>
+              <Pin Id="RLf1RmcpvpoNs2oNi7Poc4" Name="Input" Kind="StateInputPin" />
+              <Pin Id="Q62A0uXRx3LLNcyEUybeI6" Name="Item" Kind="InputPin" />
+              <Pin Id="HlUyKYdChzvPPXL9Mt8vxp" Name="Output" Kind="StateOutputPin" />
+            </Node>
+            <Pad Id="E32xPpqXRIHPg3k0yua5SK" Comment="" Bounds="1237,198,39,76" ShowValueBox="true" isIOBox="true" Value="20, 0.1, 20, 1">
+              <p:TypeAnnotation LastCategoryFullName="3D" LastSymbolSource="CoreLibBasics.vl">
+                <Choice Kind="TypeFlag" Name="Vector4" />
+              </p:TypeAnnotation>
+            </Pad>
+            <Node Bounds="1287,158,91,13" Id="TQxJ9mwwmAqOjgewxj6rNk">
+              <p:NodeReference LastCategoryFullName="3D.Transform" LastSymbolSource="CoreLibBasics.vl">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <Choice Kind="OperationCallFlag" Name="TransformSRT" />
+                <CategoryReference Kind="Category" Name="Transform" NeedsToBeDirectParent="true">
+                  <p:OuterCategoryReference Kind="Category" Name="3D" NeedsToBeDirectParent="true" />
+                </CategoryReference>
+              </p:NodeReference>
+              <Pin Id="Uc21q0CYyCqNAB2OKPkavO" Name="Input" Kind="InputPin" />
+              <Pin Id="UZ5GspJnOP4OYuFUDhu2Ex" Name="Scaling" Kind="InputPin" />
+              <Pin Id="PdWSiQkKpRPM777S6fKJ5T" Name="Rotation" Kind="InputPin" />
+              <Pin Id="MPsa9jxWsFeOhNOeKBxx3o" Name="Translation" Kind="InputPin" />
+              <Pin Id="BwEFM2eYuj3NX5eerFtJUv" Name="Output" Kind="OutputPin" />
+            </Node>
+            <Pad Id="Om0Skj3ngpJMqBMMEukgjR" Comment="Translation" Bounds="1316,113,33,57" ShowValueBox="true" isIOBox="true" Value="0, -1, 0">
+              <p:TypeAnnotation LastCategoryFullName="3D" LastSymbolSource="CoreLibBasics.vl">
+                <Choice Kind="TypeFlag" Name="Vector3" />
+              </p:TypeAnnotation>
+            </Pad>
           </Canvas>
           <ProcessDefinition Id="FHNLl8GWgcVOJzRkkPI83E">
             <Fragment Id="MRFnVwHDf0WOO7H3jKbCxI" Patch="ESJZDDS0I02LAWDOx9RJVV" Enabled="true" />
@@ -789,9 +839,14 @@
           <Link Id="KQ43NlK3W5UQXqeQGxGPSH" Ids="FGuz3YhyKWQL2qpYvkQOca,GLGGhGEnrtsNMbhzlZMRQl" />
           <Link Id="HU3U0551mHuOkYfIF8hbYP" Ids="DM2dPBMtGsOQMe8ndLO7DU,Rhx15MrfEd1N1I31eCJtuB" />
           <Link Id="DRxVUSGYNl2MOZoR2j7j7h" Ids="INpBcnQLNkPQIgMOkkbYxu,DQRc9CSqS2hMGEH6C43StY" />
-          <Link Id="MA9ir6DB9nzQabKOMvnFLL" Ids="Utm3u6YlonjLJEAxDhZvw1,JXdRBqF4bkbNdCqPxmtYrd" />
           <Link Id="Hls2PE2MhOcPAbdYBh9dXX" Ids="LGDaPe5DK4XLgfsxvB23Ky,S77CHq1zHMPO1C26P2anpE" />
           <Link Id="LeVMr9KB24rOZcgmjUMlsR" Ids="Ozok7AmoqPeQcJGzKVBOvJ,JcjlhLiwMQ0MP52H8v39D3" />
+          <Link Id="ENhgDyRMebbLORlXoQeQV2" Ids="Utm3u6YlonjLJEAxDhZvw1,RLf1RmcpvpoNs2oNi7Poc4" />
+          <Link Id="CW4fMZYVNkgO2OmXrvV0lb" Ids="G6y0vK9xo1ON4Vo5Le1uNR,Q62A0uXRx3LLNcyEUybeI6" />
+          <Link Id="LiN5qUR5C3gNUJsoUb0N0K" Ids="HlUyKYdChzvPPXL9Mt8vxp,JXdRBqF4bkbNdCqPxmtYrd" />
+          <Link Id="KyCbAYQE550MFMjHW6isOD" Ids="E32xPpqXRIHPg3k0yua5SK,LzHu6t0laUSM5I0wOYlxJ9" />
+          <Link Id="B3Y4U58NkKYP19v0dbxt8Z" Ids="BwEFM2eYuj3NX5eerFtJUv,LRifBG53i1SN0Z1mGzH2Tl" />
+          <Link Id="IeJoi0nbiVNL19dsdGR6p6" Ids="Om0Skj3ngpJMqBMMEukgjR,MPsa9jxWsFeOhNOeKBxx3o" />
         </Patch>
       </Node>
       <!--
