@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv50beta38.1.dtd" >
-   <PATCH nodename="D:\dev\vvvvery_physical\test.v4p" systemname="test" filename="C:\Users\ryan\Development\creative\vvvvery_physical\test.v4p" scrollx="780" scrolly="120">
+   <PATCH nodename="D:\dev\vvvvery_physical\test.v4p" systemname="test" filename="C:\Users\ryan\Development\creative\vvvvery_physical\test.v4p" scrollx="1560" scrolly="2505">
    <BOUNDS type="Window" left="5475" top="6255" width="9345" height="8940">
    </BOUNDS>
    <PACK Name="dx11" Version="1.3.1.1">
@@ -127,6 +127,8 @@
    </PIN>
    <PIN pinname="Initial Longitude" slicecount="1" values="0">
    </PIN>
+   <PIN pinname="Reset" slicecount="1" values="0">
+   </PIN>
    </NODE>
    <NODE systemname="RealtimeSDF (DX11.Effect)" filename="dx11\RealtimeSDF.fx" nodename="RealtimeSDF (DX11.Effect)" componentmode="Hidden" id="78">
    <BOUNDS type="Node" left="5010" top="6240" width="100" height="100">
@@ -139,7 +141,7 @@
    </PIN>
    <PIN pinname="SDF Transform" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="SDF Volume" visible="1">
+   <PIN pinname="SDF Volume" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Sky Texture" visible="1" slicecount="1" values="||">
    </PIN>
@@ -147,7 +149,9 @@
    </PIN>
    <PIN pinname="Sky Diffuse Convolution" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Density noise texture" visible="1">
+   <PIN pinname="Density noise texture" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="lightDirXYZ" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="Quad (DX11.Geometry)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Geometry)" componentmode="Hidden" id="79">
@@ -205,9 +209,9 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="84" srcpinname="Volume" dstnodeid="78" dstpinname="SDF Volume" linkstyle="Bezier">
-   <LINKPOINT x="7435" y="5443">
+   <LINKPOINT x="7410" y="5528">
    </LINKPOINT>
-   <LINKPOINT x="5855" y="5583">
+   <LINKPOINT x="6015" y="5528">
    </LINKPOINT>
    </LINK>
    <NODE systemname="SphereSDF (SF3D.Sources)" filename="%VVVV%\packs\FieldTrip\nodes\modules\SF3D\Sources\SphereSDF (SF3D.Sources).v4p" nodename="SphereSDF (SF3D.Sources)" componentmode="Hidden" id="85">
@@ -215,8 +219,10 @@
    </BOUNDS>
    <PIN pinname="Output" visible="1">
    </PIN>
-   <PIN pinname="Radius" slicecount="1" values="0.25">
+   <PIN pinname="Radius" slicecount="1" values="0.35">
    </PIN>
+   <BOUNDS type="Window" left="1725" top="9825" width="11640" height="11055">
+   </BOUNDS>
    </NODE>
    <LINK srcnodeid="85" srcpinname="Output" dstnodeid="84" dstpinname="Input">
    </LINK>
@@ -243,7 +249,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="6105" top="2295" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="3" visible="1" values="-0.55,0.57,0.91">
+   <PIN pinname="Y Input Value" slicecount="3" visible="1" values="-0.55,0.86,0.91">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -315,7 +321,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="5280" top="9420" width="6000" height="4500">
    </BOUNDS>
-   <BOUNDS type="Window" left="-10140" top="3270" width="8910" height="8625">
+   <BOUNDS type="Window" left="-10815" top="1365" width="8910" height="8625">
    </BOUNDS>
    <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
@@ -416,7 +422,11 @@
    </NODE>
    <LINK srcnodeid="115" srcpinname="Y Output Value" dstnodeid="86" dstpinname="Enabled">
    </LINK>
-   <LINK srcnodeid="66" srcpinname="Buffers" dstnodeid="78" dstpinname="Density noise texture">
+   <LINK srcnodeid="66" srcpinname="Buffers" dstnodeid="78" dstpinname="Density noise texture" linkstyle="Bezier">
+   <LINKPOINT x="3780" y="5730">
+   </LINKPOINT>
+   <LINKPOINT x="6435" y="5730">
+   </LINKPOINT>
    </LINK>
    <NODE systemname="Preview (DX11.Texture)" filename="%VVVV%\packs\dx11\nodes\plugins\base\VVVV.DX11.Nodes.dll" nodename="Preview (DX11.Texture)" componentmode="InAWindow" id="116">
    <BOUNDS type="Node" left="8355" top="5880" width="100" height="100">
@@ -443,15 +453,21 @@
    <LINK srcnodeid="86" srcpinname="DiffuseConvolution" dstnodeid="117" dstpinname="Texture In">
    </LINK>
    <LINK srcnodeid="86" srcpinname="Texture Out" dstnodeid="78" dstpinname="Sky Texture" linkstyle="Bezier">
-   <LINKPOINT x="5895" y="5183">
+   <LINKPOINT x="5895" y="5190">
    </LINKPOINT>
-   <LINKPOINT x="5985" y="5183">
+   <LINKPOINT x="6135" y="5190">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="86" srcpinname="DiffuseConvolution" dstnodeid="78" dstpinname="Sky Diffuse Convolution" linkstyle="Bezier">
-   <LINKPOINT x="6375" y="5183">
+   <LINKPOINT x="6375" y="5175">
    </LINKPOINT>
-   <LINKPOINT x="6150" y="5183">
+   <LINKPOINT x="6300" y="5175">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="88" srcpinname="NormalizedXYZ" dstnodeid="78" dstpinname="lightDirXYZ" linkstyle="Bezier">
+   <LINKPOINT x="6105" y="4913">
+   </LINKPOINT>
+   <LINKPOINT x="5670" y="4913">
    </LINKPOINT>
    </LINK>
    </PATCH>
